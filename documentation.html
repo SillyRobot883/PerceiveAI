@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerceiveAI - التوثيق التقني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary: #8C52FF;
+            --secondary: #FD297A;
+            --bg-dark: #121212;
+            --bg-card: #1E1E1E;
+            --text-light: #FFFFFF;
+            --text-muted: #AAAAAA;
+            --gradient-1: linear-gradient(45deg, #8C52FF, #FD297A);
+            --gradient-2: linear-gradient(45deg, #FD297A, #8C52FF);
+            --code-bg: #2a2a2a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .documentation {
+            padding-top: 120px;
+            padding-bottom: 4rem;
+        }
+        
+        .doc-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .doc-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .doc-content {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .doc-section {
+            margin-bottom: 3rem;
+        }
+        
+        .doc-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .subsection-title {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .doc-text {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            padding-right: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        pre {
+            background-color: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            color: #e5e5e5;
+            font-size: 0.9rem;
+        }
+        
+        .code-block {
+            background-color: var(--code-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 0 0 5px 0;
+        }
+        
+        .endpoint {
+            font-family: 'Courier New', monospace;
+            background-color: var(--code-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            display: inline-block;
+            color: var(--primary);
+        }
+        
+        .method {
+            font-weight: bold;
+            color: #4ECDC4;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        th {
+            background-color: rgba(140, 82, 255, 0.2);
+            text-align: right;
+            padding: 0.8rem;
+        }
+        
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            background: var(--gradient-1);
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(140, 82, 255, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(140, 82, 255, 0.4);
+        }
+
+        .architecture-diagram {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        footer {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .team-members {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .member {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(140, 82, 255, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .doc-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .doc-content {
+                padding: 1.5rem;
+            }
+            
+            pre {
+                padding: 1rem;
+            }
+        }
+
+        /* Table of Contents Styling */
+        .toc {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc-list a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-list a:hover {
+            color: var(--primary);
+        }
+        
+        .toc-sub-list {
+            list-style: none;
+            padding-right: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Layout for documentation with sidebar */
+        .doc-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 992px) {
+            .doc-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        /* JSON styling */
+        .json-key {
+            color: #9cdcfe;
+        }
+        
+        .json-string {
+            color: #ce9178;
+        }
+        
+        .json-number {
+            color: #b5cea8;
+        }
+        
+        .json-boolean {
+            color: #569cd6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">PerceiveAI</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="documentation.html" class="nav-link">التوثيق</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="documentation">
+        <div class="container">
+            <div class="doc-header">
+                <h1 class="doc-title">التوثيق <span class="highlight">التقني</span></h1>
+            </div>
+            
+            <div class="doc-container">
+                <aside class="toc">
+                    <h2 class="toc-title">جدول المحتويات</h2>
+                    <ul class="toc-list">
+                        <li><a href="#overview">نظرة عامة</a></li>
+                        <li><a href="#architecture">بنية النظام</a></li>
+                        <li><a href="#components">المكونات الأساسية</a></li>
+                        <li><a href="#api">مراجع واجهة البرمجة</a>
+                            <ul class="toc-sub-list">
+                                <li><a href="#speech-api">واجهة التعرف على الكلام</a></li>
+                                <li><a href="#nlp-api">واجهة معالجة اللغة الطبيعية</a></li>
+                                <li><a href="#sign-api">واجهة توليد لغة الإشارة</a></li>
+                                <li><a href="#avatar-api">واجهة عرض الأفاتار</a></li>
+                                <li><a href="#overlay-api">واجهة دمج الطبقات</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#streaming">دمج البث المباشر</a></li>
+                        <li><a href="#quickstart">دليل البدء السريع</a></li>
+                        <li><a href="#integration">أمثلة على التكامل</a></li>
+                        <li><a href="#performance">اعتبارات الأداء</a></li>
+                        <li><a href="#error">التعامل مع الأخطاء</a></li>
+                        <li><a href="#practices">أفضل الممارسات</a></li>
+                        <li><a href="#resources">المصادر</a></li>
+                    </ul>
+                </aside>
+                
+                <div class="doc-content">
+                    <section class="doc-section" id="overview">
+                        <h2 class="section-title">نظرة عامة</h2>
+                        <p class="doc-text">
+                            PerceiveAI هو نظام ترجمة للغة الإشارة في الوقت الفعلي للبث الرياضي. يقوم النظام بالتقاط التعليق الصوتي، وتحويله إلى نص، ومن ثم تحويل النص إلى لغة إشارة تُعرَض عبر أفاتار متحرك كطبقة إضافية على البث المباشر.
+                        </p>
+                    </section>
+                    
+                    <section class="doc-section" id="architecture">
+                        <h2 class="section-title">بنية النظام</h2>
+                        <div class="architecture-diagram">
+                            <code>[مدخلات الصوت] → [تحويل الكلام إلى نص] → [معالجة اللغة الطبيعية] → [توليد لغة الإشارة] → [تحريك الأفاتار] → [طبقة فيديو إضافية]</code>
+                        </div>
+                    </section>
+                    
+                    <section class="doc-section" id="components">
+                        <h2 class="section-title">المكونات الأساسية</h2>
+                        
+                        <h3 class="subsection-title">1. خدمة تحويل الكلام إلى نص</h3>
+                        <ul>
+                            <li>التقاط وتحويل التعليق الصوتي المباشر إلى نص</li>
+                            <li>التعامل مع البيئات الصاخبة (الملاعب، الجماهير)</li>
+                            <li>دعم اللغتين العربية والإنجليزية</li>
+                        </ul>
+                        
+                        <h3 class="subsection-title">2. معالجة اللغة الطبيعية</h3>
+                        <ul>
+                            <li>تحليل وفهم سياق المصطلحات الرياضية</li>
+                            <li>التعامل مع أسماء اللاعبين والمصطلحات التقنية والمحتوى العاطفي</li>
+                            <li>تحضير النص للترجمة إلى لغة الإشارة</li>
+                        </ul>
+                        
+                        <h3 class="subsection-title">3. مولد لغة الإشارة</h3>
+                        <ul>
+                            <li>تحويل النص المعالج إلى تسلسل لغة الإشارة</li>
+                            <li>دعم لغة الإشارة السعودية/العربية (ArSL)</li>
+                        </ul>
+                        
+                        <h3 class="subsection-title">4. نظام تحريك الأفاتار</h3>
+                        <ul>
+                            <li>عرض إشارات لغة الإشارة من خلال أفاتار ثلاثي الأبعاد</li>
+                            <li>توفير حركات إشارة واضحة وطبيعية</li>
+                            <li>محسّن للعرض على تدفقات الفيديو</li>
+                        </ul>
+                        
+                        <h3 class="subsection-title">5. تكامل الطبقات الإضافية</h3>
+                        <ul>
+                            <li>دمج سلس مع بث القنوات</li>
+                            <li>دعم منصات البث المختلفة والبث التلفزيوني</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="doc-section" id="api">
+                        <h2 class="section-title">مراجع واجهة البرمجة</h2>
+                        
+                        <h3 class="subsection-title" id="speech-api">واجهة التعرف على الكلام</h3>
+                        <div class="endpoint"><span class="method">POST</span> /api/v1/speech-to-text</div>
+                        <p class="doc-text">تحويل تدفق الصوت إلى نص.</p>
+                        
+                        <strong>طلب:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"audio_stream"</span>: <span class="json-string">"base64_encoded_audio"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"ar"</span>,
+  <span class="json-key">"context"</span>: <span class="json-string">"sports"</span>
+}</code></pre>
+                        </div>
+                        
+                        <strong>استجابة:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبد الله الذي يسدد نحو المرمى"</span>,
+  <span class="json-key">"confidence"</span>: <span class="json-number">0.94</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-number">1646849422</span>
+}</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title" id="nlp-api">واجهة معالجة اللغة الطبيعية</h3>
+                        <div class="endpoint"><span class="method">POST</span> /api/v1/process-text</div>
+                        <p class="doc-text">معالجة وفهم سياق نص التعليق الرياضي.</p>
+                        
+                        <strong>طلب:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبد الله الذي يسدد نحو المرمى"</span>,
+  <span class="json-key">"sport_type"</span>: <span class="json-string">"football"</span>,
+  <span class="json-key">"league"</span>: <span class="json-string">"saudi_pro_league"</span>
+}</code></pre>
+                        </div>
+                        
+                        <strong>استجابة:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"processed_text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبد الله الذي يسدد نحو المرمى"</span>,
+  <span class="json-key">"entities"</span>: [
+    {<span class="json-key">"type"</span>: <span class="json-string">"player"</span>, <span class="json-key">"value"</span>: <span class="json-string">"محمد"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.92</span>},
+    {<span class="json-key">"type"</span>: <span class="json-string">"action"</span>, <span class="json-key">"value"</span>: <span class="json-string">"يمرر"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.96</span>},
+    {<span class="json-key">"type"</span>: <span class="json-string">"player"</span>, <span class="json-key">"value"</span>: <span class="json-string">"عبد الله"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.91</span>}
+  ],
+  <span class="json-key">"sentiment"</span>: <span class="json-string">"excited"</span>
+}</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title" id="sign-api">واجهة توليد لغة الإشارة</h3>
+                        <div class="endpoint"><span class="method">POST</span> /api/v1/generate-sign</div>
+                        <p class="doc-text">توليد بيانات الرسوم المتحركة للغة الإشارة من النص المعالج.</p>
+                        
+                        <strong>طلب:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبد الله الذي يسدد نحو المرمى"</span>,
+  <span class="json-key">"entities"</span>: [...],
+  <span class="json-key">"sign_language"</span>: <span class="json-string">"arsl"</span>
+}</code></pre>
+                        </div>
+                        
+                        <strong>استجابة:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"animation_data"</span>: {
+    <span class="json-key">"frames"</span>: [
+      {
+        <span class="json-key">"timestamp"</span>: <span class="json-number">0</span>,
+        <span class="json-key">"keypoints"</span>: [{...}]
+      },
+      <span class="json-comment">// إطارات إضافية</span>
+    ]
+  },
+  <span class="json-key">"duration"</span>: <span class="json-number">5.2</span>
+}</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title" id="avatar-api">واجهة عرض الأفاتار</h3>
+                        <div class="endpoint"><span class="method">POST</span> /api/v1/render-avatar</div>
+                        <p class="doc-text">عرض الأفاتار ثلاثي الأبعاد مع بيانات الرسوم المتحركة.</p>
+                        
+                        <strong>طلب:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"animation_data"</span>: {...},
+  <span class="json-key">"avatar_config"</span>: {
+    <span class="json-key">"model"</span>: <span class="json-string">"default"</span>,
+    <span class="json-key">"size"</span>: <span class="json-string">"medium"</span>
+  }
+}</code></pre>
+                        </div>
+                        
+                        <strong>استجابة:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"rendered_frames"</span>: <span class="json-string">"base64_encoded_video"</span>,
+  <span class="json-key">"format"</span>: <span class="json-string">"webm"</span>,
+  <span class="json-key">"framerate"</span>: <span class="json-number">30</span>
+}</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title" id="overlay-api">واجهة دمج الطبقات</h3>
+                        <div class="endpoint"><span class="method">POST</span> /api/v1/create-overlay</div>
+                        <p class="doc-text">إنشاء طبقة إضافية مع الأفاتار المعروض للتكامل مع البث.</p>
+                        
+                        <strong>طلب:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"rendered_frames"</span>: <span class="json-string">"base64_encoded_video"</span>,
+  <span class="json-key">"position"</span>: {
+    <span class="json-key">"x"</span>: <span class="json-number">0.05</span>,
+    <span class="json-key">"y"</span>: <span class="json-number">0.7</span>
+  },
+  <span class="json-key">"opacity"</span>: <span class="json-number">0.9</span>
+}</code></pre>
+                        </div>
+                        
+                        <strong>استجابة:</strong>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"overlay_id"</span>: <span class="json-string">"ovr_12345"</span>,
+  <span class="json-key">"stream_url"</span>: <span class="json-string">"rtmp://overlay.perceiveai.sa/live/12345"</span>,
+  <span class="json-key">"status"</span>: <span class="json-string">"ready"</span>
+}</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section class="doc-section" id="streaming">
+                        <h2 class="section-title">دمج البث المباشر</h2>
+                        
+                        <h3 class="subsection-title">تكامل OBS Studio</h3>
+                        <div class="code-block">
+                            <pre><code>rtmp://overlay.perceiveai.sa/live/{overlay_id}</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">أضف كمصدر متصفح في OBS:</p>
+                        <div class="code-block">
+                            <pre><code>https://overlay.perceiveai.sa/embed/{overlay_id}</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title">تكامل SDK مباشر</h3>
+                        <p class="doc-text">للمنصات التي تدعم مصادر المتصفح أو طبقات HTML الإضافية:</p>
+                        
+                        <div class="code-block">
+                            <pre><code>&lt;script src="https://cdn.perceiveai.sa/overlay-sdk.js">&lt;/script>
+&lt;div id="perceive-overlay" data-key="YOUR_API_KEY" data-id="{overlay_id}">&lt;/div></code></pre>
+                        </div>
+                    </section>
+                    
+                    <section class="doc-section" id="quickstart">
+                                                <h2 class="section-title">دليل البدء السريع</h2>
+                        
+                        <h3 class="subsection-title">التثبيت</h3>
+                        
+                        <p class="doc-text">1. استنساخ المستودع:</p>
+                        <div class="code-block">
+                            <pre><code>git clone https://github.com/perceiveAI/sign-language-overlay.git
+cd sign-language-overlay</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">2. تثبيت التبعيات:</p>
+                        <div class="code-block">
+                            <pre><code>pip install -r requirements.txt</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">3. تكوين بيئتك:</p>
+                        <div class="code-block">
+                            <pre><code>cp .env.example .env
+# قم بتحرير ملف .env بمفاتيح API والإعدادات الخاصة بك</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title">التطوير المحلي</h3>
+                        
+                        <p class="doc-text">1. بدء خادم التطوير:</p>
+                        <div class="code-block">
+                            <pre><code>python manage.py runserver</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">2. تشغيل خدمة التعرف على الكلام:</p>
+                        <div class="code-block">
+                            <pre><code>python services/speech_recognition.py</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">3. بدء خدمة عرض الأفاتار:</p>
+                        <div class="code-block">
+                            <pre><code>python services/avatar_renderer.py</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">4. بدء خدمة الطبقة الإضافية:</p>
+                        <div class="code-block">
+                            <pre><code>python services/overlay_service.py</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title">نشر Docker</h3>
+                        
+                        <p class="doc-text">نشر المجموعة الكاملة باستخدام Docker Compose:</p>
+                        <div class="code-block">
+                            <pre><code>docker-compose up -d</code></pre>
+                        </div>
+                        
+                        <p class="doc-text">يمكن نشر الخدمات الفردية بشكل منفصل:</p>
+                        <div class="code-block">
+                            <pre><code>docker-compose up -d speech-recognition
+docker-compose up -d nlp-processor
+docker-compose up -d sign-generator
+docker-compose up -d avatar-renderer
+docker-compose up -d overlay-service</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section class="doc-section" id="integration">
+                        <h2 class="section-title">أمثلة على التكامل</h2>
+                        
+                        <h3 class="subsection-title">عميل بايثون</h3>
+                        <div class="code-block">
+                            <pre><code>import requests
+import base64
+import json
+
+class PerceiveAIClient:
+    def __init__(self, api_key, base_url="https://api.perceiveai.sa"):
+        self.api_key = api_key
+        self.base_url = base_url
+        self.headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+    
+    def process_audio_file(self, audio_file_path, language="ar", sport_type="football"):
+        # قراءة ملف الصوت
+        with open(audio_file_path, "rb") as f:
+            audio_data = base64.b64encode(f.read()).decode("utf-8")
+        
+        # تحويل الكلام إلى نص
+        stt_response = requests.post(
+            f"{self.base_url}/api/v1/speech-to-text",
+            headers=self.headers,
+            json={"audio_stream": audio_data, "language": language, "context": "sports"}
+        )
+        text_result = stt_response.json()
+        
+        # معالجة النص باستخدام NLP
+        nlp_response = requests.post(
+            f"{self.base_url}/api/v1/process-text",
+            headers=self.headers,
+            json={"text": text_result["text"], "sport_type": sport_type}
+        )
+        processed_result = nlp_response.json()
+        
+        # توليد رسوم متحركة للغة الإشارة
+        sign_response = requests.post(
+            f"{self.base_url}/api/v1/generate-sign",
+            headers=self.headers,
+            json={
+                "text": processed_result["processed_text"],
+                "entities": processed_result["entities"],
+                "sign_language": "arsl"
+            }
+        )
+        animation_result = sign_response.json()
+        
+        # عرض الأفاتار
+        render_response = requests.post(
+            f"{self.base_url}/api/v1/render-avatar",
+            headers=self.headers,
+            json={"animation_data": animation_result["animation_data"]}
+        )
+        avatar_result = render_response.json()
+        
+        # إنشاء الطبقة الإضافية
+        overlay_response = requests.post(
+            f"{self.base_url}/api/v1/create-overlay",
+            headers=self.headers,
+            json={"rendered_frames": avatar_result["rendered_frames"]}
+        )
+        
+        return overlay_response.json()
+
+# مثال على الاستخدام
+client = PerceiveAIClient(api_key="YOUR_API_KEY")
+result = client.process_audio_file("commentary.wav")
+print(f"Overlay ready: {result['stream_url']}")</code></pre>
+                        </div>
+                        
+                        <h3 class="subsection-title">تكامل جافا سكريبت</h3>
+                        <div class="code-block">
+                            <pre><code>// في بيئة المتصفح
+const perceiveAI = new PerceiveAI('YOUR_API_KEY');
+
+// للتعليق المباشر
+navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(stream => {
+    perceiveAI.processLiveAudio(stream, {
+      language: 'ar',
+      sportType: 'football',
+      onOverlayReady: (overlayUrl) => {
+        // أضف الطبقة الإضافية إلى مشغل الفيديو الخاص بك
+        document.getElementById('sign-language-container').innerHTML = 
+          `<iframe src="${overlayUrl}" frameborder="0"></iframe>`;
+      }
+    });
+  });</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section class="doc-section" id="performance">
+                        <h2 class="section-title">اعتبارات الأداء</h2>
+                        
+                        <ul>
+                            <li><strong>الأجهزة الموصى بها:</strong> وحدة معالجة مركزية بـ 4+ نواة، ذاكرة وصول عشوائي 8 جيجابايت أو أكثر، يوصى بتسريع وحدة معالجة الرسومات</li>
+                            <li><strong>الشبكة:</strong> سرعة تحميل 5 ميجابت/ثانية أو أكثر للمعالجة في الوقت الفعلي</li>
+                            <li><strong>زمن الاستجابة:</strong> تأخير متوقع من 1-3 ثواني من الكلام إلى عرض لغة الإشارة</li>
+                            <li><strong>المتصفحات المدعومة:</strong> Chrome 80+، Firefox 75+، Safari 13+، Edge 80+</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="doc-section" id="error">
+                        <h2 class="section-title">التعامل مع الأخطاء</h2>
+                        
+                        <p class="doc-text">رموز الخطأ الشائعة:</p>
+                        
+                        <ul>
+                            <li><code>400</code>: معلمات إدخال غير صالحة</li>
+                            <li><code>401</code>: فشل المصادقة</li>
+                            <li><code>402</code>: تجاوز حد الاستخدام</li>
+                            <li><code>500</code>: خطأ في الخادم الداخلي</li>
+                            <li><code>503</code>: الخدمة غير متاحة</li>
+                        </ul>
+                        
+                        <p class="doc-text">مثال على استجابة الخطأ:</p>
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="json-key">"error"</span>: {
+    <span class="json-key">"code"</span>: <span class="json-string">"speech_recognition_failed"</span>,
+    <span class="json-key">"message"</span>: <span class="json-string">"Could not recognize speech in the provided audio"</span>,
+    <span class="json-key">"details"</span>: <span class="json-string">"Background noise too high"</span>
+  }
+}</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section class="doc-section" id="practices">
+                        <h2 class="section-title">أفضل الممارسات</h2>
+                        
+                        <ol>
+                            <li><strong>جودة الصوت:</strong> ضمان إدخال صوت نظيف للحصول على أفضل نتائج في التعرف على الكلام</li>
+                            <li><strong>تدريب السياق:</strong> تدريب النظام على مصطلحات رياضية محددة</li>
+                            <li><strong>وضع الأفاتار:</strong> وضع الأفاتار في الزاوية اليمنى السفلية للحصول على رؤية مثالية</li>
+                            <li><strong>الشفافية:</strong> ضبط شفافية الأفاتار على 80-90% لتجنب حجب المحتوى</li>
+                            <li><strong>تخزين الاستجابات:</strong> تخزين العبارات الشائعة للحصول على استجابة أسرع</li>
+                            <li><strong>وضع الاحتياطي:</strong> تنفيذ نصوص توضيحية احتياطية عند فشل إنشاء الإشارة</li>
+                        </ol>
+                    </section>
+                    
+                    <section class="doc-section" id="resources">
+                        <h2 class="section-title">المصادر</h2>
+                        
+                        <ul>
+                            <li><a href="https://docs.perceiveai.sa/api" target="_blank">مرجع API</a></li>
+                            <li><a href="https://github.com/perceiveAI/examples" target="_blank">تطبيقات نموذجية</a></li>
+                            <li><a href="https://docs.perceiveai.sa/avatar" target="_blank">دليل تخصيص الأفاتار</a></li>
+                            <li><a href="https://github.com/perceiveAI/arsl-corpus" target="_blank">قاموس لغة الإشارة</a></li>
+                        </ul>
+                    </section>
+                    
+                    <a href="#" class="btn">العودة إلى الرئيسية</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">PerceiveAI</div>
+            <div class="team-members">
+                <div class="member">عبدالملك القويفلي</div>
+                <div class="member">عبدالعزيز الكثيري</div>
+                <div class="member">خالد النجيدي</div>
+                <div class="member">طلحة أكبر</div>
+                <div class="member">المشرف: حمود</div>
+            </div>
+            <div class="copyright">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي</div>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Handle table of contents links for smooth scrolling
+        document.querySelectorAll('.toc-list a, .toc-sub-list a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 100;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
