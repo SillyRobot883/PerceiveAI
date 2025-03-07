@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
-        
+
         :root {
             --primary: #8C52FF;
             --secondary: #FD297A;
-            --bg-dark: #121212;
-            --bg-card: #1E1E1E;
+            --bg-dark: #0F1121;
+            --bg-card: #1A1C31;
             --text-light: #FFFFFF;
             --text-muted: #AAAAAA;
             --gradient-1: linear-gradient(45deg, #8C52FF, #FD297A);
             --gradient-2: linear-gradient(45deg, #FD297A, #8C52FF);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -31,13 +31,13 @@
             color: var(--text-light);
             line-height: 1.6;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
+
         header {
             padding: 1.5rem 0;
             position: fixed;
@@ -47,13 +47,13 @@
             background-color: rgba(18, 18, 18, 0.8);
             backdrop-filter: blur(10px);
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             font-size: 1.8rem;
             font-weight: 900;
@@ -66,18 +66,18 @@
             display: flex;
             gap: 1.5rem;
         }
-        
+
         .nav-link {
             color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
         }
-        
+
         .nav-link:hover {
             color: var(--primary);
         }
-        
+
         .hero {
             height: 100vh;
             display: flex;
@@ -86,7 +86,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -97,7 +97,7 @@
             background: radial-gradient(circle, rgba(140, 82, 255, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
             z-index: -1;
         }
-        
+
         .hero::after {
             content: '';
             position: absolute;
@@ -108,33 +108,33 @@
             background: radial-gradient(circle, rgba(253, 41, 122, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
             z-index: -1;
         }
-        
+
         .hero-content {
             display: flex;
             flex-direction: column;
             gap: 2rem;
             max-width: 600px;
         }
-        
+
         h1 {
             font-size: 3.5rem;
             font-weight: 900;
             margin-bottom: 1rem;
             line-height: 1.2;
         }
-        
+
         .highlight {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .hero-description {
             font-size: 1.2rem;
             color: var(--text-muted);
             margin-bottom: 2rem;
         }
-        
+
         .btn {
             display: inline-block;
             padding: 1rem 2rem;
@@ -150,7 +150,7 @@
             text-align: center;
             font-size: 1rem;
         }
-        
+
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 25px rgba(140, 82, 255, 0.4);
@@ -161,36 +161,36 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
-        
+
         .btn-secondary {
             background: transparent;
             border: 2px solid var(--primary);
             color: var(--text-light);
             box-shadow: none;
         }
-        
+
         .btn-secondary:hover {
             background: rgba(140, 82, 255, 0.1);
             box-shadow: 0 10px 20px rgba(140, 82, 255, 0.2);
         }
-        
+
         .section {
             padding: 6rem 0;
         }
-        
+
         .section-title {
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 4rem;
             font-weight: 900;
         }
-        
+
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
-        
+
         .feature-card {
             background-color: var(--bg-card);
             border-radius: 20px;
@@ -198,11 +198,11 @@
             transition: transform 0.3s ease;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .feature-card:hover {
             transform: translateY(-10px);
         }
-        
+
         .feature-icon {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
@@ -210,17 +210,17 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .feature-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             font-weight: 700;
         }
-        
+
         .feature-description {
             color: var(--text-muted);
         }
-        
+
         .demo-video {
             background-color: var(--bg-card);
             border-radius: 20px;
@@ -228,13 +228,13 @@
             margin-top: 4rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .video-input-container {
             display: flex;
             margin-bottom: 2rem;
             gap: 1rem;
         }
-        
+
         .video-input {
             flex: 1;
             padding: 1rem 1.5rem;
@@ -244,7 +244,7 @@
             color: var(--text-light);
             font-size: 1rem;
         }
-        
+
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
@@ -252,7 +252,7 @@
             overflow: hidden;
             border-radius: 10px;
         }
-        
+
         .video-container iframe {
             position: absolute;
             top: 0;
@@ -261,7 +261,7 @@
             height: 100%;
             border: none;
         }
-        
+
         .placeholder-video {
             width: 100%;
             height: 100%;
@@ -275,26 +275,26 @@
             background-color: rgba(30, 30, 30, 0.8);
             border-radius: 10px;
         }
-        
+
         .placeholder-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
             color: var(--text-muted);
         }
-        
+
         .placeholder-text {
             font-size: 1.2rem;
             color: var(--text-muted);
             text-align: center;
         }
-        
+
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin-top: 4rem;
         }
-        
+
         .stat-card {
             background-color: var(--bg-card);
             border-radius: 20px;
@@ -303,11 +303,11 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .stat-number {
             font-size: 3rem;
             font-weight: 900;
@@ -317,29 +317,29 @@
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
-        
+
         .stat-label {
             color: var(--text-muted);
             font-size: 1.1rem;
         }
-        
+
         .about {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 4rem;
             align-items: center;
         }
-        
+
         .about-content h2 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .about-content p {
             color: var(--text-muted);
             margin-bottom: 1.5rem;
         }
-        
+
         .chart {
             background-color: var(--bg-card);
             border-radius: 20px;
@@ -347,13 +347,13 @@
             height: 100%;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .chart-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        
+
         /* Enhanced Interactive Pie Chart */
         .pie-chart-container {
             position: relative;
@@ -361,7 +361,7 @@
             height: 250px;
             margin: 0 auto 2rem;
         }
-        
+
         .pie-chart {
             width: 100%;
             height: 100%;
@@ -371,10 +371,10 @@
             transition: transform 0.5s ease;
             cursor: pointer;
             background: conic-gradient(
-                var(--primary) 0deg 205deg, 
-                var(--secondary) 205deg 244deg, 
-                #FF6B6B 244deg 271deg, 
-                #4ECDC4 271deg 297deg, 
+                var(--primary) 0deg 205deg,
+                var(--secondary) 205deg 244deg,
+                #FF6B6B 244deg 271deg,
+                #4ECDC4 271deg 297deg,
                 #FFE66D 297deg 360deg
             );
         }
@@ -391,7 +391,7 @@
             border-radius: 50%;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        
+
         .pie-chart:hover {
             transform: scale(1.05);
         }
@@ -420,7 +420,7 @@
         .pie-segment span.segment-label {
             font-size: 1rem;
         }
-        
+
         .chart-legend {
             display: flex;
             flex-wrap: wrap;
@@ -428,7 +428,7 @@
             gap: 1rem;
             margin-top: 2rem;
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
@@ -438,46 +438,46 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .legend-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
         }
-        
+
         .legend-item.active {
             background-color: rgba(255, 255, 255, 0.2);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
         }
-        
+
         .legend-color {
             width: 16px;
             height: 16px;
             border-radius: 4px;
             transition: transform 0.3s ease;
         }
-        
+
         .legend-item:hover .legend-color {
             transform: scale(1.2);
         }
-        
+
         .legend-text {
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        
+
         footer {
             background-color: rgba(30, 30, 30, 0.8);
             padding: 2rem 0;
             text-align: center;
             margin-top: 4rem;
         }
-        
+
         .footer-content {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .footer-logo {
             font-size: 1.5rem;
             font-weight: 900;
@@ -486,7 +486,7 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
         }
-        
+
         .team-members {
                         display: flex;
             justify-content: center;
@@ -494,7 +494,7 @@
             gap: 1rem;
             margin-bottom: 1rem;
         }
-        
+
         .member {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 0.5rem 1rem;
@@ -502,39 +502,39 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
-        
+
         .member:hover {
             background-color: rgba(140, 82, 255, 0.2);
             transform: translateY(-3px);
         }
-        
+
         .copyright {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
             }
-            
+
             .section-title {
                 font-size: 2rem;
             }
-            
+
             .hero {
                 text-align: center;
             }
-            
+
             .hero-content {
                 max-width: 100%;
             }
-            
+
             .about {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-            
+
             .btn-group {
                 justify-content: center;
             }
