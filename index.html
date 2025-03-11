@@ -5,1066 +5,328 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PerceiveAI - تحويل التعليق الرياضي إلى لغة الإشارة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
-
-        :root {
-            --primary: #8C52FF;
-            --secondary: #FD297A;
-            --bg-dark: #0F1121;
-            --bg-card: #1A1C31;
-            --text-light: #FFFFFF;
-            --text-muted: #AAAAAA;
-            --gradient-1: linear-gradient(45deg, #8C52FF, #FD297A);
-            --gradient-2: linear-gradient(45deg, #FD297A, #8C52FF);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-        }
-        
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        header {
-            padding: 1.5rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            background-color: rgba(18, 18, 18, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-link {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(140, 82, 255, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
-            z-index: -1;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(253, 41, 122, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
-            z-index: -1;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .highlight {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            background: var(--gradient-1);
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(140, 82, 255, 0.3);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(140, 82, 255, 0.4);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--text-light);
-            box-shadow: none;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(140, 82, 255, 0.1);
-            box-shadow: 0 10px 20px rgba(140, 82, 255, 0.2);
-        }
-
-        .section {
-            padding: 6rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 4rem;
-            font-weight: 900;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background-color: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: transform 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .feature-description {
-            color: var(--text-muted);
-        }
-
-        .demo-video {
-            background-color: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-top: 4rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .video-input-container {
-            display: flex;
-            margin-bottom: 2rem;
-            gap: 1rem;
-        }
-
-        .video-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            font-size: 1rem;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .placeholder-video {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(30, 30, 30, 0.8);
-            border-radius: 10px;
-        }
-
-        .placeholder-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: var(--text-muted);
-        }
-
-        .placeholder-text {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .stat-card {
-            background-color: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .about {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .chart {
-            background-color: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            height: 100%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .chart-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        /* Enhanced Interactive Pie Chart */
-        .pie-chart-container {
-            position: relative;
-            width: 250px;
-            height: 250px;
-            margin: 0 auto 2rem;
-        }
-
-        .pie-chart {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 20px rgba(140, 82, 255, 0.3);
-            transition: transform 0.5s ease;
-            cursor: pointer;
-            background: conic-gradient(
-                var(--primary) 0deg 205deg,
-                var(--secondary) 205deg 244deg,
-                #FF6B6B 244deg 271deg,
-                #4ECDC4 271deg 297deg,
-                #FFE66D 297deg 360deg
-            );
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none; 
-        }
-
-        .pie-chart::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40%;
-            height: 40%;
-            background-color: var(--bg-card);
-            border-radius: 50%;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .pie-chart:hover {
-            transform: scale(1.05);
-        }
-
-        .pie-segment {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: white;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-        }
-
-        .pie-segment span.segment-value {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .pie-segment span.segment-label {
-            font-size: 1rem;
-        }
-
-        .chart-legend {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .legend-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .legend-item.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            transition: transform 0.3s ease;
-        }
-
-        .legend-item:hover .legend-color {
-            transform: scale(1.2);
-        }
-
-        .legend-text {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        footer {
-            background-color: rgba(30, 30, 30, 0.8);
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .team-members {
-                        display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .member {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .member:hover {
-            background-color: rgba(140, 82, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .hero {
-                text-align: center;
-            }
-
-            .hero-content {
-                max-width: 100%;
-            }
-
-            .about {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .btn-group {
-                justify-content: center;
-            }
-        }
-
-        /* Animation effects */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .animated-pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Floating animation for the navbar */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .logo {
-            animation: float 3s ease-in-out infinite;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="css/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">PerceiveAI</div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">الرئيسية</a>
-                <a href="documentation.html" class="nav-link">التوثيق</a>
+<body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
+<header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(18, 18, 18, 0.8); backdrop-filter: blur(10px);">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+        <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
+        <div class="flex gap-6">
+            <a href="index.html" class="font-medium transition-colors duration-300 hover:text-primary">الرئيسية</a>
+            <a href="documentation.html" class="font-medium transition-colors duration-300 hover:text-primary">التوثيق</a>
+        </div>
+    </div>
+</header>
+
+<section class="h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+    <div class="absolute top-[-50%] right-[-50%] w-full h-full -z-10"
+         style="background: radial-gradient(circle, rgba(140,82,255,0.1) 0%, rgba(18,18,18,0) 70%);">
+    </div>
+    <div class="absolute bottom-[-50%] left-[-50%] w-full h-full -z-10"
+         style="background: radial-gradient(circle, rgba(253,41,122,0.1) 0%, rgba(18,18,18,0) 70%);">
+    </div>
+
+    <div class="container mx-auto px-8">
+        <div class="flex flex-col gap-8 max-w-xl mx-auto">
+            <h1 class="text-5xl font-black leading-tight mb-4 md:text-4xl lg:text-5xl text-center">
+                <span class="bg-gradient-primary bg-clip-text text-transparent">لغة الإشارة</span> للجميع في عالم الرياضة
+            </h1>
+            <p class="text-xl text-text-muted mb-8 text-center">
+                نجعل الأحداث الرياضية متاحة لذوي الاحتياجات السمعية عبر تحويل التعليق الصوتي إلى لغة الإشارة بتقنيات الذكاء الاصطناعي
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#demo" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-pulse-slow">جرب الآن</a>
+                <a href="documentation.html" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:bg-primary/10 hover:shadow-lg">استعرض التوثيق</a>
             </div>
         </div>
-    </header>
-    
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>تحويل التعليق الرياضي إلى <span class="highlight">لغة الإشارة</span> للجميع</h1>
-                <p class="hero-description">
-                    مشروع يهدف إلى تحسين تجربة المشاهدة للأشخاص من ذوي الاحتياجات السمعية أثناء متابعة المباريات الرياضية أو الرياضات الإلكترونية باستخدام الذكاء الاصطناعي
+    </div>
+</section>
+
+<section class="py-24" id="features">
+    <div class="container mx-auto px-8">
+        <h2 class="text-4xl font-black text-center mb-16">
+            كيف <span class="bg-gradient-primary bg-clip-text text-transparent">نحدث الفرق</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
+                <div class="text-4xl mb-6 bg-gradient-primary bg-clip-text text-transparent">
+                    <i class="fas fa-tv"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">تحسين تجربة المشاهدة</h3>
+                <p class="text-text-muted">
+                    تمكين الأشخاص ذوي الإعاقة السمعية من متابعة المباريات الرياضية المباشرة بشكل شامل عبر تقديم ترجمة فورية للتعليق الصوتي
                 </p>
-                <div class="btn-group">
-                    <a href="#demo" class="btn animated-pulse">جرب الآن</a>
-                    <a href="documentation.html" class="btn btn-secondary">استعرض التوثيق</a>
+            </div>
+
+            <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
+                <div class="text-4xl mb-6 bg-gradient-primary bg-clip-text text-transparent">
+                    <i class="fas fa-universal-access"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">تعزيز الشمولية الرياضية</h3>
+                <p class="text-text-muted">
+                    تحويل التعليقات الصوتية والمحتوى الصوتي إلى إشارات مرئية عبر أفاتار، مما يضمن تجربة رياضية شاملة للجميع
+                </p>
+            </div>
+
+            <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
+                <div class="text-4xl mb-6 bg-gradient-primary bg-clip-text text-transparent">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">دعم رؤية 2030</h3>
+                <p class="text-text-muted">
+                    المساهمة في تحقيق أهداف رؤية المملكة 2030 عبر تعزيز الشمولية الرقمية وتمكين ذوي الإعاقة السمعية من المشاركة الفعالة
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24" id="demo">
+    <div class="container mx-auto px-8">
+        <h2 class="text-4xl font-black text-center mb-16">
+            جرب <span class="bg-gradient-primary bg-clip-text text-transparent">التقنية</span>
+        </h2>
+        <div class="bg-bg-card rounded-3xl p-8 mt-16 shadow-lg">
+            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                <input
+                        type="text"
+                        id="youtube-url"
+                        class="flex-1 py-4 px-6 rounded-full border-none bg-white/10 text-text-light text-base"
+                        placeholder="أدخل رابط فيديو اليوتيوب هنا..."
+                >
+                <button
+                        id="load-video"
+                        class="px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
+                    تحميل الفيديو
+                </button>
+            </div>
+            <div class="aspect-video rounded-xl overflow-hidden relative">
+                <div id="video-placeholder" class="flex flex-col justify-center items-center bg-[rgba(30,30,30,0.8)] rounded-xl absolute inset-0 z-10">
+                    <i class="fas fa-film text-6xl mb-4 text-text-muted"></i>
+                    <p class="text-xl text-text-muted text-center">أدخل رابط فيديو اليوتيوب لتجربة التقنية</p>
+                </div>
+                <div id="video-player" class="w-full h-full"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24" id="stats">
+    <div class="container mx-auto px-8">
+        <h2 class="text-4xl font-black text-center mb-16">
+            حجم <span class="bg-gradient-primary bg-clip-text text-transparent">التأثير</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
+                <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">5.9%</div>
+                <div class="text-lg text-text-muted">نسبة ذوي الإعاقة في المملكة</div>
+            </div>
+
+            <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
+                <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">229K+</div>
+                <div class="text-lg text-text-muted">شخص يعاني من إعاقة سمعية في المملكة</div>
+            </div>
+
+            <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
+                <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">1.95M</div>
+                <div class="text-lg text-text-muted">عدد الصم المتوقع عالمياً بحلول 2034</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24" id="about">
+    <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="md:text-start sm:text-center">
+                <h2 class="text-4xl font-bold mb-6">
+                    عن <span class="bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</span>
+                </h2>
+                <p class="text-text-muted mb-6">
+                    مشروع يهدف إلى تحسين تجربة المشاهدة للأشخاص من ذوي الاحتياجات السمعية أثناء متابعة المباريات الرياضية من خلال تحليل التعليق الصوتي وتحويله إلى لغة الإشارة
+                </p>
+                <p class="text-text-muted mb-6">
+                    نشارك في فئة البث الرياضي والإعلام في دوري الذكاء الاصطناعي بهدف خلق بيئة رياضية أكثر تفاعلاً واندماجاً للجميع
+                </p>
+                <a href="documentation.html" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">اطّلع على التوثيق التقني</a>
+            </div>
+
+            <div class="bg-bg-card rounded-3xl p-8 h-full shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center">أنواع الإعاقات في المملكة العربية السعودية</h3>
+                <div class="relative w-[250px] h-[250px] mx-auto mb-8">
+                    <div class="pie-chart w-full h-full rounded-full"></div>
+
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%] bg-bg-card rounded-full shadow-inner z-10"></div>
+
+                    <div id="segment1" class="pie-segment absolute inset-0 cursor-pointer"
+                         style="clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 60%, 50% 50%);"></div>
+                    <div id="segment2" class="pie-segment absolute inset-0 cursor-pointer"
+                         style="clip-path: polygon(50% 50%, 100% 60%, 90% 90%, 50% 50%);"></div>
+                    <div id="segment3" class="pie-segment absolute inset-0 cursor-pointer"
+                         style="clip-path: polygon(50% 50%, 90% 90%, 60% 100%, 50% 50%);"></div>
+                    <div id="segment4" class="pie-segment absolute inset-0 cursor-pointer"
+                         style="clip-path: polygon(50% 50%, 60% 100%, 20% 90%, 50% 50%);"></div>
+                    <div id="segment5" class="pie-segment absolute inset-0 cursor-pointer"
+                         style="clip-path: polygon(50% 50%, 20% 90%, 0% 50%, 0% 0%, 50% 0%, 50% 50%);"></div>
+
+                    <div id="highlight1" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
+                         style="background-color: #8C52FF; clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 60%, 50% 50%);"></div>
+                    <div id="highlight2" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
+                         style="background-color: #FD297A; clip-path: polygon(50% 50%, 100% 60%, 90% 90%, 50% 50%);"></div>
+                    <div id="highlight3" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
+                         style="background-color: #FF6B6B; clip-path: polygon(50% 50%, 90% 90%, 60% 100%, 50% 50%);"></div>
+                    <div id="highlight4" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
+                         style="background-color: #4ECDC4; clip-path: polygon(50% 50%, 60% 100%, 20% 90%, 50% 50%);"></div>
+                    <div id="highlight5" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
+                         style="background-color: #FFE66D; clip-path: polygon(50% 50%, 20% 90%, 0% 50%, 0% 0%, 50% 0%, 50% 50%);"></div>
+
+                    <!-- Segment labels -->
+                    <div id="segment1-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow pointer-events-none z-30">
+                        <span class="text-3xl mb-1">57.1%</span>
+                        <span class="text-sm">الإعاقة الحركية</span>
+                    </div>
+                    <div id="segment2-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow pointer-events-none z-30">
+                        <span class="text-3xl mb-1">12.3%</span>
+                        <span class="text-sm">الإعاقة البصرية</span>
+                    </div>
+                    <div id="segment3-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow pointer-events-none z-30">
+                        <span class="text-3xl mb-1">11.3%</span>
+                        <span class="text-sm">الإعاقة السمعية</span>
+                    </div>
+                    <div id="segment4-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow pointer-events-none z-30">
+                        <span class="text-3xl mb-1">7.4%</span>
+                        <span class="text-sm">الإعاقة الذهنية</span>
+                    </div>
+                    <div id="segment5-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow pointer-events-none z-30">
+                        <span class="text-3xl mb-1">11.9%</span>
+                        <span class="text-sm">إعاقات أخرى</span>
+                    </div>
+                </div>
+
+                <!-- Chart Legend -->
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment1">
+                        <div class="w-4 h-4 rounded bg-primary"></div>
+                        <span class="text-sm text-text-muted">الإعاقة الحركية (57.1%)</span>
+                    </div>
+                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment2">
+                        <div class="w-4 h-4 rounded bg-secondary"></div>
+                        <span class="text-sm text-text-muted">الإعاقة البصرية (12.3%)</span>
+                    </div>
+                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment3">
+                        <div class="w-4 h-4 rounded" style="background-color: #FF6B6B;"></div>
+                        <span class="text-sm text-text-muted">الإعاقة السمعية (11.3%)</span>
+                    </div>
+                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment4">
+                        <div class="w-4 h-4 rounded" style="background-color: #4ECDC4;"></div>
+                        <span class="text-sm text-text-muted">الإعاقة الذهنية (7.4%)</span>
+                    </div>
+                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment5">
+                        <div class="w-4 h-4 rounded" style="background-color: #FFE66D;"></div>
+                        <span class="text-sm text-text-muted">إعاقات أخرى (11.9%)</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <section class="section" id="features">
-        <div class="container">
-            <h2 class="section-title">كيف <span class="highlight">نحدث الفرق</span></h2>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tv"></i>
+    </div>
+</section>
+
+<section class="py-24 bg-gradient-to-b from-bg-dark to-bg-card/30" id="about-us">
+    <div class="container mx-auto px-8">
+        <h2 class="text-4xl font-black text-center mb-16">
+            <span class="bg-gradient-primary bg-clip-text text-transparent">فريقنا</span> المميز
+        </h2>
+
+        <div class="flex flex-col items-center mb-12">
+            <p class="text-xl text-text-muted max-w-3xl text-center mb-10">
+                نحن مجموعة من المطورين والباحثين المتحمسين لاستخدام الذكاء الاصطناعي لتسهيل الوصول إلى المحتوى الرياضي للجميع. نؤمن بأن التكنولوجيا يجب أن تكون شاملة وأن الرياضة حق للجميع.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+
+            <div class="flex flex-col items-center">
+                <div class="relative mb-6 group">
+                    <div class="w-56 h-56 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg shadow-primary/30 transition-all duration-300 group-hover:border-primary">
+                        <img src="assets/abdulmalik.jpg" alt="عبدالملك القويفلي" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=عبدالملك+القويفلي&background=8C52FF&color=fff&size=256'">
                     </div>
-                    <h3 class="feature-title">تحسين تجربة المشاهدة</h3>
-                    <p class="feature-description">
-                        تمكين الأشخاص ذوي الإعاقة السمعية من متابعة المباريات الرياضية المباشرة بشكل شامل عبر تقديم ترجمات بلغة الإشارة للأحداث في الوقت الفعلي
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-universal-access"></i>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a href="https://www.linkedin.com/in/abdulmalik-alquwayfili-0405792a0/" target="_blank" class="flex items-center gap-2">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
                     </div>
-                    <h3 class="feature-title">تعزيز الشمولية الرياضية</h3>
-                    <p class="feature-description">
-                        تحويل التعليقات الصوتية والمحتوى الصوتي إلى إشارات مرئية عبر أفاتار، مما يضمن تجربة رياضية شاملة ومفهومة للصم وضعاف السمع
-                    </p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-crown"></i>
+                <h3 class="text-2xl font-bold mb-2">عبدالملك القويفلي</h3>
+                <p class="text-text-muted text-center px-4">مهندس برمجيات متخصص في الذكاء الاصطناعي وتطبيقات معالجة اللغات الطبيعية والرؤية الحاسوبية</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="relative mb-6 group">
+                    <div class="w-56 h-56 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg shadow-primary/30 transition-all duration-300 group-hover:border-primary">
+                        <img src="assets/abdulaziz.jpg" alt="عبدالعزيز الكثيري" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=عبدالعزيز+الكثيري&background=8C52FF&color=fff&size=256'">
                     </div>
-                    <h3 class="feature-title">دعم رؤية 2030</h3>
-                    <p class="feature-description">
-                        المساهمة في تحقيق أهداف رؤية المملكة 2030 عبر تعزيز الشمولية الرقمية وتمكين ذوي الإعاقة السمعية من المشاركة الفعالة في المجتمع
-                    </p>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a href="https://www.linkedin.com/in/abdulazizalkathiri/?profileId=ACoAADHJY2MBFPIVpEmsR19FtoxmzVqg_fCn7Cg" target="_blank" class="flex items-center gap-2">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
                 </div>
+                <h3 class="text-2xl font-bold mb-2">عبدالعزيز الكثيري</h3>
+                <p class="text-text-muted text-center px-4">مطور تطبيقات ومتخصص في تقنيات الوسائط المتعددة والتعلم العميق لتحليل الصور والفيديو</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="relative mb-6 group">
+                    <div class="w-56 h-56 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg shadow-primary/30 transition-all duration-300 group-hover:border-primary">
+                        <img src="assets/khalid.jpg" alt="خالد النجيدي" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=خالد+النجيدي&background=8C52FF&color=fff&size=256'">
+                    </div>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a href="https://www.linkedin.com/in/khalid-alnujaidi/" target="_blank" class="flex items-center gap-2">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">خالد النجيدي</h3>
+                <p class="text-text-muted text-center px-4">مهندس بيانات متخصص في تقنيات معالجة البيانات الضخمة وتطوير نماذج التعلم الآلي</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="relative mb-6 group">
+                    <div class="w-56 h-56 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg shadow-primary/30 transition-all duration-300 group-hover:border-primary">
+                        <img src="assets/talha.jpg" alt="طلحة أكبر" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=طلحة+أكبر&background=8C52FF&color=fff&size=256'">
+                    </div>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a href="https://www.linkedin.com/in/talha-akbar/" target="_blank" class="flex items-center gap-2">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">طلحة أكبر</h3>
+                <p class="text-text-muted text-center px-4">مهندس واجهات مستخدم متخصص في تصميم تجارب مستخدم سلسة وشاملة لجميع الفئات</p>
             </div>
         </div>
-    </section>
-    
-    <section class="section" id="demo">
-        <div class="container">
-            <h2 class="section-title">جرب <span class="highlight">التقنية</span></h2>
-            <div class="demo-video">
-                <div class="video-input-container">
-                    <input type="text" class="video-input" placeholder="أدخل رابط فيديو اليوتيوب هنا..." id="youtube-url">
-                    <button class="btn" id="load-video">تحميل الفيديو</button>
-                </div>
-                <div class="video-container">
-                    <div class="placeholder-video" id="video-placeholder">
-                        <i class="fas fa-film placeholder-icon"></i>
-                        <p class="placeholder-text">أدخل رابط فيديو اليوتيوب لتجربة التقنية</p>
-                    </div>
-                    <div id="video-player"></div>
-                </div>
-            </div>
+    </div>
+</section>
+
+<footer class="py-8 mt-16" style="background-color: rgba(30, 30, 30, 0.8);">
+    <div class="container mx-auto px-8">
+        <div class="flex flex-col items-center gap-4">
+            <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent mb-4">PerceiveAI</div>
+            <div class="text-sm text-text-muted">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي</div>
         </div>
-    </section>
-    
-    <section class="section" id="stats">
-        <div class="container">
-            <h2 class="section-title">حجم <span class="highlight">التأثير</span></h2>
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number">5.9%</div>
-                    <div class="stat-label">نسبة ذوي الإعاقة في المملكة</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">229K+</div>
-                    <div class="stat-label">شخص يعاني من إعاقة سمعية في المملكة</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">1.95M</div>
-                    <div class="stat-label">عدد الصم المتوقع عالمياً بحلول 2034</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="section" id="about">
-        <div class="container">
-            <div class="about">
-                <div class="about-content">
-                    <h2>عن <span class="highlight">PerceiveAI</span></h2>
-                    <p>
-                        مشروع يهدف إلى تحسين تجربة المشاهدة للأشخاص من ذوي الاحتياجات السمعية أثناء متابعة المباريات الرياضية أو الرياضات الإلكترونية. تعتمد الفكرة على استخدام تقنيات الذكاء الاصطناعي لتحويل التعليق الصوتي إلى نص مكتوب، ومن ثم ترجمته إلى لغة الإشارة عبر شخصية متحركة تُعرض كطبقة شفافة على الفيديو.
-                    </p>
-                    <p>
-                        نشارك في فئة البث الرياضي والإعلام في دوري الذكاء الاصطناعي بهدف خلق بيئة رياضية أكثر تفاعلاً واندماجاً للجميع.
-                    </p>
-                    <a href="documentation.html" class="btn">اطّلع على التوثيق التقني</a>
-                </div>
-                <div class="chart">
-                    <h3 class="chart-title">أنواع الإعاقات في المملكة العربية السعودية</h3>
-                    <div class="pie-chart-container">
-                        <div class="pie-chart" id="pieChart"></div>
-                        <!-- Pie segments for overlay -->
-                        <div class="pie-segment" id="segment1">
-                            <span class="segment-value">57.1%</span>
-                            <span class="segment-label">الإعاقة الحركية</span>
-                        </div>
-                        <div class="pie-segment" id="segment2">
-                            <span class="segment-value">12.3%</span>
-                            <span class="segment-label">الإعاقة البصرية</span>
-                        </div>
-                        <div class="pie-segment" id="segment3">
-                            <span class="segment-value">11.3%</span>
-                            <span class="segment-label">الإعاقة السمعية</span>
-                        </div>
-                        <div class="pie-segment" id="segment4">
-                            <span class="segment-value">7.4%</span>
-                            <span class="segment-label">الإعاقة الذهنية</span>
-                        </div>
-                        <div class="pie-segment" id="segment5">
-                            <span class="segment-value">11.9%</span>
-                            <span class="segment-label">إعاقات أخرى</span>
-                        </div>
-                    </div>
-                    <div class="chart-legend">
-                        <div class="legend-item" data-segment="segment1">
-                            <div class="legend-color" style="background-color: var(--primary);"></div>
-                            <span class="legend-text">الإعاقة الحركية (57.1%)</span>
-                        </div>
-                        <div class="legend-item" data-segment="segment2">
-                            <div class="legend-color" style="background-color: var(--secondary);"></div>
-                            <span class="legend-text">الإعاقة البصرية (12.3%)</span>
-                        </div>
-                        <div class="legend-item" data-segment="segment3">
-                            <div class="legend-color" style="background-color: #FF6B6B;"></div>
-                            <span class="legend-text">الإعاقة السمعية (11.3%)</span>
-                        </div>
-                        <div class="legend-item" data-segment="segment4">
-                            <div class="legend-color" style="background-color: #4ECDC4;"></div>
-                            <span class="legend-text">الإعاقة الذهنية (7.4%)</span>
-                        </div>
-                        <div class="legend-item" data-segment="segment5">
-                            <div class="legend-color" style="background-color: #FFE66D;"></div>
-                            <span class="legend-text">إعاقات أخرى (11.9%)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">PerceiveAI</div>
-            <div class="team-members">
-                <div class="member"><a href="https://www.linkedin.com/in/abdulmalik-alquwayfili-0405792a0/" target="_blank">عبدالملك القويفلي</a></div>
-                <div class="member"><a href="https://www.linkedin.com/in/abdulazizalkathiri/?profileId=ACoAADHJY2MBFPIVpEmsR19FtoxmzVqg_fCn7Cg" target="_blank">عبدالعزيز الكثيري</a></div>
-                <div class="member"><a href="https://www.linkedin.com/in/khalid-alnujaidi/" target="_blank">خالد النجيدي</a></div>
-                <div class="member"><a href="https://www.linkedin.com/in/talha-akbar/" target="_blank">طلحة أكبر</a></div>
-                <div class="member">المشرف: حمود</div>
-            </div>
-            <div class="copyright">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي</div>
-        </div>
-    </footer>
+    </div>
+</footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // YouTube API
-            let tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            let firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            
-            let player;
-            window.onYouTubeIframeAPIReady = function() {
-                // YouTube API is ready
-                console.log('YouTube API Ready');
-            };
-            
-            const loadVideoBtn = document.getElementById('load-video');
-            const youtubeUrlInput = document.getElementById('youtube-url');
-            const videoPlaceholder = document.getElementById('video-placeholder');
-            const videoPlayer = document.getElementById('video-player');
-            
-            loadVideoBtn.addEventListener('click', function() {
-                const url = youtubeUrlInput.value.trim();
-                if (!url) {
-                    alert('الرجاء إدخال رابط فيديو صحيح');
-                    return;
-                }
-                
-                // Extract YouTube video ID
-                let videoId;
-                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                const match = url.match(regExp);
-                
-                if (match && match[2].length == 11) {
-                    videoId = match[2];
-                    loadYouTubeVideo(videoId);
-                } else {
-                    alert('الرجاء إدخال رابط يوتيوب صحيح');
-                }
-            });
-            
-            function loadYouTubeVideo(videoId) {
-                // Hide placeholder
-                videoPlaceholder.style.display = 'none';
-                
-                // If player exists, destroy it first
-                if (player) {
-                    player.destroy();
-                }
-                
-                // Create new player
-                player = new YT.Player('video-player', {
-                                        height: '100%',
-                    width: '100%',
-                    videoId: videoId,
-                    playerVars: {
-                        'playsinline': 1,
-                        'controls': 1,
-                        'rel': 0
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-            }
-            
-            function onPlayerReady(event) {
-                // Player is ready
-                console.log('Player Ready');
-                // Simulate AI processing by showing a message
-                showMessage('جاري معالجة الفيديو وتحويل التعليق الصوتي إلى لغة الإشارة...');
-                
-                // After 3 seconds, show another message
-                setTimeout(() => {
-                    showMessage('عذراً، هذه نسخة تجريبية. سيتم إضافة وظائف الذكاء الاصطناعي لاحقاً.');
-                    
-                    // After 2 more seconds, play the video normally
-                    setTimeout(() => {
-                        hideMessage();
-                        event.target.playVideo();
-                    }, 2000);
-                }, 3000);
-            }
-            
-            function onPlayerStateChange(event) {
-                // Handle player state changes if needed
-            }
-            
-            function showMessage(message) {
-                // Create message element if it doesn't exist
-                let messageElement = document.getElementById('ai-message');
-                if (!messageElement) {
-                    messageElement = document.createElement('div');
-                    messageElement.id = 'ai-message';
-                    messageElement.style.position = 'absolute';
-                    messageElement.style.top = '0';
-                    messageElement.style.left = '0';
-                    messageElement.style.width = '100%';
-                    messageElement.style.height = '100%';
-                    messageElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                    messageElement.style.color = 'white';
-                    messageElement.style.display = 'flex';
-                    messageElement.style.justifyContent = 'center';
-                    messageElement.style.alignItems = 'center';
-                    messageElement.style.textAlign = 'center';
-                    messageElement.style.padding = '20px';
-                    messageElement.style.zIndex = '10';
-                    messageElement.style.borderRadius = '10px';
-                    document.querySelector('.video-container').appendChild(messageElement);
-                }
-                
-                messageElement.textContent = message;
-                messageElement.style.display = 'flex';
-            }
-            
-            function hideMessage() {
-                const messageElement = document.getElementById('ai-message');
-                if (messageElement) {
-                    messageElement.style.display = 'none';
-                }
-            }
-
-            // Enhanced Interactive Pie Chart
-            const pieChart = document.getElementById('pieChart');
-            const segments = document.querySelectorAll('.pie-segment');
-            const legendItems = document.querySelectorAll('.legend-item');
-            
-            // Pie chart data with percentages and colors
-            const pieData = [
-                { id: 'segment1', value: 57.1, color: 'var(--primary)', label: 'الإعاقة الحركية' },
-                { id: 'segment2', value: 12.3, color: 'var(--secondary)', label: 'الإعاقة البصرية' },
-                { id: 'segment3', value: 11.3, color: '#FF6B6B', label: 'الإعاقة السمعية' },
-                { id: 'segment4', value: 7.4, color: '#4ECDC4', label: 'الإعاقة الذهنية' },
-                { id: 'segment5', value: 11.9, color: '#FFE66D', label: 'إعاقات أخرى' }
-            ];
-
-            // Highlight the segment when hovering over the legend item
-            legendItems.forEach(item => {
-                item.addEventListener('mouseover', function() {
-                    const segmentId = item.getAttribute('data-segment');
-                    highlightSegment(segmentId);
-                    this.classList.add('active');
-                });
-
-                item.addEventListener('mouseout', function() {
-                    resetSegments();
-                    this.classList.remove('active');
-                });
-
-                item.addEventListener('click', function() {
-                    const segmentId = item.getAttribute('data-segment');
-                    const segmentData = pieData.find(data => data.id === segmentId);
-                    
-                    // Display some additional info when clicking on a segment
-                    if (segmentData) {
-                        const infoText = `${segmentData.label}: ${segmentData.value}% من إجمالي الإعاقات في المملكة`;
-                        alert(infoText);
-                    }
-                });
-            });
-
-            // Add hover effect to pie chart
-            pieChart.addEventListener('mousemove', function(event) {
-                // Calculate angle based on mouse position
-                const rect = this.getBoundingClientRect();
-                const x = event.clientX - rect.left - rect.width / 2;
-                const y = event.clientY - rect.top - rect.height / 2;
-                
-                // Calculate angle in degrees (0-360)
-                let angle = Math.atan2(y, x) * 180 / Math.PI + 180;
-                
-                // Find which segment corresponds to this angle
-                let segmentId = null;
-                if (angle >= 0 && angle < 205) {
-                    segmentId = 'segment1';
-                } else if (angle >= 205 && angle < 244) {
-                    segmentId = 'segment2';
-                } else if (angle >= 244 && angle < 271) {
-                    segmentId = 'segment3';
-                } else if (angle >= 271 && angle < 297) {
-                    segmentId = 'segment4';
-                } else {
-                    segmentId = 'segment5';
-                }
-                
-                highlightSegment(segmentId);
-            });
-
-            pieChart.addEventListener('mouseout', function() {
-                resetSegments();
-            });
-
-            // Highlight specific segment
-            function highlightSegment(segmentId) {
-                resetSegments();
-                
-                // Show the segment details
-                const segment = document.getElementById(segmentId);
-                if (segment) {
-                    segment.style.opacity = '1';
-                }
-
-                // Add pulse animation to pie chart
-                pieChart.style.transform = 'scale(1.05)';
-                
-                // Highlight the corresponding legend item
-                legendItems.forEach(item => {
-                    if (item.getAttribute('data-segment') === segmentId) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-
-            // Reset all segments
-            function resetSegments() {
-                segments.forEach(segment => {
-                    segment.style.opacity = '0';
-                });
-                
-                pieChart.style.transform = 'scale(1)';
-                
-                legendItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-            }
-
-            // Function to animate count up for statistics
-            function animateStats() {
-                const stats = document.querySelectorAll('.stat-number');
-                
-                stats.forEach(stat => {
-                    const targetValue = stat.textContent;
-                    let value = 0;
-                    let suffix = '';
-                    
-                    // Check if there's a suffix (K, M, etc.)
-                    if (targetValue.includes('K')) {
-                        value = parseFloat(targetValue) * 1000;
-                        suffix = 'K';
-                    } else if (targetValue.includes('M')) {
-                        value = parseFloat(targetValue) * 1000000;
-                        suffix = 'M';
-                    } else if (targetValue.includes('%')) {
-                        value = parseFloat(targetValue);
-                        suffix = '%';
-                    } else {
-                        value = parseFloat(targetValue);
-                    }
-                    
-                    // Start from 0
-                    let startValue = 0;
-                    const duration = 2000;
-                    const startTime = new Date().getTime();
-                    
-                    const updateCounter = () => {
-                        const currentTime = new Date().getTime();
-                        const elapsed = currentTime - startTime;
-                        
-                        // Calculate current value based on elapsed time
-                        let currentValue = startValue;
-                        if (elapsed < duration) {
-                            currentValue = startValue + (value - startValue) * (elapsed / duration);
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            currentValue = value;
-                        }
-                        
-                        // Format and display the value
-                        let displayValue;
-                        if (suffix === 'K') {
-                            displayValue = (currentValue / 1000).toFixed(1) + suffix;
-                        } else if (suffix === 'M') {
-                            displayValue = (currentValue / 1000000).toFixed(2) + suffix;
-                        } else if (suffix === '%') {
-                            displayValue = currentValue.toFixed(1) + suffix;
-                        } else {
-                            displayValue = Math.round(currentValue).toString();
-                        }
-                        
-                        stat.textContent = displayValue;
-                    };
-                    
-                    updateCounter();
-                });
-            }
-
-            // Intersection Observer to trigger animations when elements are visible
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.2
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (entry.target.id === 'stats') {
-                            animateStats();
-                        }
-                        // Add more section-specific animations here
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            // Observe sections for animation triggers
-            document.querySelectorAll('section').forEach(section => {
-                observer.observe(section);
-            });
-
-            // Add current date to footer
-            const currentDate = new Date();
-            const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
-            const copyrightElement = document.querySelector('.copyright');
-            
-            // Update with the provided date from the user
-            copyrightElement.innerHTML = `© 2025-03-07 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي | تم التحديث بواسطة ${document.documentElement.lang === 'ar' ? 'روبوت سيلي' : 'SillyRobot883'}`;
-        });
-    </script>
+<script src="js/video-player.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
