@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
-<header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(18, 18, 18, 0.8); backdrop-filter: blur(10px);">
+<header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(15, 17, 33, 0.9); backdrop-filter: blur(10px);">
     <div class="container mx-auto px-8 flex justify-between items-center">
         <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
         <div class="flex gap-6">
@@ -22,11 +22,16 @@
 </header>
 
 <section class="h-screen flex items-center justify-center pt-20 relative overflow-hidden">
-    <div class="absolute top-[-50%] right-[-50%] w-full h-full -z-10"
-         style="background: radial-gradient(circle, rgba(140,82,255,0.1) 0%, rgba(18,18,18,0) 70%);">
-    </div>
-    <div class="absolute bottom-[-50%] left-[-50%] w-full h-full -z-10"
-         style="background: radial-gradient(circle, rgba(253,41,122,0.1) 0%, rgba(18,18,18,0) 70%);">
+    <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0"
+             style="background: radial-gradient(ellipse at top right, rgba(140,82,255,0.15) 0%, rgba(18,18,18,0) 50%),
+                              radial-gradient(ellipse at bottom left, rgba(253,41,122,0.15) 0%, rgba(18,18,18,0) 50%);
+                    animation: pulse-glow 8s ease-in-out infinite alternate;">
+        </div>
+        <div class="absolute inset-0 opacity-60"
+             style="background: linear-gradient(135deg, rgba(140,82,255,0.08) 0%, rgba(253,41,122,0.08) 100%);
+                    filter: blur(60px);">
+        </div>
     </div>
 
     <div class="container mx-auto px-8">
