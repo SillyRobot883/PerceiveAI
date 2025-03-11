@@ -1,0 +1,49 @@
+.bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.pie-chart {
+    background: conic-gradient(
+            #8C52FF 0deg 205deg,
+            #FD297A 205deg 244deg,
+            #FF6B6B 244deg 271deg,
+            #4ECDC4 271deg 297deg,
+            #FFE66D 297deg 360deg
+    );
+}
+
+.aspect-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.aspect-video iframe,
+.aspect-video > div:not(.overlay-message) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+    border-radius: 0.75rem;
+}
+
+.text-shadow {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
