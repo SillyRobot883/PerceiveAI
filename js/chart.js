@@ -1,91 +1,76 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const segments = document.querySelectorAll('.pie-segment');
-    const segmentLabels = document.querySelectorAll('.segment-label');
-    const legendItems = document.querySelectorAll('.legend-item');
+    // Check if chart container exists
+    const chartCanvas = document.getElementById('disabilityChart');
+    if (!chartCanvas) return;
 
-    if (!segments.length) return;
+    // Chart data
+    const data = {
+        labels: [
+            'الإعاقة الحركية',
+            'الإعاقة البصرية',
+            'الإعاقة السمعية',
+            'الإعاقة الذهنية',
+            'إعاقات أخرى'
+        ],
+        datasets: [{
+            data: [57.1, 12.3, 11.3, 7.4, 11.9],
+            backgroundColor: [
+                '#8C52FF', // Primary color
+                '#FD297A', // Secondary color
+                '#FF6B6B',
+                '#4ECDC4',
+                '#FFE66D'
+            ],
+            borderColor: '#1A1C31', // bg-card color
+            borderWidth: 2,
+            hoverBorderWidth: 0,
+            hoverBackgroundColor: [
+                '#9D6FFF', // Slightly lighter
+                '#FF4B8E',
+                '#FF8A8A',
+                '#65E5DE',
+                '#FFF08A'
+            ]
+        }]
+    };
 
-    const pieData = [
-        { id: 'segment1', value: 57.1, color: '#8C52FF', label: 'الإعاقة الحركية' },
-        { id: 'segment2', value: 12.3, color: '#FD297A', label: 'الإعاقة البصرية' },
-        { id: 'segment3', value: 11.3, color: '#FF6B6B', label: 'الإعاقة السمعية' },
-        { id: 'segment4', value: 7.4, color: '#4ECDC4', label: 'الإعاقة الذهنية' },
-        { id: 'segment5', value: 11.9, color: '#FFE66D', label: 'إعاقات أخرى' }
-    ];
-
-    segments.forEach(segment => {
-        segment.addEventListener('mouseover', function() {
-            const segmentId = this.id;
-            highlightSegment(segmentId);
-        });
-
-        segment.addEventListener('mouseout', function() {
-            resetSegments();
-        });
-
-        segment.addEventListener('click', function() {
-            const segmentId = this.id;
-            const segmentData = pieData.find(data => data.id === segmentId);
-
-            if (segmentData) {
-                const infoText = `${segmentData.label}: ${segmentData.value}% من إجمالي الإعاقات في المملكة`;
+    // Chart options
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false // We're using our own custom legend
+            },
+            tooltip: {
+                backgroundColor: 'rgba(26, 28, 49, 0.9)', // bg-card color
+                titleFont: {
+                    family: 'Tajawal',
+                    size: 16,
+                    weight: 'bold'
+                },
+                bodyFont: {
+                    family: 'Tajawal',
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return context.parsed + '%';
+                    }
+                }
             }
-        });
-    });
-
-    legendItems.forEach(item => {
-        item.addEventListener('mouseover', function() {
-            const segmentId = this.getAttribute('data-segment');
-            highlightSegment(segmentId);
-            this.classList.add('bg-white/20', 'shadow-md');
-        });
-
-        item.addEventListener('mouseout', function() {
-            resetSegments();
-            this.classList.remove('bg-white/20', 'shadow-md');
-        });
-
-        item.addEventListener('click', function() {
-            const segmentId = this.getAttribute('data-segment');
-            const segmentData = pieData.find(data => data.id === segmentId);
-
-            if (segmentData) {
-                const infoText = `${segmentData.label}: ${segmentData.value}% من إجمالي الإعاقات في المملكة`;
-            }
-        });
-    });
-
-    function highlightSegment(segmentId) {
-        resetSegments();
-
-        const segment = document.getElementById(segmentId);
-        if (segment) {
-            segment.classList.add('active');
+        },
+        cutout: '40%', // Makes it a doughnut chart
+        animation: {
+            animateRotate: true,
+            animateScale: true
         }
+    };
 
-        const segmentLabel = document.getElementById(segmentId + '-label');
-        if (segmentLabel) {
-            segmentLabel.style.opacity = '1';
-        }
-
-        legendItems.forEach(item => {
-            if (item.getAttribute('data-segment') === segmentId) {
-                item.classList.add('bg-white/20', 'shadow-md');
-            }
-        });
-    }
-
-    function resetSegments() {
-        segments.forEach(segment => {
-            segment.classList.remove('active');
-        });
-
-        segmentLabels.forEach(label => {
-            label.style.opacity = '0';
-        });
-
-        legendItems.forEach(item => {
-            item.classList.remove('bg-white/20', 'shadow-md');
-        });
-    }
+    // Create the chart
+    new Chart(chartCanvas, {
+        type: 'doughnut',
+        data: data,
+        options: options
+    });
 });

@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="css/tailwind-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
@@ -49,7 +50,7 @@
                 <a href="#demo" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     جرب الآن
                 </a>
-                <a href="about-us.html" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:border-white">
+                <a href="/PerceiveAI/about-us" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:border-white">
                     اكتشف المزيد
                 </a>
             </div>
@@ -85,7 +86,7 @@
 
             <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
                 <div class="text-4xl mb-6 bg-gradient-primary bg-clip-text text-transparent">
-                    <i class="fas fa-crown"></i>
+                    <i class="fas fa-rocket"></i>
                 </div>
                 <h3 class="text-2xl font-bold mb-4">دعم رؤية 2030</h3>
                 <p class="text-text-muted">
@@ -205,82 +206,38 @@
                 <p class="text-text-muted mb-6">
                     نشارك في فئة البث الرياضي والإعلام في دوري الذكاء الاصطناعي بهدف خلق بيئة رياضية أكثر تفاعلاً وشمولاً، بما يتماشى مع قيم الشمولية والابتكار التي تتبناها رؤية المملكة 2030.
                 </p>
-                <a href="about-us.html" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <a href="/PerceiveAI/about-us" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     تعرف علينا أكثر
                 </a>
             </div>
 
             <div class="bg-bg-card rounded-3xl p-8 h-full shadow-lg">
                 <h3 class="text-2xl font-bold mb-6 text-center">أنواع الإعاقات في المملكة العربية السعودية</h3>
-                <div class="relative w-[250px] h-[250px] mx-auto mb-8">
-                    <div class="pie-chart w-full h-full rounded-full"></div>
 
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%] bg-bg-card rounded-full shadow-inner z-10"></div>
-
-                    <div id="segment1" class="pie-segment absolute inset-0 cursor-pointer"
-                         style="clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 60%, 50% 50%);"></div>
-                    <div id="segment2" class="pie-segment absolute inset-0 cursor-pointer"
-                         style="clip-path: polygon(50% 50%, 100% 60%, 90% 90%, 50% 50%);"></div>
-                    <div id="segment3" class="pie-segment absolute inset-0 cursor-pointer"
-                         style="clip-path: polygon(50% 50%, 90% 90%, 60% 100%, 50% 50%);"></div>
-                    <div id="segment4" class="pie-segment absolute inset-0 cursor-pointer"
-                         style="clip-path: polygon(50% 50%, 60% 100%, 20% 90%, 50% 50%);"></div>
-                    <div id="segment5" class="pie-segment absolute inset-0 cursor-pointer"
-                         style="clip-path: polygon(50% 50%, 20% 90%, 0% 50%, 0% 0%, 50% 0%, 50% 50%);"></div>
-
-                    <div id="highlight1" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
-                         style="background-color: #8C52FF; clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 60%, 50% 50%);"></div>
-                    <div id="highlight2" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
-                         style="background-color: #FD297A; clip-path: polygon(50% 50%, 100% 60%, 90% 90%, 50% 50%);"></div>
-                    <div id="highlight3" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
-                         style="background-color: #FF6B6B; clip-path: polygon(50% 50%, 90% 90%, 60% 100%, 50% 50%);"></div>
-                    <div id="highlight4" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
-                         style="background-color: #4ECDC4; clip-path: polygon(50% 50%, 60% 100%, 20% 90%, 50% 50%);"></div>
-                    <div id="highlight5" class="segment-highlight absolute inset-0 opacity-0 transition-opacity duration-300"
-                         style="background-color: #FFE66D; clip-path: polygon(50% 50%, 20% 90%, 0% 50%, 0% 0%, 50% 0%, 50% 50%);"></div>
-
-                    <!-- Segment labels -->
-                    <div id="segment1-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow">
-                        <span class="text-3xl mb-1">57.1%</span>
-                        <span class="text-sm">الإعاقة الحركية</span>
-                    </div>
-                    <div id="segment2-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow">
-                        <span class="text-3xl mb-1">12.3%</span>
-                        <span class="text-sm">الإعاقة البصرية</span>
-                    </div>
-                    <div id="segment3-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow">
-                        <span class="text-3xl mb-1">11.3%</span>
-                        <span class="text-sm">الإعاقة السمعية</span>
-                    </div>
-                    <div id="segment4-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow">
-                        <span class="text-3xl mb-1">7.4%</span>
-                        <span class="text-sm">الإعاقة الذهنية</span>
-                    </div>
-                    <div id="segment5-label" class="segment-label absolute inset-0 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold text-shadow">
-                        <span class="text-3xl mb-1">11.9%</span>
-                        <span class="text-sm">إعاقات أخرى</span>
-                    </div>
+                <!-- Simple canvas for Chart.js -->
+                <div class="w-[300px] h-[300px] mx-auto">
+                    <canvas id="disabilityChart"></canvas>
                 </div>
 
-                <!-- Chart Legend -->
+                <!-- Simple legend -->
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
-                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment1">
-                        <div class="w-4 h-4 rounded bg-primary"></div>
+                    <div class="flex items-center gap-2 p-2">
+                        <div class="w-4 h-4 rounded" style="background-color: #8C52FF;"></div>
                         <span class="text-sm text-text-muted">الإعاقة الحركية (57.1%)</span>
                     </div>
-                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment2">
-                        <div class="w-4 h-4 rounded bg-secondary"></div>
+                    <div class="flex items-center gap-2 p-2">
+                        <div class="w-4 h-4 rounded" style="background-color: #FD297A;"></div>
                         <span class="text-sm text-text-muted">الإعاقة البصرية (12.3%)</span>
                     </div>
-                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment3">
+                    <div class="flex items-center gap-2 p-2">
                         <div class="w-4 h-4 rounded" style="background-color: #FF6B6B;"></div>
                         <span class="text-sm text-text-muted">الإعاقة السمعية (11.3%)</span>
                     </div>
-                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment4">
+                    <div class="flex items-center gap-2 p-2">
                         <div class="w-4 h-4 rounded" style="background-color: #4ECDC4;"></div>
                         <span class="text-sm text-text-muted">الإعاقة الذهنية (7.4%)</span>
                     </div>
-                    <div class="legend-item flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1" data-segment="segment5">
+                    <div class="flex items-center gap-2 p-2">
                         <div class="w-4 h-4 rounded" style="background-color: #FFE66D;"></div>
                         <span class="text-sm text-text-muted">إعاقات أخرى (11.9%)</span>
                     </div>
@@ -392,10 +349,10 @@
                 ساعدنا في جعل الرياضة أكثر شمولية من خلال تقديم اقتراحاتك أو الانضمام إلى فريقنا. معاً يمكننا أن نجعل الأحداث الرياضية متاحة للجميع.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-                <a href="contact.html" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <a href="/PerceiveAI/contact" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     تواصل معنا الآن
                 </a>
-                <a href="about-us.html" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:border-white">
+                <a href="/PerceiveAI/about-us" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:border-white">
                     تعرف على المشروع
                 </a>
             </div>
@@ -416,10 +373,10 @@
             <div>
                 <h3 class="text-lg font-bold mb-4">روابط سريعة</h3>
                 <ul class="space-y-2">
-                    <li><a href="index.html" class="text-text-muted hover:text-primary transition-colors">الرئيسية</a></li>
-                    <li><a href="about-us.html" class="text-text-muted hover:text-primary transition-colors">عن المشروع</a></li>
-                    <li><a href="contact.html" class="text-text-muted hover:text-primary transition-colors">تواصل معنا</a></li>
-                    <li><a href="documentation.html" class="text-text-muted hover:text-primary transition-colors">التوثيق</a></li>
+                    <li><a href="/" class="text-text-muted hover:text-primary transition-colors">الرئيسية</a></li>
+                    <li><a href="/PerceiveAI/about-us" class="text-text-muted hover:text-primary transition-colors">عن المشروع</a></li>
+                    <li><a href="/PerceiveAI/contact" class="text-text-muted hover:text-primary transition-colors">تواصل معنا</a></li>
+                    <li><a href="/PerceiveAI/documentation" class="text-text-muted hover:text-primary transition-colors">التوثيق</a></li>
                 </ul>
             </div>
 
