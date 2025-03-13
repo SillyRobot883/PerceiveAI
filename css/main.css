@@ -1,61 +1,136 @@
-.bg-clip-text {
-    -webkit-background-clip: text;
-    background-clip: text;
+/* Base styling */
+html {
+    scroll-behavior: smooth;
 }
 
-.pie-chart {
-    background: conic-gradient(
-            #8C52FF 0deg 205deg,
-            #FD297A 205deg 244deg,
-            #FF6B6B 244deg 271deg,
-            #4ECDC4 271deg 297deg,
-            #FFE66D 297deg 360deg
-    );
+body {
+    line-height: 1.7;
 }
 
-.aspect-video {
+/* Animation keyframes */
+@keyframes pulse-glow {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Custom utility classes */
+.text-shadow {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.text-glow {
+    text-shadow: 0 0 10px rgba(140, 82, 255, 0.5);
+}
+
+/* Video section styling */
+.video-container {
     position: relative;
-    padding-bottom: 56.25%;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
 }
 
-.aspect-video iframe,
-.aspect-video > div:not(.overlay-message) {
+.video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    border-radius: 12px;
 }
 
-.overlay-message {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 10;
-    border-radius: 0.75rem;
+/* Stats counter animation */
+.stat-number {
+    display: inline-block;
+    transition: all 0.3s ease;
 }
 
-.text-shadow {
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+/* Feature card hover effects */
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
 }
 
-@keyframes pulse-glow {
-    0% {
-        opacity: 0.7;
+.feature-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Team member image effects */
+.team-member-img {
+    transition: all 0.3s ease;
+}
+
+.team-member:hover .team-member-img {
+    transform: translateY(-5px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 17, 33, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8C52FF;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #8C52FF, #FD297A);
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 80vh;
     }
-    50% {
-        opacity: 1;
+
+    h1 {
+        font-size: 2.5rem !important;
     }
-    100% {
-        opacity: 0.7;
+
+    h2 {
+        font-size: 2rem !important;
     }
+}
+
+/* Documentation specific styles */
+.doc-sidebar {
+    position: sticky;
+    top: 80px;
+}
+
+.doc-link {
+    border-left: 3px solid transparent;
+}
+
+.doc-link.active {
+    border-left: 3px solid #8C52FF;
+}
+
+/* Form styling */
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(140, 82, 255, 0.3);
+}
+
+/* Button effects */
+.btn-hover-effect:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(140, 82, 255, 0.25);
 }
