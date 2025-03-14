@@ -1,2970 +1,329 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PerceiveAI - Technical Documentation</title>
+    <title data-translate="documentation">التوثيق - PerceiveAI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #8C52FF;
-            --primary-light: #A47AFF;
-            --primary-dark: #6E41CB;
-            --secondary: #FD297A;
-            --secondary-light: #FF5B9D;
-            --secondary-dark: #CB1E5F;
-            --accent: #00D9FF;
-            --bg-dark: #0F1121;
-            --bg-card: #1A1C31;
-            --bg-code: #262A45;
-            --text-light: #FFFFFF;
-            --text-muted: #B1B5C3;
-            --text-label: #7780A1;
-            --border: #2E334E;
-            --gradient-primary: linear-gradient(45deg, #8C52FF, #FD297A);
-            --gradient-accent: linear-gradient(45deg, #00D9FF, #8C52FF);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            font-size: 16px;
-            overflow-x: hidden;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-dark);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        header {
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            background: rgba(15, 17, 33, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(46, 51, 78, 0.5);
-            transition: all 0.3s ease;
-        }
-        
-        header.scrolled {
-            padding: 0.5rem 0;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-        }
-        
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-        }
-        
-        .logo-text {
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .nav-link {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-        
-        .nav-link:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary-light);
-        }
-        
-        .nav-link:hover:after, .nav-link.active:after {
-            width: 100%;
-        }
-        
-        .language-switch {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-        }
-        
-        .language-switch:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .language-icon {
-            color: var(--primary-light);
-        }
-        
-        .documentation {
-            padding-top: 140px;
-            padding-bottom: 6rem;
-        }
-        
-        .doc-header {
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-        
-        .doc-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-        
-        .doc-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .doc-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2.5rem;
-        }
-        
-        .sidebar {
-            position: sticky;
-            top: 110px;
-            height: calc(100vh - 140px);
-            overflow-y: auto;
-            padding-right: 1rem;
-            direction: ltr;
-        }
-        
-        .toc {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .toc-title {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .toc-icon {
-            color: var(--primary);
-        }
-        
-        .toc-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .toc-item {
-            margin-bottom: 0.5rem;
-        }
-        
-        .toc-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            display: block;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-        
-        .toc-link:hover, .toc-link.active {
-            color: var(--text-light);
-            background: rgba(140, 82, 255, 0.15);
-        }
-        
-        .toc-link.active {
-            border-left: 2px solid var(--primary);
-            font-weight: 500;
-        }
-        
-        .toc-sub-list {
-            list-style: none;
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-            border-left: 1px solid var(--border);
-        }
-        
-        .toc-sub-item {
-            margin-bottom: 0.25rem;
-        }
-        
-        .toc-sub-link {
-            font-size: 0.9rem;
-            padding: 0.4rem 0.75rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            display: block;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-        
-        .toc-sub-link:hover, .toc-sub-link.active {
-            color: var(--text-light);
-            background: rgba(140, 82, 255, 0.1);
-        }
-        
-        .support-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .support-title {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .support-icon {
-            color: var(--accent);
-        }
-        
-        .support-text {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: 0 5px 15px rgba(140, 82, 255, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(140, 82, 255, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(140, 82, 255, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-        }
-        
-        .content {
-            min-height: 100vh;
-        }
-        
-        .doc-content {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 2.5rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .doc-section {
-            margin-bottom: 4rem;
-            scroll-margin-top: 120px;
-        }
-        
-        .doc-section:last-child {
-            margin-bottom: 0;
-        }
-        
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            color: var(--text-light);
-            position: relative;
-            padding-bottom: 0.75rem;
-        }
-        
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--gradient-primary);
-            border-radius: 3px;
-        }
-        
-        .subsection-title {
-            font-size: 1.6rem;
-            margin: 2.5rem 0 1.2rem;
-            font-weight: 600;
-            color: var(--primary-light);
-        }
-        
-        .doc-text {
-            margin-bottom: 1.2rem;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-        
-        .architecture-diagram {
-            background-color: var(--bg-code);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin: 2rem 0;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .architecture-diagram::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(140, 82, 255, 0.05) 0%, rgba(0, 0, 0, 0) 50%, rgba(253, 41, 122, 0.05) 100%);
-            z-index: 0;
-        }
-        
-        .architecture-diagram code {
-            position: relative;
-            z-index: 1;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            color: var(--text-light);
-        }
-        
-        .architecture-flow {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .flow-item {
-            background: var(--bg-code);
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            position: relative;
-            border: 1px solid var(--border);
-            min-width: 180px;
-            text-align: center;
-        }
-        
-        .flow-arrow {
-            display: flex;
-            align-items: center;
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-        
-        ul, ol {
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-                li {
-            margin-bottom: 0.6rem;
-        }
-        
-        pre {
-            margin: 1.5rem 0;
-        }
-        
-        code {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            font-size: 0.95rem;
-        }
-        
-        .code-block {
-            background-color: var(--bg-code);
-            border-radius: 12px;
-            position: relative;
-            margin: 2rem 0;
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 1.25rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .code-title {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-        
-        .code-language {
-            font-weight: 600;
-            color: var(--primary-light);
-        }
-        
-        .code-copy {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: color 0.2s ease;
-            display: flex;
-            align-items: center;
-            font-size: 0.85rem;
-            gap: 0.4rem;
-        }
-        
-        .code-copy:hover {
-            color: var(--primary-light);
-        }
-        
-        .code-body {
-            padding: 1.5rem;
-            overflow-x: auto;
-        }
-        
-        .hljs-keyword, .hljs-selector-tag {
-            color: #569CD6;
-        }
-        
-        .hljs-string {
-            color: #CE9178;
-        }
-        
-        .hljs-number {
-            color: #B5CEA8;
-        }
-        
-        .hljs-comment {
-            color: #6A9955;
-        }
-        
-        .endpoint {
-            display: flex;
-            align-items: center;
-            background-color: var(--bg-code);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin: 1rem 0;
-            overflow-x: auto;
-            border: 1px solid var(--border);
-        }
-        
-        .method {
-            font-weight: 600;
-            color: #4ECDC4;
-            background: rgba(78, 205, 196, 0.1);
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            margin-right: 1rem;
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            min-width: fit-content;
-        }
-        
-        .endpoint-path {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            color: var(--primary-light);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        
-        th {
-            background-color: rgba(140, 82, 255, 0.1);
-            text-align: left;
-            padding: 1rem;
-            font-weight: 600;
-            color: var(--primary-light);
-            border-bottom: 1px solid var(--border);
-        }
-        
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        tr:last-child td {
-            border-bottom: none;
-        }
-        
-        tr:nth-child(even) {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        
-        /* Card layout for better organization */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .info-card {
-            background: var(--bg-code);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-dark);
-        }
-        
-        .info-card-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        
-        .info-card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-        
-        .info-card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-        
-        .info-card-body {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-        
-        /* Tags for categorization */
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.3rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .tag-primary {
-            background: rgba(140, 82, 255, 0.15);
-            color: var(--primary-light);
-        }
-        
-        .tag-secondary {
-            background: rgba(253, 41, 122, 0.15);
-            color: var(--secondary-light);
-        }
-        
-        .tag-accent {
-            background: rgba(0, 217, 255, 0.15);
-            color: var(--accent);
-        }
-        
-        /* Callouts for important notes */
-        .callout {
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 1.5rem 0;
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .callout-info {
-            background: rgba(0, 217, 255, 0.05);
-            border-left: 4px solid var(--accent);
-        }
-        
-        .callout-warning {
-            background: rgba(255, 170, 0, 0.05);
-            border-left: 4px solid #FFAA00;
-        }
-        
-        .callout-error {
-            background: rgba(255, 71, 87, 0.05);
-            border-left: 4px solid #FF4757;
-        }
-        
-        .callout-success {
-            background: rgba(46, 213, 115, 0.05);
-            border-left: 4px solid #2ED573;
-        }
-        
-        .callout-icon {
-            font-size: 1.5rem;
-            color: inherit;
-        }
-        
-        .callout-content {
-            flex: 1;
-        }
-        
-        .callout-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Footer styling */
-        footer {
-            background: var(--bg-card);
-            padding: 3rem 0;
-            margin-top: 4rem;
-            border-top: 1px solid var(--border);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-col {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-        
-        .social-link {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--bg-code);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-        }
-        
-        .social-link:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .footer-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .footer-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        
-        .footer-link:hover {
-            color: var(--primary-light);
-        }
-        
-        .copyright {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-        }
-
-        /* New section - API Reference Tabs */
-        .api-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            overflow-x: auto;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.25rem;
-        }
-        
-        .api-tab {
-            padding: 0.75rem 1.25rem;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-weight: 500;
-            border-radius: 8px 8px 0 0;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-        
-        .api-tab:hover {
-            color: var(--primary-light);
-            background: rgba(140, 82, 255, 0.05);
-        }
-        
-        .api-tab.active {
-            color: var(--primary-light);
-            background: rgba(140, 82, 255, 0.1);
-            border-bottom: 2px solid var(--primary);
-        }
-        
-        .api-panel {
-            display: none;
-        }
-        
-        .api-panel.active {
-            display: block;
-        }
-
-        /* Back to top button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: var(--shadow-md);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 99;
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Dark mode toggle */
-        .dark-mode-toggle {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            padding: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-            width: 80px;
-            position: relative;
-        }
-        
-        .dark-mode-toggle:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .toggle-option {
-            padding: 0.25rem 0.5rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            text-align: center;
-            width: 40px;
-            z-index: 1;
-            color: var(--text-muted);
-        }
-        
-        .toggle-option.active {
-            color: var(--text-light);
-        }
-        
-        .toggle-track {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 40px;
-            height: calc(100% - 6px);
-            border-radius: 50px;
-            background: var(--gradient-primary);
-            transition: all 0.3s ease;
-        }
-        
-        .toggle-track.right {
-            left: calc(100% - 43px);
-        }
-
-        /* Responsive styles */
-        @media (max-width: 1200px) {
-            .doc-container {
-                grid-template-columns: 250px 1fr;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .doc-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                height: auto;
-                max-height: 60vh;
-                background: var(--bg-dark);
-                z-index: 99;
-                border-bottom: 1px solid var(--border);
-                padding: 1rem;
-            }
-            
-            .sidebar.active {
-                display: block;
-            }
-            
-            .mobile-toc-toggle {
-                display: block;
-                text-align: center;
-                padding: 1rem;
-                background: var(--bg-card);
-                border-radius: 12px;
-                margin-bottom: 1rem;
-                cursor: pointer;
-                border: 1px solid var(--border);
-            }
-            
-            .doc-title {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-        
-                @media (max-width: 768px) {
-            .doc-title {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .doc-content {
-                padding: 1.5rem;
-            }
-            
-            .architecture-flow {
-                flex-direction: column;
-            }
-            
-            .flow-arrow {
-                transform: rotate(90deg);
-                margin: 0.5rem 0;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .doc-title {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .architecture-diagram code {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease forwards;
-        }
-        
-        /* Code highlighting */
-        .json-key {
-            color: #9CDCFE;
-        }
-        
-        .json-string {
-            color: #CE9178;
-        }
-        
-        .json-number {
-            color: #B5CEA8;
-        }
-        
-        .json-boolean {
-            color: #569CD6;
-        }
-        
-        .json-null {
-            color: #569CD6;
-        }
-        
-        /* Search bar */
-        .search-container {
-            margin-bottom: 1.5rem;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border-radius: 8px;
-            background: var(--bg-code);
-            border: 1px solid var(--border);
-            color: var(--text-light);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(140, 82, 255, 0.25);
-        }
-
-        /* Last updated banner */
-        .last-updated {
-            background: rgba(140, 82, 255, 0.1);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border: 1px solid rgba(140, 82, 255, 0.2);
-        }
-        
-        .update-icon {
-            color: var(--primary);
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="css/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    <header id="header">
-        <div class="container header-content">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <img src="assets/logo.png" alt="PerceiveAI Logo" style="width: 24px; height: 24px; border-radius: 8px;">
-                </div>
-
-                <div class="logo-text">PerceiveAI</div>
-            </a>
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="documentation-en.html" class="nav-link active">Documentation</a>
-                <a href="#" class="nav-link">Examples</a>
-                <a href="#" class="nav-link">Support</a>
-                <div class="language-switch" id="languageSwitch">
-                    <i class="fas fa-globe language-icon"></i>
-                    <span>EN</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </nav>
+<body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
+<header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(15, 17, 33, 0.9); backdrop-filter: blur(10px);">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+        <a href="/PerceiveAI/" class="flex items-center gap-3">
+            <img src="assets/logo.png" alt="شعار PerceiveAI" class="w-8 h-8 rounded-lg">
+            <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
+        </a>
+        <div class="flex gap-6">
+            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="home">الرئيسية</a>
+            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="about">عن المشروع</a>
+            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="contact">تواصل معنا</a>
+            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary text-primary" data-translate="documentation">التوثيق</a>
+            <button id="language-switch" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="language-switch">EN</button>
         </div>
-    </header>
-    
-    <main class="documentation">
-        <div class="container">
-            <div class="doc-header fade-in">
-                <h1 class="doc-title">Technical Documentation</h1>
-                <p class="doc-subtitle">Comprehensive guide for integrating and leveraging PerceiveAI's real-time sign language interpretation system for sports broadcasts</p>
-            </div>
-            
-            <div class="mobile-toc-toggle" id="mobileTocToggle">
-                <i class="fas fa-bars"></i> Table of Contents
-            </div>
-            
-            <div class="doc-container">
-                <aside class="sidebar">
-                    <div class="last-updated">
-                        <i class="fas fa-history update-icon"></i>
-                        Last updated: 2025-03-07 04:18:56 UTC by SillyRobot883
-                    </div>
-                    
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
-                    </div>
-                    
-                    <div class="toc">
-                        <h2 class="toc-title">
-                            <i class="fas fa-list-ul toc-icon"></i>
-                            Table of Contents
-                        </h2>
-                        <ul class="toc-list">
-                            <li class="toc-item">
-                                <a href="#overview" class="toc-link active">Overview</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#architecture" class="toc-link">System Architecture</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#components" class="toc-link">Core Components</a>
-                                <ul class="toc-sub-list">
-                                    <li class="toc-sub-item">
-                                        <a href="#speech-to-text" class="toc-sub-link">Speech-to-Text Service</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#nlp" class="toc-sub-link">Natural Language Processing</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#sign-language" class="toc-sub-link">Sign Language Generator</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#avatar" class="toc-sub-link">Avatar Animation System</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#overlay" class="toc-sub-link">Overlay Integration</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#api" class="toc-link">API Reference</a>
-                                <ul class="toc-sub-list">
-                                    <li class="toc-sub-item">
-                                        <a href="#speech-api" class="toc-sub-link">Speech Recognition API</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#nlp-api" class="toc-sub-link">NLP Processing API</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#sign-api" class="toc-sub-link">Sign Language Generation API</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#avatar-api" class="toc-sub-link">Avatar Rendering API</a>
-                                    </li>
-                                    <li class="toc-sub-item">
-                                        <a href="#overlay-api" class="toc-sub-link">Overlay Integration API</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#streaming" class="toc-link">Streaming Integration</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#quickstart" class="toc-link">Quick Start Guide</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#integration" class="toc-link">Sample Integration</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#performance" class="toc-link">Performance Considerations</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#error" class="toc-link">Error Handling</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#practices" class="toc-link">Best Practices</a>
-                            </li>
-                            <li class="toc-item">
-                                <a href="#resources" class="toc-link">Resources</a>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="support-card">
-                        <h3 class="support-title">
-                            <i class="fas fa-headset support-icon"></i>
-                            Need Help?
-                        </h3>
-                        <p class="support-text">
-                            Our support team is available 24/7 to help you with any integration or technical questions.
-                        </p>
-                        <a href="#" class="btn btn-primary btn-sm">
-                            <i class="fas fa-comment-dots"></i>
-                            Contact Support
-                        </a>
-                    </div>
-                </aside>
-                
-                <div class="content">
-                    <div class="doc-content fade-in">
-                        <section class="doc-section" id="overview">
-                            <h2 class="section-title">Overview</h2>
-                            <p class="doc-text">
-                                PerceiveAI is a cutting-edge real-time sign language interpretation system specifically designed for sports broadcasts. The platform captures audio commentary, converts it to text, and transforms the text into sign language displayed via an animated avatar overlay on live broadcasts. 
-                            </p>
-                            <p class="doc-text">
-                                Our technology bridges the accessibility gap for viewers with hearing impairments, allowing them to fully engage with sports content through high-quality sign language interpretation delivered in real-time.
-                            </p>
-                            
-                            <div class="card-grid">
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-universal-access"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Enhanced Accessibility</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Make sports broadcasts inclusive for deaf and hard-of-hearing viewers through real-time sign language interpretation.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-bolt"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Real-time Processing</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Advanced AI algorithms deliver near-instant translation from speech to sign language with minimal latency.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-plug"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Easy Integration</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Seamlessly integrate with existing broadcasting workflows using our developer-friendly API and SDK.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="callout callout-info">
-                                <i class="fas fa-info-circle callout-icon"></i>
-                                <div class="callout-content">
-                                    <h4 class="callout-title">Key Benefits</h4>
-                                    <p>PerceiveAI not only improves accessibility but also expands audience reach, helps broadcasters meet regulatory requirements, and demonstrates corporate social responsibility.</p>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="doc-section" id="architecture">
-                            <h2 class="section-title">System Architecture</h2>
-                            <p class="doc-text">
-                                PerceiveAI's architecture is designed for high performance and reliability in live broadcast environments. The system processes audio inputs through multiple specialized components in a pipeline that ensures minimal latency while maintaining high accuracy.
-                            </p>
-                            
-                            <div class="architecture-diagram">
-                                <code>[Audio Input] → [Speech-to-Text] → [NLP Processing] → [Sign Language Generation] → [Avatar Animation] → [Video Overlay]</code>
-                            </div>
-                            
-                            <div class="architecture-flow">
-                                <div class="flow-item">
-                                    <h4>Audio Input</h4>
-                                    <p>Broadcast commentary feed</p>
-                                </div>
-                                <div class="flow-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="flow-item">
-                                    <h4>Speech-to-Text</h4>
-                                    <p>Speech recognition engine</p>
-                                </div>
-                                <div class="flow-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="flow-item">
-                                    <h4>NLP Processing</h4>
-                                    <p>Context analysis</p>
-                                </div>
-                                <div class="flow-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="flow-item">
-                                    <h4>Sign Language</h4>
-                                    <p>Conversion to sign sequences</p>
-                                </div>
-                                <div class="flow-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="flow-item">
-                                    <h4>Avatar Animation</h4>
-                                    <p>3D character rendering</p>
-                                </div>
-                                <div class="flow-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="flow-item">
-                                                                        <h4>Video Overlay</h4>
-                                    <p>Broadcast integration</p>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">
-                                The modular design allows each component to be optimized independently while maintaining efficient data flow between stages. This architecture supports both cloud-based deployment for maximum scalability and edge computing configurations for reduced latency in time-sensitive broadcast environments.
-                            </p>
-                        </section>
-                        
-                        <section class="doc-section" id="components">
-                            <h2 class="section-title">Core Components</h2>
-                            <p class="doc-text">
-                                PerceiveAI consists of five specialized components working in harmony to deliver accurate sign language interpretation with minimal delay.
-                            </p>
-                            
-                            <h3 class="subsection-title" id="speech-to-text">1. Speech-to-Text Service</h3>
-                            <div class="tag-container">
-                                <span class="tag tag-primary">Real-time Processing</span>
-                                <span class="tag tag-secondary">Multi-lingual Support</span>
-                                <span class="tag tag-accent">Noise Filtering</span>
-                            </div>
-                            <p class="doc-text">
-                                Our advanced speech recognition engine captures and converts live audio commentary into text. The system is specifically trained on sports broadcasting scenarios to maximize accuracy in challenging environments.
-                            </p>
-                            <ul>
-                                <li>Captures and converts live audio commentary to text</li>
-                                <li>Handles noisy environments (stadiums, crowds)</li>
-                                <li>Supports English and Arabic languages</li>
-                                <li>Optimized for sports terminology and rapid speech</li>
-                                <li>Adapts to different accents and speech patterns</li>
-                            </ul>
-                            
-                            <h3 class="subsection-title" id="nlp">2. Natural Language Processing</h3>
-                            <div class="tag-container">
-                                <span class="tag tag-primary">Context Analysis</span>
-                                <span class="tag tag-secondary">Entity Recognition</span>
-                                <span class="tag tag-accent">Sentiment Detection</span>
-                            </div>
-                            <p class="doc-text">
-                                The NLP component analyzes the transcribed text to understand context, identify sports-specific terminology, recognize named entities (players, teams), and detect emotional content.
-                            </p>
-                            <ul>
-                                <li>Analyzes and understands sports terminology context</li>
-                                <li>Handles player names, technical terms, and emotional content</li>
-                                <li>Prepares text for sign language conversion</li>
-                                <li>Prioritizes important information during fast-paced commentary</li>
-                                <li>Maintains semantic coherence when processing partial phrases</li>
-                            </ul>
-                            
-                            <h3 class="subsection-title" id="sign-language">3. Sign Language Generator</h3>
-                            <div class="tag-container">
-                                <span class="tag tag-primary">Multiple Sign Languages</span>
-                                <span class="tag tag-secondary">Sports-Specific Signs</span>
-                                <span class="tag tag-accent">Customizable Outputs</span>
-                            </div>
-                            <p class="doc-text">
-                                This component converts the processed text into accurately sequenced sign language animations, ensuring natural transitions and proper expression of concepts.
-                            </p>
-                            <ul>
-                                <li>Converts processed text to sign language sequence</li>
-                                <li>Supports Arabic/Saudi Sign Language (ArSL)</li>
-                                <li>Includes specialized sports gestures and signs</li>
-                                <li>Optimizes signing speed for comprehension while maintaining pace</li>
-                                <li>Provides appropriate emphasis based on detected sentiment</li>
-                            </ul>
-                            
-                            <div class="callout callout-info">
-                                <i class="fas fa-lightbulb callout-icon"></i>
-                                <div class="callout-content">
-                                    <h4 class="callout-title">Sign Language Customization</h4>
-                                    <p>PerceiveAI supports customization of sign language dialects and sport-specific sign vocabularies to ensure accurate and culturally appropriate communication.</p>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title" id="avatar">4. Avatar Animation System</h3>
-                            <div class="tag-container">
-                                <span class="tag tag-primary">3D Rendering</span>
-                                <span class="tag tag-secondary">Realistic Movements</span>
-                                <span class="tag tag-accent">Customizable Appearance</span>
-                            </div>
-                            <p class="doc-text">
-                                The animation system displays sign language through a 3D avatar that performs clear, natural signing with appropriate facial expressions and body language.
-                            </p>
-                            <ul>
-                                <li>Renders sign language through a 3D avatar</li>
-                                <li>Provides clear, natural signing movements</li>
-                                <li>Optimized for video stream display</li>
-                                <li>Supports customizable avatar appearance</li>
-                                <li>Includes facial expressions for complete communication</li>
-                            </ul>
-                            
-                            <h3 class="subsection-title" id="overlay">5. Overlay Integration</h3>
-                            <div class="tag-container">
-                                <span class="tag tag-primary">Multiple Broadcast Platforms</span>
-                                <span class="tag tag-secondary">Flexible Positioning</span>
-                                <span class="tag tag-accent">Low Latency</span>
-                            </div>
-                            <p class="doc-text">
-                                This component handles the seamless integration of the animated avatar into broadcast feeds as a configurable overlay layer.
-                            </p>
-                            <ul>
-                                <li>Seamless integration with broadcast feeds</li>
-                                <li>Support for various broadcasting platforms and TV transmission</li>
-                                <li>Configurable avatar size, position, and opacity</li>
-                                <li>Multiple output formats (RTMP, NDI, WebRTC)</li>
-                                <li>Synchronization with video feed timing</li>
-                            </ul>
-                        </section>
-                        
-                        <section class="doc-section" id="api">
-                            <h2 class="section-title">API Reference</h2>
-                            <p class="doc-text">
-                                PerceiveAI provides a comprehensive set of RESTful APIs that allow developers to integrate each component of the system independently or use the complete pipeline. All endpoints use HTTPS and require API authentication.
-                            </p>
-                            
-                            <div class="api-tabs">
-                                <button class="api-tab active" data-panel="speech-panel">Speech API</button>
-                                <button class="api-tab" data-panel="nlp-panel">NLP API</button>
-                                <button class="api-tab" data-panel="sign-panel">Sign Language API</button>
-                                <button class="api-tab" data-panel="avatar-panel">Avatar API</button>
-                                <button class="api-tab" data-panel="overlay-panel">Overlay API</button>
-                            </div>
-                            
-                            <div class="api-panel active" id="speech-panel">
-                                <h3 class="subsection-title" id="speech-api">Speech Recognition API</h3>
-                                <div class="endpoint">
-                                    <span class="method">POST</span>
-                                    <span class="endpoint-path">/api/v1/speech-to-text</span>
-                                </div>
-                                <p class="doc-text">Converts audio stream to text.</p>
-                                
-                                <h4>Request:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy" id="copyRequestBtn1">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"audio_stream"</span>: <span class="json-string">"base64_encoded_audio"</span>,
-  <span class="json-key">"language"</span>: <span class="json-string">"en"</span>,
-  <span class="json-key">"context"</span>: <span class="json-string">"sports"</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                                
-                                <h4>Response:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy" id="copyResponseBtn1">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"text"</span>: <span class="json-string">"Mohamed passes the ball to Abdullah who shoots towards the goal!"</span>,
-  <span class="json-key">"confidence"</span>: <span class="json-number">0.94</span>,
-  <span class="json-key">"timestamp"</span>: <span class="json-number">1646849422</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                                
-                                <h4>Parameters:</h4>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Parameter</th>
-                                            <th>Type</th>
-                                            <th>Required</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>audio_stream</td>
-                                            <td>String</td>
-                                            <td>Yes</td>
-                                            <td>Base64 encoded audio data. Supports wav, mp3, ogg formats.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>language</td>
-                                            <td>String</td>
-                                            <td>Yes</td>
-                                            <td>Language code: "en" (English) or "ar" (Arabic)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>context</td>
-                                            <td>String</td>
-                                            <td>No</td>
-                                            <td>Context hint to improve recognition accuracy. Default: "general"</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="api-panel" id="nlp-panel">
-                                <h3 class="subsection-title" id="nlp-api">Natural Language Processing API</h3>
-                                <div class="endpoint">
-                                    <span class="method">POST</span>
-                                    <span class="endpoint-path">/api/v1/process-text</span>
-                                </div>
-                                <p class="doc-text">Processes and contextualizes sports commentary text.</p>
-                                
-                                <h4>Request:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"text"</span>: <span class="json-string">"Mohamed passes the ball to Abdullah who shoots towards the goal!"</span>,
-  <span class="json-key">"sport_type"</span>: <span class="json-string">"football"</span>,
-  <span class="json-key">"league"</span>: <span class="json-string">"saudi_pro_league"</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                                
-                                <h4>Response:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"processed_text"</span>: <span class="json-string">"Mohamed passes the ball to Abdullah who shoots towards the goal!"</span>,
-  <span class="json-key">"entities"</span>: [
-    {<span class="json-key">"type"</span>: <span class="json-string">"player"</span>, <span class="json-key">"value"</span>: <span class="json-string">"Mohamed"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.92</span>},
-    {<span class="json-key">"type"</span>: <span class="json-string">"action"</span>, <span class="json-key">"value"</span>: <span class="json-string">"passes"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.96</span>},
-    {<span class="json-key">"type"</span>: <span class="json-string">"player"</span>, <span class="json-key">"value"</span>: <span class="json-string">"Abdullah"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.91</span>}
-  ],
-  <span class="json-key">"sentiment"</span>: <span class="json-string">"excited"</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="api-panel" id="sign-panel">
-                                <h3 class="subsection-title" id="sign-api">Sign Language Generation API</h3>
-                                <div class="endpoint">
-                                    <span class="method">POST</span>
-                                    <span class="endpoint-path">/api/v1/generate-sign</span>
-                                </div>
-                                <p class="doc-text">Generates sign language animation data from processed text.</p>
-                                
-                                <h4>Request:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                                                                <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"text"</span>: <span class="json-string">"Mohamed passes the ball to Abdullah who shoots towards the goal!"</span>,
-  <span class="json-key">"entities"</span>: [...],
-  <span class="json-key">"sign_language"</span>: <span class="json-string">"arsl"</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                                
-                                <h4>Response:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"animation_data"</span>: {
-    <span class="json-key">"frames"</span>: [
-      {
-        <span class="json-key">"timestamp"</span>: <span class="json-number">0</span>,
-        <span class="json-key">"keypoints"</span>: [{...}]
-      },
-      <span class="json-comment">// additional frames</span>
-    ]
-  },
-  <span class="json-key">"duration"</span>: <span class="json-number">5.2</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="api-panel" id="avatar-panel">
-                                <h3 class="subsection-title" id="avatar-api">Avatar Rendering API</h3>
-                                <div class="endpoint">
-                                    <span class="method">POST</span>
-                                    <span class="endpoint-path">/api/v1/render-avatar</span>
-                                </div>
-                                <p class="doc-text">Renders the 3D avatar with animation data.</p>
-                                
-                                <h4>Request:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"animation_data"</span>: {...},
-  <span class="json-key">"avatar_config"</span>: {
-    <span class="json-key">"model"</span>: <span class="json-string">"default"</span>,
-    <span class="json-key">"size"</span>: <span class="json-string">"medium"</span>
-  }
-}</code></pre>
-                                    </div>
-                                </div>
-                                
-                                <h4>Response:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"rendered_frames"</span>: <span class="json-string">"base64_encoded_video"</span>,
-  <span class="json-key">"format"</span>: <span class="json-string">"webm"</span>,
-  <span class="json-key">"framerate"</span>: <span class="json-number">30</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="api-panel" id="overlay-panel">
-                                <h3 class="subsection-title" id="overlay-api">Overlay Integration API</h3>
-                                <div class="endpoint">
-                                    <span class="method">POST</span>
-                                    <span class="endpoint-path">/api/v1/create-overlay</span>
-                                </div>
-                                <p class="doc-text">Creates an overlay with the rendered avatar for broadcast integration.</p>
-                                
-                                <h4>Request:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"rendered_frames"</span>: <span class="json-string">"base64_encoded_video"</span>,
-  <span class="json-key">"position"</span>: {
-    <span class="json-key">"x"</span>: <span class="json-number">0.05</span>,
-    <span class="json-key">"y"</span>: <span class="json-number">0.7</span>
-  },
-  <span class="json-key">"opacity"</span>: <span class="json-number">0.9</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                                
-                                <h4>Response:</h4>
-                                <div class="code-block">
-                                    <div class="code-header">
-                                        <div class="code-title">
-                                            <i class="fas fa-code"></i>
-                                            <span class="code-language">JSON</span>
-                                        </div>
-                                        <button class="code-copy">
-                                            <i class="far fa-copy"></i>
-                                            Copy
-                                        </button>
-                                    </div>
-                                    <div class="code-body">
-                                        <pre><code>{
-  <span class="json-key">"overlay_id"</span>: <span class="json-string">"ovr_12345"</span>,
-  <span class="json-key">"stream_url"</span>: <span class="json-string">"rtmp://overlay.perceiveai.sa/live/12345"</span>,
-  <span class="json-key">"status"</span>: <span class="json-string">"ready"</span>
-}</code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="callout callout-warning">
-                                <i class="fas fa-shield-alt callout-icon"></i>
-                                <div class="callout-content">
-                                    <h4 class="callout-title">API Authentication</h4>
-                                    <p>All API requests require authentication via an API key. Include your API key in the Authorization header as <code>Bearer YOUR_API_KEY</code>.</p>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="doc-section" id="streaming">
-                            <h2 class="section-title">Streaming Integration</h2>
-                            <p class="doc-text">
-                                PerceiveAI supports various methods for integrating the sign language overlay with live broadcasting systems. Here are the most common integration approaches:
-                            </p>
-                            
-                            <h3 class="subsection-title">OBS Studio Integration</h3>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-code"></i>
-                                        <span class="code-language">RTMP URL</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>rtmp://overlay.perceiveai.sa/live/{overlay_id}</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">Add as a Browser Source in OBS:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-code"></i>
-                                        <span class="code-language">Browser Source URL</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>https://overlay.perceiveai.sa/embed/{overlay_id}</code></pre>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">Direct SDK Integration</h3>
-                            <p class="doc-text">For platforms supporting browser sources or HTML overlays:</p>
-                            
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-code"></i>
-                                        <span class="code-language">HTML</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>&lt;script src="https://cdn.perceiveai.sa/overlay-sdk.js">&lt;/script>
-&lt;div id="perceive-overlay" data-key="YOUR_API_KEY" data-id="{overlay_id}">&lt;/div></code></pre>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">NDI® Integration</h3>
-                            <p class="doc-text">
-                                For broadcast systems supporting NDI®, configure the output in the PerceiveAI dashboard:
-                            </p>
-                            
-                            <div class="card-grid">
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-cog"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Enable NDI Output</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>In your dashboard, navigate to Settings > Outputs and enable NDI with your desired configuration.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-random"></i>
-                                        </div>
-                                        <h3 class="info-card-title">NDI Source Name</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>The source will appear in compatible software as: <code>PerceiveAI-{overlay_id}</code></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="doc-section" id="quickstart">
-                            <h2 class="section-title">Quick Start Guide</h2>
-                            
-                            <h3 class="subsection-title">Installation</h3>
-                            
-                            <p class="doc-text">1. Clone the repository:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>git clone https://github.com/perceiveAI/sign-language-overlay.git
-cd sign-language-overlay</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">2. Install dependencies:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>pip install -r requirements.txt</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">3. Configure your environment:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>cp .env.example .env
-# Edit .env file with your API keys and settings</code></pre>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">Local Development</h3>
-                            
-                            <p class="doc-text">1. Start the development server:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                                                        <pre><code>python manage.py runserver</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">2. Start the speech recognition service:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>python services/speech_recognition.py</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">3. Start the avatar rendering service:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>python services/avatar_renderer.py</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">4. Start the overlay service:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>python services/overlay_service.py</code></pre>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">Docker Deployment</h3>
-                            
-                            <p class="doc-text">Deploy the complete stack using Docker Compose:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>docker-compose up -d</code></pre>
-                                </div>
-                            </div>
-                            
-                            <p class="doc-text">Individual services can be deployed separately:</p>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-terminal"></i>
-                                        <span class="code-language">Shell</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>docker-compose up -d speech-recognition
-docker-compose up -d nlp-processor
-docker-compose up -d sign-generator
-docker-compose up -d avatar-renderer
-docker-compose up -d overlay-service</code></pre>
-                                </div>
-                            </div>
-                            
-                            <div class="callout callout-success">
-                                <i class="fas fa-check-circle callout-icon"></i>
-                                <div class="callout-content">
-                                    <h4 class="callout-title">Quickstart Complete</h4>
-                                    <p>Your PerceiveAI system should now be running. Access the dashboard at http://localhost:8000 to configure your services and get your overlay URL.</p>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="doc-section" id="integration">
-                            <h2 class="section-title">Sample Integration</h2>
-                            
-                            <h3 class="subsection-title">Python Client</h3>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fab fa-python"></i>
-                                        <span class="code-language">Python</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>import requests
-import base64
-import json
-
-class PerceiveAIClient:
-    def __init__(self, api_key, base_url="https://api.perceiveai.sa"):
-        self.api_key = api_key
-        self.base_url = base_url
-        self.headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
-    
-    def process_audio_file(self, audio_file_path, language="en", sport_type="football"):
-        # Read audio file
-        with open(audio_file_path, "rb") as f:
-            audio_data = base64.b64encode(f.read()).decode("utf-8")
-        
-        # Convert speech to text
-        stt_response = requests.post(
-            f"{self.base_url}/api/v1/speech-to-text",
-            headers=self.headers,
-            json={"audio_stream": audio_data, "language": language, "context": "sports"}
-        )
-        text_result = stt_response.json()
-        
-        # Process text with NLP
-        nlp_response = requests.post(
-            f"{self.base_url}/api/v1/process-text",
-            headers=self.headers,
-            json={"text": text_result["text"], "sport_type": sport_type}
-        )
-        processed_result = nlp_response.json()
-        
-        # Generate sign language animation
-        sign_response = requests.post(
-            f"{self.base_url}/api/v1/generate-sign",
-            headers=self.headers,
-            json={
-                "text": processed_result["processed_text"],
-                "entities": processed_result["entities"],
-                "sign_language": "arsl"
-            }
-        )
-        animation_result = sign_response.json()
-        
-        # Render avatar
-        render_response = requests.post(
-            f"{self.base_url}/api/v1/render-avatar",
-            headers=self.headers,
-            json={"animation_data": animation_result["animation_data"]}
-        )
-        avatar_result = render_response.json()
-        
-        # Create overlay
-        overlay_response = requests.post(
-            f"{self.base_url}/api/v1/create-overlay",
-            headers=self.headers,
-            json={"rendered_frames": avatar_result["rendered_frames"]}
-        )
-        
-        return overlay_response.json()
-
-# Usage example
-client = PerceiveAIClient(api_key="YOUR_API_KEY")
-result = client.process_audio_file("commentary.wav")
-print(f"Overlay ready: {result['stream_url']}")</code></pre>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">JavaScript Integration</h3>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fab fa-js"></i>
-                                        <span class="code-language">JavaScript</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>// In browser environment
-const perceiveAI = new PerceiveAI('YOUR_API_KEY');
-
-// For live commentary
-navigator.mediaDevices.getUserMedia({ audio: true })
-  .then(stream => {
-    perceiveAI.processLiveAudio(stream, {
-      language: 'en',
-      sportType: 'football',
-      onOverlayReady: (overlayUrl) => {
-        // Add overlay to your video player
-        document.getElementById('sign-language-container').innerHTML = 
-          `<iframe src="${overlayUrl}" frameborder="0"></iframe>`;
-      }
-    });
-  });</code></pre>
-                                </div>
-                            </div>
-
-                            <h3 class="subsection-title">React Component</h3>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fab fa-react"></i>
-                                        <span class="code-language">JSX</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>import React, { useEffect, useState } from 'react';
-import { PerceiveAIOverlay } from '@perceiveai/react-overlay';
-
-const SignLanguageOverlay = ({ apiKey, sportType = 'football' }) => {
-  const [overlayUrl, setOverlayUrl] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const startAudioCapture = async () => {
-      try {
-        setIsProcessing(true);
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        
-        const perceiveClient = new PerceiveAI(apiKey);
-        perceiveClient.processLiveAudio(stream, {
-          language: 'en',
-          sportType,
-          onOverlayReady: (url) => {
-            setOverlayUrl(url);
-            setIsProcessing(false);
-          },
-          onError: (err) => {
-            setError(err.message);
-            setIsProcessing(false);
-          }
-        });
-      } catch (err) {
-        setError(err.message);
-        setIsProcessing(false);
-      }
-    };
-
-    startAudioCapture();
-  }, [apiKey, sportType]);
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
-
-  return (
-    <div className="sign-language-overlay">
-      {isProcessing && <div className="loading-spinner">Processing audio feed...</div>}
-      {overlayUrl && <PerceiveAIOverlay src={overlayUrl} position="bottom-right" />}
     </div>
-  );
-};
+</header>
 
-export default SignLanguageOverlay;</code></pre>
-                                </div>
-                            </div>
-                        </section>
+<section class="h-[50vh] flex items-center justify-center pt-20 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0"
+             style="background: radial-gradient(ellipse at top right, rgba(140,82,255,0.15) 0%, rgba(18,18,18,0) 50%),
+                              radial-gradient(ellipse at bottom left, rgba(253,41,122,0.15) 0%, rgba(18,18,18,0) 50%);
+                    animation: pulse-glow 8s ease-in-out infinite alternate;">
+        </div>
+        <div class="absolute inset-0 opacity-60"
+             style="background: linear-gradient(135deg, rgba(140,82,255,0.08) 0%, rgba(253,41,122,0.08) 100%);
+                    filter: blur(60px);">
+        </div>
+    </div>
+
+    <div class="container mx-auto px-8">
+        <div class="flex flex-col gap-8 max-w-xl mx-auto">
+            <h1 class="text-5xl font-black leading-tight mb-4 md:text-4xl lg:text-5xl text-center" data-translate="docs-title">
+                التوثيق <span class="bg-gradient-primary bg-clip-text text-transparent">التقني</span>
+            </h1>
+            <p class="text-xl text-text-muted mb-8 text-center" data-translate="docs-subtitle">
+                دليل شامل لفهم واستخدام تقنيتنا
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="py-16">
+    <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="bg-bg-card p-6 rounded-3xl shadow-lg sticky top-24">
+                    <h2 class="text-2xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+                        <i class="fas fa-list-ul mr-2"></i> <span data-translate="contents-title">المحتويات</span>
+                    </h2>
+                    <nav class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3" data-translate="getting-started">البداية</h3>
+                            <ul class="space-y-2 pr-4 border-r-2 border-primary/30">
+                                <li><a href="#intro" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="intro-title">مقدمة</a></li>
+                                <li><a href="#installation" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="installation-title">التثبيت</a></li>
+                                <li><a href="#quick-start" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="quick-start-title">البدء السريع</a></li>
+                            </ul>
+                        </div>
                         
-                        <section class="doc-section" id="performance">
-                            <h2 class="section-title">Performance Considerations</h2>
-                            
-                            <div class="card-grid">
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-server"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Recommended Hardware</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <ul>
-                                            <li>CPU: 4+ cores, 8+ threads recommended</li>
-                                            <li>RAM: 8GB minimum, 16GB recommended</li>
-                                            <li>GPU: NVIDIA RTX series recommended for acceleration</li>
-                                            <li>Storage: 50GB SSD for system files and cache</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-network-wired"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Network Requirements</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <ul>
-                                            <li>Upload speed: 5Mbps+ for real-time processing</li>
-                                            <li>Download speed: 10Mbps+ for smooth operation</li>
-                                            <li>Latency: < 100ms to API endpoints preferred</li>
-                                            <li>Stable connection required for continuous operation</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-tachometer-alt"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Response Times</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <ul>
-                                            <li>Expected latency: 1-3 seconds from speech to sign display</li>
-                                            <li>Speech recognition: ~300-500ms</li>
-                                            <li>NLP processing: ~200-400ms</li>
-                                            <li>Sign generation: ~300-600ms</li>
-                                            <li>Avatar rendering: ~200-500ms</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-desktop"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Supported Browsers</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <ul>
-                                            <li>Chrome 80+</li>
-                                            <li>Firefox 75+</li>
-                                            <li>Safari 13+</li>
-                                            <li>Edge 80+</li>
-                                            <li>Mobile browser support varies</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="callout callout-info">
-                                <i class="fas fa-bolt callout-icon"></i>
-                                                                <div class="callout-content">
-                                    <h4 class="callout-title">Performance Optimization</h4>
-                                    <p>For high-traffic or mission-critical deployments, consider using our dedicated edge computing option which places processing nodes closer to your broadcasting infrastructure to minimize latency.</p>
-                                </div>
-                            </div>
-                        </section>
+                        <div>
+                            <h3 class="text-lg font-bold mb-3" data-translate="api-reference">مرجع API</h3>
+                            <ul class="space-y-2 pr-4 border-r-2 border-primary/30">
+                                <li><a href="#speech-recognition-api" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="speech-recognition-api">واجهة التعرف على الكلام</a></li>
+                                <li><a href="#translation-api" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="translation-api">واجهة الترجمة</a></li>
+                                <li><a href="#avatar-api" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="avatar-api">واجهة الأفاتار</a></li>
+                            </ul>
+                        </div>
                         
-                        <section class="doc-section" id="error">
-                            <h2 class="section-title">Error Handling</h2>
-                            
-                            <p class="doc-text">Common error codes you might encounter when using the PerceiveAI API:</p>
-                            
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Status Code</th>
-                                        <th>Error Type</th>
-                                        <th>Description</th>
-                                        <th>Recommended Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>400</td>
-                                        <td>Bad Request</td>
-                                        <td>Invalid input parameters</td>
-                                        <td>Check API documentation and validate request parameters</td>
-                                    </tr>
-                                    <tr>
-                                        <td>401</td>
-                                        <td>Unauthorized</td>
-                                        <td>Authentication failed</td>
-                                        <td>Verify your API key and ensure it's included correctly</td>
-                                    </tr>
-                                    <tr>
-                                        <td>402</td>
-                                        <td>Payment Required</td>
-                                        <td>Usage limit exceeded</td>
-                                        <td>Check your subscription tier or upgrade for additional capacity</td>
-                                    </tr>
-                                    <tr>
-                                        <td>429</td>
-                                        <td>Too Many Requests</td>
-                                        <td>Rate limit exceeded</td>
-                                        <td>Implement backoff strategy or reduce request frequency</td>
-                                    </tr>
-                                    <tr>
-                                        <td>500</td>
-                                        <td>Internal Server Error</td>
-                                        <td>Server-side issue</td>
-                                        <td>Contact support if the issue persists</td>
-                                    </tr>
-                                    <tr>
-                                        <td>503</td>
-                                        <td>Service Unavailable</td>
-                                        <td>Service temporarily down</td>
-                                        <td>Wait and retry with exponential backoff</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            <h3 class="subsection-title">Sample Error Response</h3>
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-title">
-                                        <i class="fas fa-code"></i>
-                                        <span class="code-language">JSON</span>
-                                    </div>
-                                    <button class="code-copy">
-                                        <i class="far fa-copy"></i>
-                                        Copy
-                                    </button>
-                                </div>
-                                <div class="code-body">
-                                    <pre><code>{
-  <span class="json-key">"error"</span>: {
-    <span class="json-key">"code"</span>: <span class="json-string">"speech_recognition_failed"</span>,
-    <span class="json-key">"message"</span>: <span class="json-string">"Could not recognize speech in the provided audio"</span>,
-    <span class="json-key">"details"</span>: <span class="json-string">"Background noise too high"</span>
-  }
-}</code></pre>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">Error Handling Strategies</h3>
-                            
-                            <div class="card-grid">
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Implement Retries</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>For transient errors (5xx responses), implement an exponential backoff strategy to retry the request.</p>
-                                        <div class="code-block">
-                                            <pre><code>// Retry with exponential backoff
-async function retryRequest(fn, maxRetries = 3) {
-  let retries = 0;
-  while (retries < maxRetries) {
-    try {
-      return await fn();
-    } catch (error) {
-      if (error.status < 500 || retries === maxRetries - 1) {
-        throw error;
-      }
-      const delay = Math.pow(2, retries) * 1000;
-      await new Promise(resolve => setTimeout(resolve, delay));
-      retries++;
-    }
-  }
-}</code></pre>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-file-alt"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Fallback Content</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>If sign language generation fails, provide alternative accessibility measures:</p>
-                                        <ul>
-                                            <li>Display text captions as a fallback</li>
-                                            <li>Cache common phrases and responses</li>
-                                            <li>Use pre-rendered fallback animations for common scenarios</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="callout callout-warning">
-                                <i class="fas fa-exclamation-triangle callout-icon"></i>
-                                <div class="callout-content">
-                                    <h4 class="callout-title">Error Monitoring</h4>
-                                    <p>Implement comprehensive error logging and set up alerts for critical failures. This helps in quick issue identification and resolution, especially during live broadcasts.</p>
-                                </div>
-                            </div>
-                        </section>
+                        <div>
+                            <h3 class="text-lg font-bold mb-3" data-translate="integration-guide">دليل التكامل</h3>
+                            <ul class="space-y-2 pr-4 border-r-2 border-primary/30">
+                                <li><a href="#web-integration" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="web-integration">التكامل مع الويب</a></li>
+                                <li><a href="#mobile-integration" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="mobile-integration">التكامل مع الجوال</a></li>
+                                <li><a href="#broadcasting-integration" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="broadcasting-integration">التكامل مع البث</a></li>
+                            </ul>
+                        </div>
                         
-                        <section class="doc-section" id="practices">
-                            <h2 class="section-title">Best Practices</h2>
-                            
-                            <ol>
-                                <li>
-                                    <h4><strong>Audio Quality Optimization</strong></h4>
-                                    <p>Ensure clean audio input for optimal speech recognition results.</p>
-                                    <ul>
-                                        <li>Use a direct audio feed from broadcast mixing board</li>
-                                        <li>Apply noise reduction filters where necessary</li>
-                                        <li>Maintain consistent audio levels</li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <h4><strong>Context Training</strong></h4>
-                                    <p>Improve accuracy by training the system on sports-specific terminology.</p>
-                                    <ul>
-                                        <li>Upload team roster and player names before broadcasts</li>
-                                        <li>Add league-specific terminology to the vocabulary</li>
-                                        <li>Update the system with new sports terms regularly</li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <h4><strong>Avatar Placement</strong></h4>
-                                    <p>Position the sign language avatar for optimal visibility.</p>
-                                    <ul>
-                                        <li>Bottom-right corner is generally optimal</li>
-                                        <li>Ensure contrast against the broadcast content</li>
-                                        <li>Set size to approximately 1/6 of the screen height</li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <h4><strong>Transparency Settings</strong></h4>
-                                    <p>Adjust avatar transparency to avoid obscuring content.</p>
-                                    <ul>
-                                        <li>Recommended opacity: 80-90%</li>
-                                        <li>Use backdrop blur for better readability</li>
-                                        <li>Consider dynamic transparency based on content brightness</li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <h4><strong>Response Caching</strong></h4>
-                                    <p>Cache common phrases for faster response times.</p>
-                                    <ul>
-                                        <li>Pre-generate animations for team names and recurring phrases</li>
-                                        <li>Set up warmup procedures before broadcast</li>
-                                        <li>Implement intelligent prediction for upcoming terms</li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <h4><strong>Fallback Mode</strong></h4>
-                                    <p>Implement caption fallbacks when sign generation fails.</p>
-                                    <ul>
-                                        <li>Automatically switch to text captions if processing is delayed</li>
-                                        <li>Prepare emergency message templates</li>
-                                        <li>Establish manual override procedures</li>
-                                    </ul>
-                                </li>
-                            </ol>
-                            
-                            <div class="callout callout-success">
-                                <i class="fas fa-star callout-icon"></i>
-                                <div class="callout-content">
-                                    <h4 class="callout-title">Continuous Feedback Loop</h4>
-                                    <p>Gather feedback from deaf and hard-of-hearing viewers to continuously improve the sign language representation. Their insights are invaluable for enhancement and refinement of the system.</p>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section class="doc-section" id="resources">
-                            <h2 class="section-title">Resources</h2>
-                            
-                            <div class="card-grid">
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-book"></i>
-                                        </div>
-                                        <h3 class="info-card-title">API Reference</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Complete API documentation with all endpoints, parameters, and response schemas.</p>
-                                        <a href="https://docs.perceiveai.sa/api" class="btn btn-secondary btn-sm" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> View API Docs
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-code"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Sample Applications</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Ready-to-use example implementations and integration templates.</p>
-                                        <a href="https://github.com/perceiveAI/examples" class="btn btn-secondary btn-sm" target="_blank">
-                                            <i class="fab fa-github"></i> GitHub Repository
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-user-edit"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Avatar Customization</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Learn how to customize avatar appearance, animations, and behaviors.</p>
-                                        <a href="https://docs.perceiveai.sa/avatar" class="btn btn-secondary btn-sm" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> Customization Guide
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-language"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Sign Language Dictionary</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Database of sign language gestures and sports-specific signs used by the system.</p>
-                                        <a href="https://github.com/perceiveAI/arsl-corpus" class="btn btn-secondary btn-sm" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> Sign Dictionary
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h3 class="subsection-title">Community & Support</h3>
-                            
-                            <div class="card-grid">
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-comments"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Developer Forum</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Join our community forum to discuss integration challenges and share solutions.</p>
-                                        <a href="https://community.perceiveai.sa" class="btn btn-secondary btn-sm" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> Visit Forum
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <div class="info-card-header">
-                                        <div class="info-card-icon">
-                                            <i class="fas fa-video"></i>
-                                        </div>
-                                        <h3 class="info-card-title">Video Tutorials</h3>
-                                    </div>
-                                    <div class="info-card-body">
-                                        <p>Step-by-step video guides for setup and integration in different environments.</p>
-                                        <a href="https://learn.perceiveai.sa/videos" class="btn btn-secondary btn-sm" target="_blank">
-                                            <i class="fas fa-play-circle"></i> Watch Tutorials
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <a href="#" class="btn btn-primary" style="margin-top: 3rem;">
-                            <i class="fas fa-arrow-left"></i>
-                            Back to Home
+                        <div>
+                            <h3 class="text-lg font-bold mb-3" data-translate="faq-title">أسئلة شائعة</h3>
+                            <ul class="space-y-2 pr-4 border-r-2 border-primary/30">
+                                <li><a href="#technical-faq" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="technical-faq">أسئلة تقنية</a></li>
+                                <li><a href="#usage-faq" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="usage-faq">أسئلة الاستخدام</a></li>
+                                <li><a href="#troubleshooting" class="text-text-muted hover:text-primary transition-colors block py-1" data-translate="troubleshooting">استكشاف الأخطاء وإصلاحها</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <a href="#" class="flex items-center gap-2 bg-gradient-primary py-3 px-4 rounded-lg text-white font-bold text-center justify-center hover:shadow-lg hover:shadow-primary/30 transition-all" data-translate="download-docs">
+                            <i class="fas fa-file-pdf"></i>
+                            تحميل التوثيق الكامل
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-             	            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="footer-logo">PerceiveAI</div>
-                    <p>Making sports broadcasts accessible to everyone through real-time sign language interpretation.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Getting Started Section -->
+                <section id="intro" class="mb-16">
+                    <div class="bg-bg-card rounded-3xl p-8 shadow-lg mb-8">
+                        <h2 class="text-3xl font-bold mb-6">
+                            <span class="bg-gradient-primary bg-clip-text text-transparent" data-translate="intro-title">مقدمة</span>
+                        </h2>
+                        <div class="space-y-4 text-lg text-text-muted">
+                            <p data-translate="intro-section">
+                                مرحباً بك في التوثيق الرسمي لمشروع PerceiveAI، الحل المبتكر لتحويل التعليق الصوتي للمباريات الرياضية إلى لغة الإشارة باستخدام الذكاء الاصطناعي.
+                            </p>
+                            <p data-translate="intro-purpose">
+                                يهدف هذا التوثيق إلى مساعدة المطورين والمؤسسات الإعلامية على فهم التقنية وكيفية دمجها في منصاتهم لتقديم تجربة أكثر شمولية للمشاهدين من ذوي الإعاقة السمعية.
+                            </p>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 mt-6">
+                                <div class="font-bold text-primary mb-2" data-translate="important-note">ملاحظة هامة</div>
+                                <p data-translate="beta-notice">التوثيق الحالي هو للإصدار التجريبي (Beta v1.2) وهو قيد التطوير المستمر. يتم تحديث هذه الصفحة بانتظام مع إضافة ميزات جديدة وتحسينات.</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Documentation</h4>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link">Getting Started</a>
-                        <a href="#" class="footer-link">API Reference</a>
-                        <a href="#" class="footer-link">Sample Code</a>
-                        <a href="#" class="footer-link">Release Notes</a>
+                    
+                    <!-- Update Sample Code Preview to use translation variable -->
+                    <div class="bg-bg-card rounded-3xl overflow-hidden shadow-lg">
+                        <div class="bg-bg-dark/50 border-b border-white/10 px-6 py-3 flex justify-between items-center">
+                            <div class="font-medium" data-translate="api-example">مثال على استدعاء API</div>
+                            <button id="copy-code-btn" class="text-text-muted hover:text-primary transition-colors">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre class="p-6 text-sm overflow-x-auto text-text-muted"><code id="code-example"></code></pre>
                     </div>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Resources</h4>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link">Blog</a>
-                        <a href="#" class="footer-link">Tutorials</a>
-                        <a href="#" class="footer-link">Videos</a>
-                        <a href="#" class="footer-link">Community</a>
+                </section>
+                
+                <!-- Installation Section -->
+                <section id="installation" class="mb-16">
+                    <div class="bg-bg-card rounded-3xl p-8 shadow-lg">
+                        <h2 class="text-3xl font-bold mb-6">
+                            <span class="bg-gradient-primary bg-clip-text text-transparent" data-translate="installation-title">التثبيت</span>
+                        </h2>
+                        <div class="space-y-4 text-lg text-text-muted">
+                            <p data-translate="installation-intro">
+                                يمكن تثبيت مكتبة PerceiveAI بسهولة باستخدام مدير الحزم npm أو yarn. تتوفر المكتبة للعديد من بيئات التطوير.
+                            </p>
+                            
+                            <div class="bg-bg-dark/50 rounded-lg p-4 font-mono text-sm mt-4 mb-6">
+                                <div data-translate="npm-install"># باستخدام npm</div>
+                                <div class="text-primary">npm install perceive-ai --save</div>
+                                <div class="mt-4" data-translate="yarn-install"># باستخدام yarn</div>
+                                <div class="text-primary">yarn add perceive-ai</div>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold mt-8 mb-4" data-translate="system-requirements">متطلبات النظام</h3>
+                            
+                            <ul class="list-disc pr-6 space-y-2">
+                                <li data-translate="node-requirement">Node.js v14.0.0 أو أعلى</li>
+                                <li data-translate="browser-requirement">متصفح حديث يدعم WebGL و WebAssembly</li>
+                                <li data-translate="internet-requirement">اتصال انترنت مستقر (مطلوب للإصدار السحابي)</li>
+                                <li data-translate="gpu-requirement">وحدة معالجة رسومات مُوصى بها للإصدار المحلي</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Contact</h4>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link">Support</a>
-                        <a href="#" class="footer-link">Sales</a>
-                        <a href="#" class="footer-link">Partners</a>
-                        <a href="#" class="footer-link">Careers</a>
+                </section>
+                
+                <!-- Add section for FAQ (previously undefined) -->
+                <section id="faq" class="mb-16">
+                    <div class="bg-bg-card rounded-3xl p-8 shadow-lg">
+                        <h2 class="text-3xl font-bold mb-6">
+                            <span class="bg-gradient-primary bg-clip-text text-transparent" data-translate="faq-title">أسئلة شائعة</span>
+                        </h2>
+                        
+                        <div class="mt-8">
+                            <!-- Technical FAQ -->
+                            <div id="technical-faq" class="mb-8">
+                                <h3 class="text-2xl font-bold mb-4" data-translate="technical-faq">أسئلة تقنية</h3>
+                                <div class="space-y-4">
+                                    <!-- Placeholder for FAQ items -->
+                                    <p class="text-text-muted italic">Coming soon.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Usage FAQ -->
+                            <div id="usage-faq" class="mb-8">
+                                <h3 class="text-2xl font-bold mb-4" data-translate="usage-faq">أسئلة الاستخدام</h3>
+                                <div class="space-y-4">
+                                    <!-- Placeholder for FAQ items -->
+                                    <p class="text-text-muted italic">Coming soon.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Troubleshooting -->
+                            <div id="troubleshooting">
+                                <h3 class="text-2xl font-bold mb-4" data-translate="troubleshooting">استكشاف الأخطاء وإصلاحها</h3>
+                                <div class="space-y-4">
+                                    <!-- Placeholder for FAQ items -->
+                                    <p class="text-text-muted italic">Coming soon.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </section>
+                
+                <!-- Additional sections would follow the same pattern... -->
+                <!-- Placeholder for the rest of the documentation -->
+                <div class="bg-bg-card rounded-3xl p-8 shadow-lg text-center">
+                    <h2 class="text-2xl font-bold mb-4" data-translate="docs-in-progress">نعمل على استكمال التوثيق</h2>
+                    <p class="text-text-muted mb-6" data-translate="docs-coming-soon">هذه النسخة من التوثيق قيد التطوير. يرجى العودة قريبًا للاطلاع على المحتوى الكامل.</p>
+                    <a href="/PerceiveAI/contact" class="inline-block px-6 py-3 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-translate="technical-inquiries">
+                        للاستفسارات التقنية تواصل معنا
+                    </a>
                 </div>
             </div>
-            <div class="copyright">
-                © 2025 PerceiveAI. All rights reserved. <br>
-                <span class="last-updated-text">Last updated: 2025-03-07 04:30:12 UTC by SillyRobot883</span>
+        </div>
+    </div>
+</section>
+
+<footer class="py-8 mt-16" style="background-color: rgba(15, 17, 33, 0.9);">
+    <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+                <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent mb-4">PerceiveAI</div>
+                <p class="text-text-muted text-sm" data-translate="footer-description">
+                    نجعل الأحداث الرياضية متاحة لذوي الاحتياجات السمعية عبر تحويل التعليق الصوتي إلى لغة الإشارة بتقنيات الذكاء الاصطناعي المتقدمة
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-4" data-translate="quick-links">روابط سريعة</h3>
+                <ul class="space-y-2">
+                    <li><a href="/PerceiveAI" class="text-text-muted hover:text-primary transition-colors" data-translate="home">الرئيسية</a></li>
+                    <li><a href="/PerceiveAI/about-us" class="text-text-muted hover:text-primary transition-colors" data-translate="about">عن المشروع</a></li>
+                    <li><a href="/PerceiveAI/contact" class="text-text-muted hover:text-primary transition-colors" data-translate="contact">تواصل معنا</a></li>
+                    <li><a href="/PerceiveAI/documentation" class="text-text-muted hover:text-primary transition-colors" data-translate="documentation">التوثيق</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-4" data-translate="contact-us">تواصل معنا</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-envelope text-primary"></i>
+                        <span class="text-text-muted">info@perceiveai.com</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-primary"></i>
+                        <span class="text-text-muted" data-translate="location">الرياض، المملكة العربية السعودية</span>
+                    </li>
+                    <li class="flex items-center gap-2 mt-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-twitter text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-linkedin-in text-sm"></i>
+                        </a>
+                        <a href="https://github.com/SillyRobot883/PerceiveAI" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-github text-sm"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </footer>
-    
-    <a href="#" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sticky header on scroll
-            const header = document.getElementById('header');
-            const backToTopButton = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                    backToTopButton.classList.add('visible');
-                } else {
-                    header.classList.remove('scrolled');
-                    backToTopButton.classList.remove('visible');
-                }
-            });
-            
-            // Back to top button
-            backToTopButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // API Tabs
-            const apiTabs = document.querySelectorAll('.api-tab');
-            const apiPanels = document.querySelectorAll('.api-panel');
-            
-            apiTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const panelId = this.getAttribute('data-panel');
-                    
-                    // Remove active class from all tabs and panels
-                    apiTabs.forEach(t => t.classList.remove('active'));
-                    apiPanels.forEach(p => p.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding panel
-                    this.classList.add('active');
-                    document.getElementById(panelId).classList.add('active');
-                });
-            });
-            
-            // Mobile TOC toggle
-            const mobileTocToggle = document.getElementById('mobileTocToggle');
-            const sidebar = document.querySelector('.sidebar');
-            
-            if (mobileTocToggle) {
-                mobileTocToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('active');
-                });
-            }
-            
-            // Copy code functionality
-            const copyButtons = document.querySelectorAll('.code-copy');
-            
-            copyButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const codeBlock = this.closest('.code-block').querySelector('code');
-                    const textToCopy = codeBlock.textContent;
-                    
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        // Change button text temporarily
-                        const originalText = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                        
-                        // Reset button text after delay
-                        setTimeout(() => {
-                            this.innerHTML = originalText;
-                        }, 2000);
-                    });
-                });
-            });
-            
-            // TOC active state on scroll
-            const sections = document.querySelectorAll('.doc-section');
-            const tocLinks = document.querySelectorAll('.toc-link');
-            const tocSubLinks = document.querySelectorAll('.toc-sub-link');
-            
-            function setActiveLink() {
-                let currentSection = '';
+
+        <div class="border-t border-white/10 pt-8 text-center">
+            <div class="text-sm text-text-muted" data-translate="copyright">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي | PerceiveAI</div>
+        </div>
+    </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/translations.js"></script>
+
+<!-- Add script to handle code example language switching -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update code example on page load
+        updateCodeExample();
+        
+        // Initialize copy button
+        const copyCodeBtn = document.getElementById('copy-code-btn');
+        if (copyCodeBtn) {
+            copyCodeBtn.addEventListener('click', function() {
+                const codeBlock = document.getElementById('code-example');
+                const textToCopy = codeBlock.textContent;
                 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 140;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-                    
-                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                        currentSection = sectionId;
-                    }
-                });
-                
-                tocLinks.forEach(link => {
-                    link.classList.remove('active');
-                    const href = link.getAttribute('href').substring(1);
-                    
-                    if (href === currentSection) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                tocSubLinks.forEach(link => {
-                    link.classList.remove('active');
-                    const href = link.getAttribute('href').substring(1);
-                    
-                    if (href === currentSection) {
-                        link.classList.add('active');
-                        
-                        // Also highlight parent section
-                        const parentLi = link.closest('.toc-sub-list').previousElementSibling;
-                        if (parentLi && parentLi.classList.contains('toc-link')) {
-                            parentLi.classList.add('active');
-                        }
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', setActiveLink);
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') !== '#') {
-                        e.preventDefault();
-                        
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        
-                        if (targetElement) {
-                            // Close mobile TOC if open
-                            if (sidebar.classList.contains('active')) {
-                                sidebar.classList.remove('active');
-                            }
-                            
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 120,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Show temporary copied message
+                    const originalHTML = copyCodeBtn.innerHTML;
+                    copyCodeBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        copyCodeBtn.innerHTML = originalHTML;
+                    }, 1500);
                 });
             });
+        }
+    });
 
-            // Search functionality
-            const searchInput = document.getElementById('searchInput');
-            
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    const query = this.value.toLowerCase();
-                    
-                    if (query.length < 2) {
-                        // Reset all visibility if query is too short
-                        tocLinks.forEach(link => {
-                            const li = link.parentElement;
-                            li.style.display = 'block';
-                        });
-                        
-                        tocSubLinks.forEach(link => {
-                            const li = link.parentElement;
-                            li.style.display = 'block';
-                        });
-                        
-                        return;
-                    }
-                    
-                    // Filter TOC items based on search query
-                    tocLinks.forEach(link => {
-                        const li = link.parentElement;
-                        const text = link.textContent.toLowerCase();
-                        
-                        if (text.includes(query)) {
-                            li.style.display = 'block';
-                        } else {
-                            // Check if any sub-items match
-                            const subList = li.querySelector('.toc-sub-list');
-                            let hasMatchingSubItem = false;
-                            
-                            if (subList) {
-                                const subItems = subList.querySelectorAll('.toc-sub-link');
-                                subItems.forEach(subItem => {
-                                    if (subItem.textContent.toLowerCase().includes(query)) {
-                                        hasMatchingSubItem = true;
-                                    }
-                                });
-                            }
-                            
-                            li.style.display = hasMatchingSubItem ? 'block' : 'none';
-                        }
-                    });
-                    
-                    // Handle sub-links separately
-                    tocSubLinks.forEach(link => {
-                        const li = link.parentElement;
-                        const text = link.textContent.toLowerCase();
-                        
-                        if (text.includes(query)) {
-                            li.style.display = 'block';
-                            
-                            // Make sure parent is visible
-                            const parentLi = li.closest('.toc-sub-list').closest('.toc-item');
-                            if (parentLi) {
-                                parentLi.style.display = 'block';
-                            }
-                        } else {
-                            li.style.display = 'none';
-                        }
-                    });
-                });
-            }
-            
-            // Language switcher
-            const languageSwitch = document.getElementById('languageSwitch');
-            
-            if (languageSwitch) {
-                languageSwitch.addEventListener('click', function() {
-                    // Toggle between English and Arabic versions
-                    window.location.href = window.location.href.includes('-en') ? 
-                        window.location.href.replace('-en', '') : 
-                        window.location.href.replace('.html', '-en.html');
-                });
-            }
+    // Function to update code example based on current language
+    function updateCodeExample() {
+        const codeElement = document.getElementById('code-example');
+        const currentLang = document.documentElement.lang;
+        
+        if (codeElement && window.translations && window.translations[currentLang]) {
+            codeElement.textContent = window.translations[currentLang]['code-example'];
+        }
+    }
 
-            // Dynamic date in footer
-            const lastUpdatedElements = document.querySelectorAll('.last-updated, .last-updated-text');
-            lastUpdatedElements.forEach(el => {
-                el.innerHTML = `Last updated: 2025-03-07 04:30:12 UTC by SillyRobot883`;
-            });
-
-            // Intersection Observer for fade-in animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const fadeElements = document.querySelectorAll('.doc-section, .info-card, .callout');
-            
-            const fadeObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                        fadeObserver.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            fadeElements.forEach(element => {
-                fadeObserver.observe(element);
-            });
-            
-            // Initialize page to show correct active section on load
-            setActiveLink();
-        });
-    </script>
+    // Update code example when language changes
+    const originalSwitchFunction = document.getElementById('language-switch').onclick;
+    document.getElementById('language-switch').onclick = function() {
+        if (originalSwitchFunction) {
+            originalSwitchFunction.apply(this);
+        }
+        
+        // Update code example after language switch
+        setTimeout(updateCodeExample, 100);
+    };
+</script>
 </body>
 </html>

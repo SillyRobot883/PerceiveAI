@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerceiveAI - التوثيق التقني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8C52FF;
+            --primary-light: #A47AFF;
+            --primary-dark: #6E41CB;
+            --secondary: #FD297A;
+            --secondary-light: #FF5B9D;
+            --secondary-dark: #CB1E5F;
+            --accent: #00D9FF;
+            --bg-dark: #0F1121;
+            --bg-card: #1A1C31;
+            --bg-code: #262A45;
+            --text-light: #FFFFFF;
+            --text-muted: #B1B5C3;
+            --text-label: #7780A1;
+            --border: #2E334E;
+            --gradient-primary: linear-gradient(45deg, #8C52FF, #FD297A);
+            --gradient-accent: linear-gradient(45deg, #00D9FF, #8C52FF);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-dark);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 17, 33, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(46, 51, 78, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-light);
+        }
+        
+        .nav-link:hover:after, .nav-link.active:after {
+            width: 100%;
+        }
+        
+        .language-switch {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .language-switch:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .language-icon {
+            color: var(--primary-light);
+        }
+        
+        .documentation {
+            padding-top: 140px;
+            padding-bottom: 6rem;
+        }
+        
+        .doc-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .doc-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .doc-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .doc-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2.5rem;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 110px;
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+            padding-left: 1rem;
+            direction: rtl;
+        }
+        
+        .toc {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .toc-title {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toc-icon {
+            color: var(--primary);
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--text-light);
+            background: rgba(140, 82, 255, 0.15);
+        }
+        
+        .toc-link.active {
+            border-right: 2px solid var(--primary);
+            font-weight: 500;
+        }
+        
+        .toc-sub-list {
+            list-style: none;
+            padding-right: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-right: 1px solid var(--border);
+        }
+        
+        .toc-sub-item {
+            margin-bottom: 0.25rem;
+        }
+        
+        .toc-sub-link {
+            font-size: 0.9rem;
+            padding: 0.4rem 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: block;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        
+        .toc-sub-link:hover, .toc-sub-link.active {
+            color: var(--text-light);
+            background: rgba(140, 82, 255, 0.1);
+        }
+        
+        .support-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .support-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .support-icon {
+            color: var(--accent);
+        }
+        
+        .support-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(140, 82, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(140, 82, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(140, 82, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .content {
+            min-height: 100vh;
+        }
+        
+        .doc-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .doc-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 120px;
+        }
+        
+        .doc-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+        
+        .subsection-title {
+            font-size: 1.6rem;
+            margin: 2.5rem 0 1.2rem;
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+        
+        .doc-text {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .architecture-diagram {
+            background-color: var(--bg-code);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .architecture-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(140, 82, 255, 0.05) 0%, rgba(0, 0, 0, 0) 50%, rgba(253, 41, 122, 0.05) 100%);
+            z-index: 0;
+        }
+        
+        .architecture-diagram code {
+            position: relative;
+            z-index: 1;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
+        .architecture-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-item {
+            background: var(--bg-code);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            position: relative;
+            border: 1px solid var(--border);
+            min-width: 180px;
+            text-align: center;
+        }
+        
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            transform: scaleX(-1);
+        }
+        
+        ul, ol {
+            padding-right: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.6rem;
+        }
+        
+        pre {
+            margin: 1.5rem 0;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.95rem;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .code-block {
+            background-color: var(--bg-code);
+            border-radius: 12px;
+            position: relative;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .code-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .code-language {
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+        
+        .code-copy {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            gap: 0.4rem;
+        }
+        
+        .code-copy:hover {
+            color: var(--primary-light);
+        }
+        
+        .code-body {
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+        
+        .hljs-keyword, .hljs-selector-tag {
+            color: #569CD6;
+        }
+        
+        .hljs-string {
+            color: #CE9178;
+        }
+        
+        .hljs-number {
+            color: #B5CEA8;
+        }
+        
+        .hljs-comment {
+            color: #6A9955;
+        }
+        
+        .endpoint {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-code);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            direction: ltr;
+        }
+        
+        .method {
+            font-weight: 600;
+            color: #4ECDC4;
+            background: rgba(78, 205, 196, 0.1);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            margin-right: 1rem;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            min-width: fit-content;
+        }
+        
+        .endpoint-path {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            color: var(--primary-light);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: rgba(140, 82, 255, 0.1);
+            text-align: right;
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        /* Card layout for better organization */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: var(--bg-code);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-dark);
+        }
+        
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .info-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .info-card-body {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        /* Tags for categorization */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tag-primary {
+            background: rgba(140, 82, 255, 0.15);
+            color: var(--primary-light);
+        }
+        
+        .tag-secondary {
+            background: rgba(253, 41, 122, 0.15);
+            color: var(--secondary-light);
+        }
+        
+        .tag-accent {
+            background: rgba(0, 217, 255, 0.15);
+            color: var(--accent);
+        }
+        
+        /* Callouts for important notes */
+        .callout {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .callout-info {
+            background: rgba(0, 217, 255, 0.05);
+            border-right: 4px solid var(--accent);
+        }
+        
+        .callout-warning {
+            background: rgba(255, 170, 0, 0.05);
+            border-right: 4px solid #FFAA00;
+        }
+        
+        .callout-error {
+            background: rgba(255, 71, 87, 0.05);
+            border-right: 4px solid #FF4757;
+        }
+        
+        .callout-success {
+            background: rgba(46, 213, 115, 0.05);
+            border-right: 4px solid #2ED573;
+        }
+        
+        .callout-icon {
+            font-size: 1.5rem;
+            color: inherit;
+        }
+        
+        .callout-content {
+            flex: 1;
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer styling */
+        footer {
+            background: var(--bg-card);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-code);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* New section - API Reference Tabs */
+        .api-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.25rem;
+        }
+        
+        .api-tab {
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .api-tab:hover {
+            color: var(--primary-light);
+            background: rgba(140, 82, 255, 0.05);
+        }
+        
+        .api-tab.active {
+            color: var(--primary-light);
+            background: rgba(140, 82, 255, 0.1);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .api-panel {
+            display: none;
+        }
+        
+        .api-panel.active {
+            display: block;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            width: 80px;
+            position: relative;
+        }
+        
+        .dark-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .toggle-option {
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            text-align: center;
+            width: 40px;
+            z-index: 1;
+            color: var(--text-muted);
+        }
+        
+        .toggle-option.active {
+            color: var(--text-light);
+        }
+        
+        .toggle-track {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 40px;
+            height: calc(100% - 6px);
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-track.right {
+            right: calc(100% - 43px);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .doc-container {
+                grid-template-columns: 1fr 250px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .doc-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                height: auto;
+                max-height: 60vh;
+                background: var(--bg-dark);
+                z-index: 99;
+                border-bottom: 1px solid var(--border);
+                padding: 1rem;
+            }
+            
+            .sidebar.active {
+                display: block;
+            }
+            
+            .mobile-toc-toggle {
+                display: block;
+                text-align: center;
+                padding: 1rem;
+                background: var(--bg-card);
+                border-radius: 12px;
+                margin-bottom: 1rem;
+                cursor: pointer;
+                border: 1px solid var(--border);
+            }
+            
+            .doc-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .doc-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .doc-content {
+                padding: 1.5rem;
+            }
+            
+            .architecture-flow {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 0.5rem 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .doc-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .architecture-diagram code {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Code highlighting */
+        .json-key {
+            color: #9CDCFE;
+        }
+        
+        .json-string {
+            color: #CE9178;
+        }
+        
+        .json-number {
+            color: #B5CEA8;
+        }
+        
+        .json-boolean {
+            color: #569CD6;
+        }
+        
+        .json-null {
+            color: #569CD6;
+        }
+        
+        /* Search bar */
+        .search-container {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border-radius: 8px;
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(140, 82, 255, 0.25);
+        }
+
+        /* Last updated banner */
+        .last-updated {
+            background: rgba(140, 82, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px solid rgba(140, 82, 255, 0.2);
+        }
+        
+        .update-icon {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="assets/logo.png" alt="شعار PerceiveAI" style="width: 24px; height: 24px; border-radius: 8px;">
+                </div>
+
+                <div class="logo-text">PerceiveAI</div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="documentation-ar.html" class="nav-link active">التوثيق</a>
+                <a href="#" class="nav-link">أمثلة</a>
+                <a href="#" class="nav-link">الدعم</a>
+                <div class="language-switch" id="languageSwitch">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span>عربي</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="documentation">
+        <div class="container">
+            <div class="doc-header fade-in">
+                <h1 class="doc-title">التوثيق التقني</h1>
+                <p class="doc-subtitle">دليل شامل لدمج واستخدام نظام PerceiveAI لترجمة لغة الإشارة في الوقت الفعلي لبث المباريات الرياضية</p>
+            </div>
+            
+            <div class="mobile-toc-toggle" id="mobileTocToggle">
+                <i class="fas fa-bars"></i> جدول المحتويات
+            </div>
+            
+            <div class="doc-container">
+                <div class="content">
+                    <div class="doc-content fade-in">
+                        <section class="doc-section" id="overview">
+                            <h2 class="section-title">نظرة عامة</h2>
+                            <p class="doc-text">
+                                PerceiveAI هو نظام متطور لترجمة لغة الإشارة في الوقت الفعلي مصمم خصيصًا للبث الرياضي. تقوم المنصة بالتقاط التعليق الصوتي، وتحويله إلى نص، ثم تحويل النص إلى لغة إشارة تعرض من خلال شخصية رسومية متحركة على البث المباشر.
+                            </p>
+                            <p class="doc-text">
+                                تسد تقنيتنا الفجوة في إمكانية الوصول للمشاهدين ذوي الإعاقة السمعية، مما يتيح لهم المشاركة الكاملة في المحتوى الرياضي من خلال ترجمة لغة الإشارة عالية الجودة التي تقدم في الوقت الفعلي.
+                            </p>
+                            
+                            <div class="card-grid">
+                                <div class="info-card">
+                                    <div class="info-card-header">
+                                        <div class="info-card-icon">
+                                            <i class="fas fa-universal-access"></i>
+                                        </div>
+                                        <h3 class="info-card-title">تعزيز إمكانية الوصول</h3>
+                                    </div>
+                                    <div class="info-card-body">
+                                        <p>جعل البث الرياضي شاملاً للمشاهدين الصم وضعاف السمع من خلال ترجمة لغة الإشارة في الوقت الفعلي.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-card">
+                                    <div class="info-card-header">
+                                        <div class="info-card-icon">
+                                            <i class="fas fa-bolt"></i>
+                                        </div>
+                                        <h3 class="info-card-title">المعالجة في الوقت الفعلي</h3>
+                                    </div>
+                                    <div class="info-card-body">
+                                        <p>خوارزميات الذكاء الاصطناعي المتقدمة تقدم ترجمة شبه فورية من الكلام إلى لغة الإشارة بأقل تأخير ممكن.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-card">
+                                    <div class="info-card-header">
+                                        <div class="info-card-icon">
+                                            <i class="fas fa-plug"></i>
+                                        </div>
+                                        <h3 class="info-card-title">سهولة الدمج</h3>
+                                    </div>
+                                    <div class="info-card-body">
+                                        <p>دمج سلس مع سير عمل البث الحالي باستخدام واجهة برمجة التطبيقات (API) ومجموعة أدوات التطوير (SDK) سهلة الاستخدام.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="callout callout-info">
+                                <i class="fas fa-info-circle callout-icon"></i>
+                                <div class="callout-content">
+                                    <h4 class="callout-title">الفوائد الرئيسية</h4>
+                                    <p>لا يعمل PerceiveAI على تحسين إمكانية الوصول فحسب، بل يوسع أيضًا نطاق الجمهور، ويساعد شركات البث على تلبية المتطلبات التنظيمية، ويظهر المسؤولية الاجتماعية للشركات.</p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="doc-section" id="architecture">
+                            <h2 class="section-title">هندسة النظام</h2>
+                            <p class="doc-text">
+                                تم تصميم هندسة PerceiveAI للأداء العالي والموثوقية في بيئات البث المباشر. يعالج النظام المدخلات الصوتية من خلال مكونات متخصصة متعددة في خط معالجة يضمن الحد الأدنى من التأخير مع الحفاظ على دقة عالية.
+                            </p>
+                            
+                            <div class="architecture-diagram">
+                                <code>[مدخلات الصوت] ← [تحويل الكلام إلى نص] ← [معالجة اللغة الطبيعية] ← [توليد لغة الإشارة] ← [تحريك الشخصية] ← [عرض الفيديو]</code>
+                            </div>
+                            
+                            <div class="architecture-flow">
+                                <div class="flow-item">
+                                    <h4>عرض الفيديو</h4>
+                                    <p>دمج البث</p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="flow-item">
+                                    <h4>تحريك الشخصية</h4>
+                                    <p>عرض ثلاثي الأبعاد</p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="flow-item">
+                                    <h4>لغة الإشارة</h4>
+                                    <p>تحويل إلى تسلسل إشارات</p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="flow-item">
+                                    <h4>معالجة اللغة</h4>
+                                    <p>تحليل السياق</p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="flow-item">
+                                    <h4>تحويل الكلام</h4>
+                                    <p>محرك التعرف على الكلام</p>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="flow-item">
+                                    <h4>مدخلات الصوت</h4>
+                                    <p>تغذية تعليق البث</p>
+                                </div>
+                            </div>
+                            
+                            <p class="doc-text">
+                                يسمح التصميم المعياري بتحسين كل مكون بشكل مستقل مع الحفاظ على تدفق البيانات بكفاءة بين المراحل. تدعم هذه البنية النشر القائم على السحابة لتحقيق أقصى قدر من قابلية التوسع وتكوينات الحوسبة الطرفية لتقليل زمن الاستجابة في بيئات البث الحساسة للوقت.
+                            </p>
+                        </section>
+                        
+                        <section class="doc-section" id="components">
+                            <h2 class="section-title">المكونات الأساسية</h2>
+                            <p class="doc-text">
+                                يتكون PerceiveAI من خمسة مكونات متخصصة تعمل بتناغم لتقديم ترجمة دقيقة للغة الإشارة بأقل تأخير.
+                            </p>
+                            
+                            <h3 class="subsection-title" id="speech-to-text">١. خدمة تحويل الكلام إلى نص</h3>
+                            <div class="tag-container">
+                                <span class="tag tag-primary">معالجة في الوقت الفعلي</span>
+                                <span class="tag tag-secondary">دعم متعدد اللغات</span>
+                                <span class="tag tag-accent">تصفية الضوضاء</span>
+                            </div>
+                            <p class="doc-text">
+                                يقوم محرك التعرف على الكلام المتقدم لدينا بالتقاط وتحويل التعليق الصوتي المباشر إلى نص. تم تدريب النظام خصيصًا على سيناريوهات البث الرياضي لتحقيق أقصى قدر من الدقة في البيئات الصعبة.
+                            </p>
+                            <ul>
+                                <li>التقاط وتحويل تعليق الصوت المباشر إلى نص</li>
+                                <li>التعامل مع البيئات الصاخبة (الملاعب، الجماهير)</li>
+                                <li>دعم اللغتين الإنجليزية والعربية</li>
+                                <li>محسن للمصطلحات الرياضية والكلام السريع</li>
+                                <li>التكيف مع اللهجات وأنماط الكلام المختلفة</li>
+                            </ul>
+                            
+                            <h3 class="subsection-title" id="nlp">٢. معالجة اللغة الطبيعية</h3>
+                            <div class="tag-container">
+                                <span class="tag tag-primary">تحليل السياق</span>
+                                <span class="tag tag-secondary">التعرف على الكيانات</span>
+                                <span class="tag tag-accent">اكتشاف المشاعر</span>
+                            </div>
+                            <p class="doc-text">
+                                يقوم مكون معالجة اللغة الطبيعية بتحليل النص المترجم لفهم السياق، وتحديد المصطلحات الرياضية، والتعرف على الكيانات المسماة (اللاعبين، الفرق)، واكتشاف المحتوى العاطفي.
+                            </p>
+                            <ul>
+                                <li>تحليل وفهم سياق المصطلحات الرياضية</li>
+                                <li>التعامل مع أسماء اللاعبين والمصطلحات الفنية والمحتوى العاطفي</li>
+                                <li>تجهيز النص للتحويل إلى لغة الإشارة</li>
+                                <li>إعطاء الأولوية للمعلومات المهمة أثناء التعليق السريع</li>
+                                <li>الحفاظ على التماسك الدلالي عند معالجة العبارات الجزئية</li>
+                            </ul>
+                            
+                            <h3 class="subsection-title" id="sign-language">٣. مولد لغة الإشارة</h3>
+                            <div class="tag-container">
+                                <span class="tag tag-primary">لغات إشارة متعددة</span>
+                                <span class="tag tag-secondary">إشارات خاصة بالرياضة</span>
+                                <span class="tag tag-accent">مخرجات قابلة للتخصيص</span>
+                            </div>
+                            <p class="doc-text">
+                                يحول هذا المكون النص المعالج إلى تسلسلات رسوم متحركة دقيقة للغة الإشارة، مما يضمن انتقالات طبيعية والتعبير الصحيح عن المفاهيم.
+                            </p>
+                            <ul>
+                                <li>تحويل النص المعالج إلى تسلسل لغة إشارة</li>
+                                <li>دعم لغة الإشارة العربية/السعودية</li>
+                                <li>يشمل إشارات وإيماءات رياضية متخصصة</li>
+                                <li>تحسين سرعة الإشارة للفهم مع الحفاظ على الإيقاع</li>
+                                <li>توفير التأكيد المناسب بناءً على المشاعر المكتشفة</li>
+                            </ul>
+                            
+                            <div class="callout callout-info">
+                                <i class="fas fa-lightbulb callout-icon"></i>
+                                <div class="callout-content">
+                                    <h4 class="callout-title">تخصيص لغة الإشارة</h4>
+                                    <p>يدعم PerceiveAI تخصيص لهجات لغة الإشارة ومفردات الإشارة الخاصة بالرياضة لضمان التواصل الدقيق والمناسب ثقافيًا.</p>
+                                </div>
+                            </div>
+                            
+                            <h3 class="subsection-title" id="avatar">٤. نظام تحريك الشخصية</h3>
+                            <div class="tag-container">
+                                <span class="tag tag-primary">عرض ثلاثي الأبعاد</span>
+                                <span class="tag tag-secondary">حركات واقعية</span>
+                                <span class="tag tag-accent">مظهر قابل للتخصيص</span>
+                            </div>
+                            <p class="doc-text">
+                                يعرض نظام الرسوم المتحركة لغة الإشارة من خلال شخصية ثلاثية الأبعاد تؤدي إشارات واضحة وطبيعية مع تعبيرات وجه ولغة جسد مناسبة.
+                            </p>
+                            <ul>
+                                <li>عرض لغة الإشارة من خلال شخصية ثلاثية الأبعاد</li>
+                                <li>توفير حركات إشارة واضحة وطبيعية</li>
+                                <li>محسن لعرض تدفق الفيديو</li>
+                                <li>يدعم تخصيص مظهر الشخصية</li>
+                                <li>يتضمن تعبيرات الوجه للتواصل الكامل</li>
+                            </ul>
+                            
+                            <h3 class="subsection-title" id="overlay">٥. تكامل العرض</h3>
+                            <div class="tag-container">
+                                <span class="tag tag-primary">منصات بث متعددة</span>
+                                <span class="tag tag-secondary">وضع مرن</span>
+                                <span class="tag tag-accent">زمن استجابة قليل</span>
+                            </div>
+                            <p class="doc-text">
+                                يتعامل هذا المكون مع الدمج السلس للشخصية المتحركة في تغذيات البث كطبقة عرض قابلة للتكوين.
+                            </p>
+                            <ul>
+                                <li>دمج سلس مع تغذيات البث</li>
+                                <li>دعم لمختلف منصات البث والإرسال التلفزيوني</li>
+                                <li>حجم وموضع وشفافية قابلة للتكوين للشخصية</li>
+                                <li>تنسيقات إخراج متعددة (RTMP، NDI، WebRTC)</li>
+                                <li>مزامنة مع توقيت تغذية الفيديو</li>
+                            </ul>
+                        </section>
+                        
+                        <section class="doc-section" id="api">
+                            <h2 class="section-title">مرجع واجهة برمجة التطبيقات</h2>
+                            <p class="doc-text">
+                                يوفر PerceiveAI مجموعة شاملة من واجهات برمجة التطبيقات RESTful التي تتيح للمطورين دمج كل مكون من مكونات النظام بشكل مستقل أو استخدام خط المعالجة الكامل. تستخدم جميع نقاط النهاية HTTPS وتتطلب مصادقة لواجهة برمجة التطبيقات.
+                            </p>
+                            
+                            <div class="api-tabs">
+                                <button class="api-tab active" data-panel="speech-panel">واجهة التعرف على الكلام</button>
+                                <button class="api-tab" data-panel="nlp-panel">واجهة معالجة اللغة</button>
+                                <button class="api-tab" data-panel="sign-panel">واجهة توليد الإشارة</button>
+                                <button class="api-tab" data-panel="avatar-panel">واجهة الشخصية</button>
+                                <button class="api-tab" data-panel="overlay-panel">واجهة العرض</button>
+                            </div>
+                            
+                            <div class="api-panel active" id="speech-panel">
+                                <h3 class="subsection-title" id="speech-api">واجهة التعرف على الكلام</h3>
+                                <div class="endpoint">
+                                    <span class="method">POST</span>
+                                    <span class="endpoint-path">/api/v1/speech-to-text</span>
+                                </div>
+                                <p class="doc-text">تحويل تدفق الصوت إلى نص.</p>
+                                
+                                <h4>الطلب:</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <div class="code-title">
+                                            <i class="fas fa-code"></i>
+                                            <span class="code-language">JSON</span>
+                                        </div>
+                                        <button class="code-copy" id="copyRequestBtn1">
+                                            <i class="far fa-copy"></i>
+                                            نسخ
+                                        </button>
+                                    </div>
+                                    <div class="code-body">
+                                        <pre><code>{
+  <span class="json-key">"audio_stream"</span>: <span class="json-string">"base64_encoded_audio"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"ar"</span>,
+  <span class="json-key">"context"</span>: <span class="json-string">"sports"</span>
+}</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <h4>الاستجابة:</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <div class="code-title">
+                                            <i class="fas fa-code"></i>
+                                            <span class="code-language">JSON</span>
+                                        </div>
+                                        <button class="code-copy" id="copyResponseBtn1">
+                                            <i class="far fa-copy"></i>
+                                            نسخ
+                                        </button>
+                                    </div>
+                                    <div class="code-body">
+                                        <pre><code>{
+  <span class="json-key">"text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبدالله الذي يسدد نحو المرمى!"</span>,
+  <span class="json-key">"confidence"</span>: <span class="json-number">0.94</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-number">1646849422</span>
+}</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <h4>المعلمات:</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>المعلمة</th>
+                                            <th>النوع</th>
+                                            <th>مطلوبة</th>
+                                            <th>الوصف</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>audio_stream</td>
+                                            <td>نص</td>
+                                            <td>نعم</td>
+                                            <td>بيانات صوتية مشفرة بـ Base64. يدعم تنسيقات wav وmp3 وogg.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>language</td>
+                                            <td>نص</td>
+                                            <td>نعم</td>
+                                            <td>رمز اللغة: "en" (الإنجليزية) أو "ar" (العربية)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>context</td>
+                                            <td>نص</td>
+                                            <td>لا</td>
+                                            <td>تلميح سياقي لتحسين دقة التعرف. الافتراضي: "general"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="api-panel" id="nlp-panel">
+                                <h3 class="subsection-title" id="nlp-api">واجهة معالجة اللغة الطبيعية</h3>
+                                <div class="endpoint">
+                                    <span class="method">POST</span>
+                                    <span class="endpoint-path">/api/v1/process-text</span>
+                                </div>
+                                <p class="doc-text">معالجة وتحديد سياق النص التعليقي الرياضي.</p>
+                                
+                                <h4>الطلب:</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <div class="code-title">
+                                            <i class="fas fa-code"></i>
+                                            <span class="code-language">JSON</span>
+                                        </div>
+                                        <button class="code-copy">
+                                            <i class="far fa-copy"></i>
+                                            نسخ
+                                        </button>
+                                    </div>
+                                    <div class="code-body">
+                                        <pre><code>{
+  <span class="json-key">"text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبدالله الذي يسدد نحو المرمى!"</span>,
+  <span class="json-key">"sport_type"</span>: <span class="json-string">"football"</span>,
+  <span class="json-key">"league"</span>: <span class="json-string">"saudi_pro_league"</span>
+}</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <h4>الاستجابة:</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <div class="code-title">
+                                            <i class="fas fa-code"></i>
+                                            <span class="code-language">JSON</span>
+                                        </div>
+                                        <button class="code-copy">
+                                            <i class="far fa-copy"></i>
+                                            نسخ
+                                        </button>
+                                    </div>
+                                    <div class="code-body">
+                                        <pre><code>{
+  <span class="json-key">"processed_text"</span>: <span class="json-string">"محمد يمرر الكرة إلى عبدالله الذي يسدد نحو المرمى!"</span>,
+  <span class="json-key">"entities"</span>: [
+    {<span class="json-key">"type"</span>: <span class="json-string">"player"</span>, <span class="json-key">"value"</span>: <span class="json-string">"محمد"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.92</span>},
+    {<span class="json-key">"type"</span>: <span class="json-string">"action"</span>, <span class="json-key">"value"</span>: <span class="json-string">"يمرر"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.96</span>},
+    {<span class="json-key">"type"</span>: <span class="json-string">"player"</span>, <span class="json-key">"value"</span>: <span class="json-string">"عبدالله"</span>, <span class="json-key">"confidence"</span>: <span class="json-number">0.91</span>}
+  ],
+  <span class="json-key">"sentiment"</span>: <span class="json-string">"excited"</span>
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="callout callout-warning">
+                                <i class="fas fa-shield-alt callout-icon"></i>
+                                <div class="callout-content">
+                                    <h4 class="callout-title">مصادقة واجهة برمجة التطبيقات</h4>
+                                    <p>تتطلب جميع طلبات واجهة برمجة التطبيقات مصادقة عبر مفتاح API. قم بتضمين مفتاح API الخاص بك في رأس التفويض كـ <code>Bearer YOUR_API_KEY</code>.</p>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="doc-section" id="quickstart">
+                            <h2 class="section-title">دليل البدء السريع</h2>
+                            
+                            <h3 class="subsection-title">التثبيت</h3>
+                            
+                            <p class="doc-text">١. استنساخ المستودع:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <div class="code-title">
+                                        <i class="fas fa-terminal"></i>
+                                        <span class="code-language">Shell</span>
+                                    </div>
+                                    <button class="code-copy">
+                                        <i class="far fa-copy"></i>
+                                        نسخ
+                                    </button>
+                                </div>
+                                <div class="code-body">
+                                    <pre><code>git clone https://github.com/perceiveAI/sign-language-overlay.git
+cd sign-language-overlay</code></pre>
+                                </div>
+                            </div>
+                            
+                            <p class="doc-text">٢. تثبيت المتطلبات:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <div class="code-title">
+                                        <i class="fas fa-terminal"></i>
+                                        <span class="code-language">Shell</span>
+                                    </div>
+                                    <button class="code-copy">
+                                        <i class="far fa-copy"></i>
+                                        نسخ
+                                    </button>
+                                </div>
+                                <div class="code-body">
+                                    <pre><code>pip install -r requirements.txt</code></pre>
+                                </div>
+                            </div>
+                            
+                            <p class="doc-text">٣. إعداد بيئة العمل:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <div class="code-title">
+                                        <i class="fas fa-terminal"></i>
+                                        <span class="code-language">Shell</span>
+                                    </div>
+                                    <button class="code-copy">
+                                        <i class="far fa-copy"></i>
+                                        نسخ
+                                    </button>
+                                </div>
+                                <div class="code-body">
+                                    <pre><code>cp .env.example .env
+# قم بتعديل ملف .env بمفاتيح API والإعدادات الخاصة بك</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="callout callout-success">
+                                <i class="fas fa-check-circle callout-icon"></i>
+                                <div class="callout-content">
+                                    <h4 class="callout-title">اكتمال البدء السريع</h4>
+                                    <p>يجب أن يكون نظام PerceiveAI الخاص بك قيد التشغيل الآن. قم بالوصول إلى لوحة التحكم على http://localhost:8000 لتكوين خدماتك والحصول على عنوان URL للعرض.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                
+                <aside class="sidebar">
+                    <div class="last-updated">
+                        <i class="fas fa-history update-icon"></i>
+                        آخر تحديث: 2025-03-07 04:18:56 UTC بواسطة SillyRobot883
+                    </div>
+                    
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="البحث في التوثيق..." id="searchInput">
+                    </div>
+                    
+                    <div class="toc">
+                        <h2 class="toc-title">
+                            <i class="fas fa-list-ul toc-icon"></i>
+                            جدول المحتويات
+                        </h2>
+                        <ul class="toc-list">
+                            <li class="toc-item">
+                                <a href="#overview" class="toc-link active">نظرة عامة</a>
+                            </li>
+                            <li class="toc-item">
+                                <a href="#architecture" class="toc-link">هندسة النظام</a>
+                            </li>
+                            <li class="toc-item">
+                                <a href="#components" class="toc-link">المكونات الأساسية</a>
+                                <ul class="toc-sub-list">
+                                    <li class="toc-sub-item">
+                                        <a href="#speech-to-text" class="toc-sub-link">خدمة تحويل الكلام إلى نص</a>
+                                    </li>
+                                    <li class="toc-sub-item">
+                                        <a href="#nlp" class="toc-sub-link">معالجة اللغة الطبيعية</a>
+                                    </li>
+                                    <li class="toc-sub-item">
+                                        <a href="#sign-language" class="toc-sub-link">مولد لغة الإشارة</a>
+                                    </li>
+                                    <li class="toc-sub-item">
+                                        <a href="#avatar" class="toc-sub-link">نظام تحريك الشخصية</a>
+                                    </li>
+                                    <li class="toc-sub-item">
+                                        <a href="#overlay" class="toc-sub-link">تكامل العرض</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="toc-item">
+                                <a href="#api" class="toc-link">مرجع واجهة برمجة التطبيقات</a>
+                            </li>
+                            <li class="toc-item">
+                                <a href="#quickstart" class="toc-link">دليل البدء السريع</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="support-card">
+                        <h3 class="support-title">
+                            <i class="fas fa-headset support-icon"></i>
+                            بحاجة للمساعدة؟
+                        </h3>
+                        <p class="support-text">
+                            فريق الدعم متاح على مدار الساعة للمساعدة في أي أسئلة تقنية أو متعلقة بالتكامل.
+                        </p>
+                        <a href="#" class="btn btn-primary btn-sm">
+                            <i class="fas fa-comment-dots"></i>
+                            التواصل مع الدعم
+                        </a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">PerceiveAI</div>
+                    <p>جعل البث الرياضي متاحًا للجميع من خلال ترجمة لغة الإشارة في الوقت الفعلي.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">التوثيق</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">البدء</a>
+                        <a href="#" class="footer-link">مرجع API</a>
+                        <a href="#" class="footer-link">أمثلة للكود</a>
+                        <a href="#" class="footer-link">ملاحظات الإصدار</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">المصادر</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">المدونة</a>
+                        <a href="#" class="footer-link">الدروس</a>
+                        <a href="#" class="footer-link">الفيديوهات</a>
+                        <a href="#" class="footer-link">المجتمع</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">تواصل معنا</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">الدعم</a>
+                        <a href="#" class="footer-link">المبيعات</a>
+                        <a href="#" class="footer-link">الشراكات</a>
+                        <a href="#" class="footer-link">الوظائف</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 PerceiveAI. كل الحقوق محفوظة. <br>
+                <span class="last-updated-text">آخر تحديث: 2025-03-07 04:30:12 UTC بواسطة SillyRobot883</span>
+            </div>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sticky header on scroll
+            const header = document.getElementById('header');
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                    backToTopButton.classList.add('visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            // Back to top button
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // API Tabs
+            const apiTabs = document.querySelectorAll('.api-tab');
+            const apiPanels = document.querySelectorAll('.api-panel');
+            
+            apiTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const panelId = this.getAttribute('data-panel');
+                    
+                    // Remove active class from all tabs and panels
+                    apiTabs.forEach(t => t.classList.remove('active'));
+                    apiPanels.forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding panel
+                    this.classList.add('active');
+                    document.getElementById(panelId).classList.add('active');
+                });
+            });
+            
+            // Mobile TOC toggle
+            const mobileTocToggle = document.getElementById('mobileTocToggle');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (mobileTocToggle) {
+                mobileTocToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+            }
+            
+            // Copy code functionality
+            const copyButtons = document.querySelectorAll('.code-copy');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeBlock = this.closest('.code-block').querySelector('code');
+                    const textToCopy = codeBlock.textContent;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // Change button text temporarily
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                        
+                        // Reset button text after delay
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+            
+            // Language switcher
+            const languageSwitch = document.getElementById('languageSwitch');
+            
+            if (languageSwitch) {
+                languageSwitch.addEventListener('click', function() {
+                    // Toggle between Arabic and English versions
+                    window.location.href = 'documentation.html';
+                });
+            }
+
+            // TOC active state on scroll
+            const sections = document.querySelectorAll('.doc-section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const tocSubLinks = document.querySelectorAll('.toc-sub-link');
+            
+            function setActiveLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 140;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        currentSection = sectionId;
+                    }
+                });
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href').substring(1);
+                    
+                    if (href === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                tocSubLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href').substring(1);
+                    
+                    if (href === currentSection) {
+                        link.classList.add('active');
+                        
+                        // Also highlight parent section
+                        const parentLi = link.closest('.toc-sub-list').previousElementSibling;
+                        if (parentLi && parentLi.classList.contains('toc-link')) {
+                            parentLi.classList.add('active');
+                        }
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', setActiveLink);
+            
+            // Initialize page to show correct active section on load
+            setActiveLink();
+            
+            // Dynamic date in footer
+            const lastUpdatedElements = document.querySelectorAll('.last-updated, .last-updated-text');
+            lastUpdatedElements.forEach(el => {
+                el.innerHTML = `آخر تحديث: 2025-03-07 04:30:12 UTC بواسطة SillyRobot883`;
+            });
+
+            // Intersection Observer for fade-in animations
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+
+                const fadeElements = document.querySelectorAll('.doc-section, .info-card, .callout');
+                
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('fade-in');
+                            fadeObserver.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                
+                fadeElements.forEach(element => {
+                    fadeObserver.observe(element);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

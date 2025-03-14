@@ -1,4 +1,42 @@
+import translations from './translations.js';
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Language switch functionality
+    const switchButton = document.getElementById('language-switch');
+    switchButton.addEventListener('click', switchLanguage);
+
+    function switchLanguage() {
+        const currentLang = document.documentElement.lang;
+        if (currentLang === 'ar') {
+            translateToEnglish();
+        } else {
+            translateToArabic();
+        }
+    }
+
+    function translateToEnglish() {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        switchButton.textContent = 'AR';
+
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            el.innerHTML = translations.en[key] || el.innerHTML;
+        });
+    }
+
+    function translateToArabic() {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        switchButton.textContent = 'EN';
+
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            el.innerHTML = translations.ar[key] || el.innerHTML;
+        });
+    }
+
+    // Stats animation functionality
     function isInViewport(element) {
         if (!element) return false;
         const rect = element.getBoundingClientRect();

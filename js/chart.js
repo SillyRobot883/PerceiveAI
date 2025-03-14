@@ -1,76 +1,96 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if chart container exists
-    const chartCanvas = document.getElementById('disabilityChart');
-    if (!chartCanvas) return;
-
-    // Chart data
-    const data = {
-        labels: [
-            'الإعاقة الحركية',
-            'الإعاقة البصرية',
-            'الإعاقة السمعية',
-            'الإعاقة الذهنية',
-            'إعاقات أخرى'
-        ],
-        datasets: [{
-            data: [57.1, 12.3, 11.3, 7.4, 11.9],
-            backgroundColor: [
-                '#8C52FF', // Primary color
-                '#FD297A', // Secondary color
-                '#FF6B6B',
-                '#4ECDC4',
-                '#FFE66D'
-            ],
-            borderColor: '#1A1C31', // bg-card color
-            borderWidth: 2,
-            hoverBorderWidth: 0,
-            hoverBackgroundColor: [
-                '#9D6FFF', // Slightly lighter
-                '#FF4B8E',
-                '#FF8A8A',
-                '#65E5DE',
-                '#FFF08A'
-            ]
-        }]
-    };
-
-    // Chart options
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false // We're using our own custom legend
+    // Get chart canvas
+    const ctx = document.getElementById('disabilityChart');
+    
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Physical (57.1%)',
+                    'Visual (12.3%)',
+                    'Hearing (11.3%)',
+                    'Mental (7.4%)',
+                    'Other (11.9%)'
+                ],
+                datasets: [{
+                    data: [57.1, 12.3, 11.3, 7.4, 11.9],
+                    backgroundColor: [
+                        '#8C52FF',  // Primary
+                        '#FD297A',  // Secondary
+                        '#FF6B6B',  // Red
+                        '#4ECDC4',  // Teal
+                        '#FFE66D'   // Yellow
+                    ],
+                    borderColor: 'rgba(15, 17, 33, 0.7)',
+                    borderWidth: 2
+                }]
             },
-            tooltip: {
-                backgroundColor: 'rgba(26, 28, 49, 0.9)', // bg-card color
-                titleFont: {
-                    family: 'Tajawal',
-                    size: 16,
-                    weight: 'bold'
-                },
-                bodyFont: {
-                    family: 'Tajawal',
-                    size: 14
-                },
-                callbacks: {
-                    label: function(context) {
-                        return context.parsed + '%';
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 17, 33, 0.9)',
+                        titleFont: {
+                            family: 'Inter, Tajawal, sans-serif',
+                            size: 14
+                        },
+                        bodyFont: {
+                            family: 'Inter, Tajawal, sans-serif',
+                            size: 14
+                        },
+                        padding: 12,
+                        boxPadding: 8,
+                        bodySpacing: 8
                     }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
             }
-        },
-        cutout: '40%', // Makes it a doughnut chart
-        animation: {
-            animateRotate: true,
-            animateScale: true
+        });
+    }
+    
+    // Update chart language when language changes
+    const languageSwitch = document.getElementById('language-switch');
+    if (languageSwitch) {
+        languageSwitch.addEventListener('click', function() {
+            setTimeout(() => {
+                updateChartLanguage();
+            }, 100);
+        });
+    }
+    
+    function updateChartLanguage() {
+        const currentLang = document.documentElement.lang;
+        
+        if (ctx && Chart.getChart(ctx)) {
+            const chart = Chart.getChart(ctx);
+            
+            if (currentLang === 'ar') {
+                chart.data.labels = [
+                    'الإعاقة الحركية (57.1%)',
+                    'الإعاقة البصرية (12.3%)',
+                    'الإعاقة السمعية (11.3%)',
+                    'الإعاقة الذهنية (7.4%)',
+                    'إعاقات أخرى (11.9%)'
+                ];
+            } else {
+                chart.data.labels = [
+                    'Physical (57.1%)',
+                    'Visual (12.3%)',
+                    'Hearing (11.3%)',
+                    'Mental (7.4%)',
+                    'Other (11.9%)'
+                ];
+            }
+            
+            chart.update();
         }
-    };
-
-    // Create the chart
-    new Chart(chartCanvas, {
-        type: 'doughnut',
-        data: data,
-        options: options
-    });
+    }
 });
