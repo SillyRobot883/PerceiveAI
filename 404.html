@@ -15,10 +15,11 @@
     <div class="container mx-auto px-8 flex justify-between items-center">
         <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
         <div class="flex gap-6">
-            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary">الرئيسية</a>
-            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary">عن المشروع</a>
-            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary">تواصل معنا</a>
-            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary">التوثيق</a>
+            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary text-primary" data-translate="home">الرئيسية</a>
+            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="about">عن المشروع</a>
+            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="contact">تواصل معنا</a>
+            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="documentation">التوثيق</a>
+            <button id="language-switch" class="font-medium transition-colors duration-300 hover:text-primary">EN</button>
         </div>
     </div>
 </header>
@@ -110,5 +111,7 @@
         </div>
     </div>
 </footer>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/translations.js"></script>
 </body>
 </html>

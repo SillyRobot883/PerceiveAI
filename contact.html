@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تواصل معنا - PerceiveAI</title>
+    <title data-translate="contact">تواصل معنا - PerceiveAI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,14 +32,18 @@
     </style>
 </head>
 <body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
-<header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(15, 17, 33, 0.9); backdrop-filter: blur(10px);">
-    <div class="container mx-auto px-8 flex justify-between items-center">
-        <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
+    <header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(15, 17, 33, 0.9); backdrop-filter: blur(10px);">
+        <div class="container mx-auto px-8 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="PerceiveAI Logo" class="w-8 h-8 rounded-lg">
+                <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
+            </a>
         <div class="flex gap-6">
-            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary">الرئيسية</a>
-            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary">عن المشروع</a>
-            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary text-primary">تواصل معنا</a>
-            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary">التوثيق</a>
+            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="home">الرئيسية</a>
+            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="about">عن المشروع</a>
+            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary text-primary" data-translate="contact">تواصل معنا</a>
+            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="documentation">التوثيق</a>
+            <button id="language-switch" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="language-switch">EN</button>
         </div>
     </div>
 </header>
@@ -59,10 +63,10 @@
 
     <div class="container mx-auto px-8">
         <div class="flex flex-col gap-8 max-w-xl mx-auto">
-            <h1 class="text-5xl font-black leading-tight mb-4 md:text-4xl lg:text-5xl text-center">
-                <span class="bg-gradient-primary bg-clip-text text-transparent">تواصل</span> معنا
+            <h1 class="text-5xl font-black leading-tight mb-4 md:text-4xl lg:text-5xl text-center" data-translate="contact-title">
+                تواصل <span class="bg-gradient-primary bg-clip-text text-transparent">معنا</span>
             </h1>
-            <p class="text-xl text-text-muted mb-8 text-center">
+            <p class="text-xl text-text-muted mb-8 text-center" data-translate="contact-subtitle">
                 نحن نتطلع للإجابة على استفساراتكم والاستماع إلى اقتراحاتكم لتحسين خدماتنا
             </p>
         </div>
@@ -71,199 +75,139 @@
 
 <section class="py-16">
     <div class="container mx-auto px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div class="bg-bg-card rounded-3xl p-8 shadow-lg">
-                <h2 class="text-3xl font-bold mb-6">
-                    <span class="bg-gradient-primary bg-clip-text text-transparent">أرسل</span> رسالتك
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="col-span-2">
+                <h2 class="text-3xl font-bold mb-4" data-translate="contact-form-title">
+                    نموذج <span class="bg-gradient-primary bg-clip-text text-transparent">التواصل</span>
                 </h2>
+                <p class="text-lg text-text-muted mb-8" data-translate="contact-form-description">
+                    يمكنك التواصل معنا مباشرة عبر تعبئة النموذج التالي. سنعاود الاتصال بك في أقرب وقت ممكن.
+                </p>
 
-                <div class="form-message mb-6 p-4 rounded-xl border border-amber-500/50 bg-amber-500/10 text-amber-400">
-                    <p class="flex items-center">
-                        <i class="fas fa-info-circle ml-2"></i>
-                        <span>عند إرسال النموذج لأول مرة، ستتم إعادة توجيهك لتأكيد عنوان البريد الإلكتروني. هذا يحدث مرة واحدة فقط.</span>
-                    </p>
-                </div>
-
-                <div id="form-success" class="form-message success" style="display: none;">
-                    <p class="flex items-center">
-                        <i class="fas fa-check-circle ml-2"></i>
-                        <span>تم إرسال رسالتك بنجاح! سنتواصل معك قريبًا.</span>
-                    </p>
-                </div>
-
-                <div id="form-error" class="form-message error" style="display: none;">
-                    <p class="flex items-center">
-                        <i class="fas fa-exclamation-circle ml-2"></i>
-                        <span>حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى.</span>
-                    </p>
-                </div>
-
-                <form id="contact-form" action="https://formsubmit.co/ragsriddle1337@gmail.com" method="POST">
-                    <input type="hidden" name="_subject" value="رسالة جديدة من PerceiveAI">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://sillyrobot883.github.io/PerceiveAI/thank-you">
-                    <input type="text" name="_honey" style="display:none">
-                    <input type="hidden" name="_captcha" value="false">
-
-
-                    <div class="flex flex-col gap-2">
-                        <label for="name" class="text-lg font-medium">الاسم الكامل</label>
-                        <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                class="py-4 px-6 rounded-full border-none bg-white/10 text-text-light text-base focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                                placeholder="أدخل اسمك الكامل"
-                                required
-                        >
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="full-name" class="block mb-2 font-medium" data-translate="full-name">الاسم الكامل</label>
+                        <input type="text" id="full-name" class="w-full bg-bg-card p-4 rounded-lg border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" data-translate-placeholder="full-name" placeholder="الاسم الكامل" required>
                     </div>
 
-                    <div class="flex flex-col gap-2">
-                        <label for="email" class="text-lg font-medium">البريد الإلكتروني</label>
-                        <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                class="py-4 px-6 rounded-full border-none bg-white/10 text-text-light text-base focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                                placeholder="أدخل بريدك الإلكتروني"
-                                required
-                        >
+                    <div>
+                        <label for="email" class="block mb-2 font-medium" data-translate="email-address">البريد الإلكتروني</label>
+                        <input type="email" id="email" class="w-full bg-bg-card p-4 rounded-lg border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" data-translate-placeholder="email-address" placeholder="البريد الإلكتروني" required>
                     </div>
 
-                    <div class="flex flex-col gap-2">
-                        <label for="subject" class="text-lg font-medium">الموضوع</label>
-                        <input
-                                type="text"
-                                id="subject"
-                                name="subject"
-                                class="py-4 px-6 rounded-full border-none bg-white/10 text-text-light text-base focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                                placeholder="موضوع الرسالة"
-                                required
-                        >
+                    <div>
+                        <label for="subject" class="block mb-2 font-medium" data-translate="subject">الموضوع</label>
+                        <input type="text" id="subject" class="w-full bg-bg-card p-4 rounded-lg border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" data-translate-placeholder="subject" placeholder="الموضوع" required>
                     </div>
 
-                    <div class="flex flex-col gap-2">
-                        <label for="message" class="text-lg font-medium">الرسالة</label>
-                        <textarea
-                                id="message"
-                                name="message"
-                                rows="5"
-                                class="py-4 px-6 rounded-2xl border-none bg-white/10 text-text-light text-base focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-                                placeholder="أدخل رسالتك هنا..."
-                                required
-                        ></textarea>
+                    <div>
+                        <label for="message" class="block mb-2 font-medium" data-translate="message">الرسالة</label>
+                        <textarea id="message" rows="6" class="w-full bg-bg-card p-4 rounded-lg border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none resize-none" data-translate-placeholder="message" placeholder="الرسالة" required></textarea>
                     </div>
 
-                    <button
-                            type="submit"
-                            class="mt-4 px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                    >
-                        إرسال الرسالة
-                    </button>
+                    <div>
+                        <button type="submit" class="px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-translate="send-message">
+                            إرسال الرسالة
+                        </button>
+                    </div>
                 </form>
+
+                <div id="form-success" class="hidden mt-6 p-4 bg-green-500/20 border border-green-500/40 rounded-lg">
+                    <p class="text-green-400" data-translate="form-success">تم إرسال الرسالة بنجاح! سنتواصل معك قريباً.</p>
+                </div>
+                <div id="form-error" class="hidden mt-6 p-4 bg-red-500/20 border border-red-500/40 rounded-lg">
+                    <p class="text-red-400" data-translate="form-error">حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.</p>
+                </div>
             </div>
 
-            <div class="flex flex-col gap-8">
-                <div class="bg-bg-card rounded-3xl p-8 shadow-lg">
-                    <h2 class="text-3xl font-bold mb-6">
-                        <span class="bg-gradient-primary bg-clip-text text-transparent">معلومات</span> التواصل
-                    </h2>
-
-                    <div class="flex flex-col gap-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">البريد الإلكتروني</h3>
-                                <p class="text-text-muted">info@perceiveai.com</p>
-                            </div>
+            <div>
+                <h2 class="text-3xl font-bold mb-6" data-translate="contact-info-title">
+                    معلومات <span class="bg-gradient-primary bg-clip-text text-transparent">التواصل</span>
+                </h2>
+                
+                <div class="space-y-8">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-envelope text-white text-xl"></i>
                         </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">رقم الهاتف</h3>
-                                <p class="text-text-muted">+966 50 000 0000</p>
-                            </div>
+                        <div>
+                            <h3 class="font-medium mb-2" data-translate="email-title">البريد الإلكتروني</h3>
+                            <p class="text-text-muted" data-translate="email-info">info@perceiveai.com</p>
                         </div>
+                    </div>
 
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">العنوان</h3>
-                                <p class="text-text-muted">الرياض، المملكة العربية السعودية</p>
-                            </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-phone text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2" data-translate="phone-title">الهاتف</h3>
+                            <p class="text-text-muted" data-translate="phone-info">+966 50 000 0000</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2" data-translate="address-title">العنوان</h3>
+                            <p class="text-text-muted" data-translate="address-info">الرياض، المملكة العربية السعودية</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-clock text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2" data-translate="office-hours-title">ساعات العمل</h3>
+                            <p class="text-text-muted" data-translate="office-hours-info">الأحد - الخميس: 9 صباحاً - 5 مساءً</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-bg-card rounded-3xl p-8 shadow-lg">
-                    <h2 class="text-3xl font-bold mb-6">
-                        <span class="bg-gradient-primary bg-clip-text text-transparent">طرق</span> أخرى للتواصل
-                    </h2>
-
-                    <p class="text-text-muted mb-6">
-                        إذا كنت تواجه مشكلة مع نموذج التواصل، يمكنك التواصل معنا مباشرة عبر:
-                    </p>
-
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-at text-white"></i>
-                        </div>
-                        <a href="mailto:ragsriddle1337@gmail.com" class="text-primary hover:underline">
-                            ragsriddle1337@gmail.com
-                        </a>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-16">
+<section class="py-16 bg-bg-card/30">
     <div class="container mx-auto px-8">
-        <h2 class="text-4xl font-black text-center mb-16">
-            الأسئلة <span class="bg-gradient-primary bg-clip-text text-transparent">المتكررة</span>
+        <h2 class="text-3xl font-bold mb-12 text-center" data-translate="partnership-title">
+            فرص <span class="bg-gradient-primary bg-clip-text text-transparent">الشراكة</span>
         </h2>
-        <div class="max-w-3xl mx-auto">
-            <div class="grid grid-cols-1 gap-6">
-                <div class="bg-bg-card rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                    <h3 class="text-xl font-bold mb-3">ما هو مشروع PerceiveAI؟</h3>
-                    <p class="text-text-muted">
-                        PerceiveAI مشروع يهدف إلى تحسين تجربة المشاهدة للأشخاص من ذوي الاحتياجات السمعية أثناء متابعة المباريات الرياضية من خلال تحويل التعليق الصوتي إلى لغة الإشارة باستخدام تقنيات الذكاء الاصطناعي.
-                    </p>
+        
+        <p class="text-lg text-text-muted mb-8 text-center max-w-3xl mx-auto" data-translate="partnership-description">
+            نحن نبحث دائماً عن فرص للتعاون مع المنظمات التي تشاركنا رؤيتنا في جعل الرياضة أكثر شمولية.
+        </p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-bg-card rounded-xl p-6 text-center hover:bg-bg-card/70 transition-colors">
+                <div class="w-16 h-16 mb-4 text-4xl bg-gradient-primary bg-clip-text text-transparent mx-auto">
+                    <i class="fas fa-laptop-code"></i>
                 </div>
-                <div class="bg-bg-card rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                    <h3 class="text-xl font-bold mb-3">كيف يعمل النظام؟</h3>
-                    <p class="text-text-muted">
-                        يعمل النظام من خلال تحليل التعليق الصوتي للمباريات الرياضية وتحويله إلى نص، ثم ترجمة هذا النص إلى حركات لغة الإشارة يتم عرضها بواسطة أفاتار ثلاثي الأبعاد يمكن للمستخدمين من ذوي الإعاقة السمعية فهمها.
-                    </p>
+                <div class="font-medium" data-translate="tech-partners">شركاء تقنيين</div>
+            </div>
+            
+            <div class="bg-bg-card rounded-xl p-6 text-center hover:bg-bg-card/70 transition-colors">
+                <div class="w-16 h-16 mb-4 text-4xl bg-gradient-primary bg-clip-text text-transparent mx-auto">
+                    <i class="fas fa-tv"></i>
                 </div>
-                <div class="bg-bg-card rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                    <h3 class="text-xl font-bold mb-3">هل يمكن تجربة التقنية حالياً؟</h3>
-                    <p class="text-text-muted">
-                        نعم، يمكنك تجربة التقنية من خلال زيارة صفحة العرض التوضيحي على موقعنا وإدخال رابط الفيديو الذي ترغب في تحويل التعليق الصوتي فيه إلى لغة الإشارة.
-                    </p>
+                <div class="font-medium" data-translate="media-partners">شركاء إعلاميين</div>
+            </div>
+            
+            <div class="bg-bg-card rounded-xl p-6 text-center hover:bg-bg-card/70 transition-colors">
+                <div class="w-16 h-16 mb-4 text-4xl bg-gradient-primary bg-clip-text text-transparent mx-auto">
+                    <i class="fas fa-universal-access"></i>
                 </div>
-                <div class="bg-bg-card rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                    <h3 class="text-xl font-bold mb-3">كيف يمكنني المساهمة في المشروع؟</h3>
-                    <p class="text-text-muted">
-                        يمكنك المساهمة في المشروع من خلال التواصل معنا وتقديم اقتراحاتك أو الانضمام إلى فريقنا إذا كنت تمتلك المهارات المناسبة في مجال الذكاء الاصطناعي، معالجة اللغات الطبيعية، أو تطوير الواجهات.
-                    </p>
+                <div class="font-medium" data-translate="disability-orgs">مؤسسات ذوي الإعاقة</div>
+            </div>
+            
+            <div class="bg-bg-card rounded-xl p-6 text-center hover:bg-bg-card/70 transition-colors">
+                <div class="w-16 h-16 mb-4 text-4xl bg-gradient-primary bg-clip-text text-transparent mx-auto">
+                    <i class="fas fa-running"></i>
                 </div>
-                <div class="bg-bg-card rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                    <h3 class="text-xl font-bold mb-3">هل المشروع متاح للاستخدام التجاري؟</h3>
-                    <p class="text-text-muted">
-                        نعم، نحن نعمل على توفير خدماتنا للجهات الإعلامية والرياضية الراغبة في تحسين وصول محتواها لذوي الاحتياجات السمعية. للاستفسار عن خيارات التعاون التجاري، يرجى التواصل معنا من خلال نموذج الاتصال.
-                    </p>
-                </div>
+                <div class="font-medium" data-translate="sports-orgs">منظمات رياضية</div>
             </div>
         </div>
     </div>
@@ -274,23 +218,23 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
                 <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent mb-4">PerceiveAI</div>
-                <p class="text-text-muted text-sm">
+                <p class="text-text-muted text-sm" data-translate="footer-description">
                     نجعل الأحداث الرياضية متاحة لذوي الاحتياجات السمعية عبر تحويل التعليق الصوتي إلى لغة الإشارة بتقنيات الذكاء الاصطناعي المتقدمة
                 </p>
             </div>
 
             <div>
-                <h3 class="text-lg font-bold mb-4">روابط سريعة</h3>
+                <h3 class="text-lg font-bold mb-4" data-translate="quick-links">روابط سريعة</h3>
                 <ul class="space-y-2">
-                    <li><a href="/PerceiveAI" class="text-text-muted hover:text-primary transition-colors">الرئيسية</a></li>
-                    <li><a href="/PerceiveAI/about-us" class="text-text-muted hover:text-primary transition-colors">عن المشروع</a></li>
-                    <li><a href="/PerceiveAI/contact" class="text-text-muted hover:text-primary transition-colors">تواصل معنا</a></li>
-                    <li><a href="/PerceiveAI/documentation" class="text-text-muted hover:text-primary transition-colors">التوثيق</a></li>
+                    <li><a href="/PerceiveAI" class="text-text-muted hover:text-primary transition-colors" data-translate="home">الرئيسية</a></li>
+                    <li><a href="/PerceiveAI/about-us" class="text-text-muted hover:text-primary transition-colors" data-translate="about">عن المشروع</a></li>
+                    <li><a href="/PerceiveAI/contact" class="text-text-muted hover:text-primary transition-colors" data-translate="contact">تواصل معنا</a></li>
+                    <li><a href="/PerceiveAI/documentation" class="text-text-muted hover:text-primary transition-colors" data-translate="documentation">التوثيق</a></li>
                 </ul>
             </div>
 
             <div>
-                <h3 class="text-lg font-bold mb-4">تواصل معنا</h3>
+                <h3 class="text-lg font-bold mb-4" data-translate="contact-us">تواصل معنا</h3>
                 <ul class="space-y-2">
                     <li class="flex items-center gap-2">
                         <i class="fas fa-envelope text-primary"></i>
@@ -298,7 +242,7 @@
                     </li>
                     <li class="flex items-center gap-2">
                         <i class="fas fa-map-marker-alt text-primary"></i>
-                        <span class="text-text-muted">الرياض، المملكة العربية السعودية</span>
+                        <span class="text-text-muted" data-translate="location">الرياض، المملكة العربية السعودية</span>
                     </li>
                     <li class="flex items-center gap-2 mt-4">
                         <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
@@ -316,7 +260,7 @@
         </div>
 
         <div class="border-t border-white/10 pt-8 text-center">
-            <div class="text-sm text-text-muted">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي | PerceiveAI</div>
+            <div class="text-sm text-text-muted" data-translate="copyright">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي | PerceiveAI</div>
         </div>
     </div>
 </footer>
@@ -344,5 +288,7 @@
         }
     });
 </script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/translations.js"></script>
 </body>
 </html>

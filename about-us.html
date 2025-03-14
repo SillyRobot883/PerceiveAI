@@ -13,12 +13,16 @@
 <body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
 <header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(15, 17, 33, 0.9); backdrop-filter: blur(10px);">
     <div class="container mx-auto px-8 flex justify-between items-center">
-        <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
+        <a href="/PerceiveAI/" class="flex items-center gap-3">
+            <img src="assets/logo.png" alt="شعار PerceiveAI" class="w-8 h-8 rounded-lg">
+            <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
+        </a>
         <div class="flex gap-6">
-            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary">الرئيسية</a>
-            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary text-primary">عن المشروع</a>
-            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary">تواصل معنا</a>
-            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary">التوثيق</a>
+            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary text-primary" data-translate="home">الرئيسية</a>
+            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="about">عن المشروع</a>
+            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="contact">تواصل معنا</a>
+            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="documentation">التوثيق</a>
+            <button id="language-switch" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="language-switch">EN</button>
         </div>
     </div>
 </header>
@@ -38,10 +42,10 @@
 
     <div class="container mx-auto px-8">
         <div class="flex flex-col gap-8 max-w-xl mx-auto">
-            <h1 class="text-5xl font-black leading-tight mb-4 md:text-4xl lg:text-5xl text-center">
+            <h1 class="text-5xl font-black leading-tight mb-4 md:text-4xl lg:text-5xl text-center" data-translate="about-project-title">
                 عن <span class="bg-gradient-primary bg-clip-text text-transparent">المشروع</span>
             </h1>
-            <p class="text-xl text-text-muted mb-8 text-center">
+            <p class="text-xl text-text-muted mb-8 text-center" data-translate="about-project-subtitle">
                 رحلتنا لجعل الرياضة أكثر شمولية لذوي الاحتياجات السمعية
             </p>
         </div>
@@ -52,17 +56,17 @@
     <div class="container mx-auto px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-                <h2 class="text-4xl font-bold mb-8">
+                <h2 class="text-4xl font-bold mb-8" data-translate="project-story-title">
                     <span class="bg-gradient-primary bg-clip-text text-transparent">قصة</span> المشروع
                 </h2>
                 <div class="space-y-6 text-lg text-text-muted">
-                    <p>
+                    <p data-translate="project-story-1">
                         بدأت فكرة PerceiveAI من إيماننا العميق بأن التكنولوجيا يجب أن تكون متاحة للجميع بغض النظر عن قدراتهم الجسدية. لاحظنا أن هناك فجوة كبيرة في إمكانية وصول الأشخاص ذوي الإعاقة السمعية إلى المحتوى الرياضي، وخاصة التعليق الصوتي الذي يضيف قيمة كبيرة لتجربة المشاهدة.
                     </p>
-                    <p>
+                    <p data-translate="project-story-2">
                          اجتمع فريق من المبرمجين والباحثين والمختصين في مجال الذكاء الاصطناعي لتطوير حل يمكن أن يحول التعليق الصوتي للمباريات الرياضية إلى لغة الإشارة بشكل فوري وسلس. كانت الرؤية واضحة: خلق بيئة رياضية أكثر شمولية وإتاحة للجميع.
                     </p>
-                    <p>
+                    <p data-translate="project-story-3">
                         ومع دخول عام 2025، أصبح PerceiveAI واقعاً ملموساً يساهم في تحقيق أهداف رؤية 2030 فيما يخص التحول الرقمي والشمولية في المملكة العربية السعودية.
                     </p>
                 </div>
@@ -76,7 +80,7 @@
                 </div>
                 <div class="absolute -bottom-8 -left-8 p-6 bg-bg-card rounded-2xl shadow-lg z-10">
                     <div class="text-4xl mb-2 bg-gradient-primary bg-clip-text text-transparent">2025</div>
-                    <div class="text-sm text-text-muted">انطلاقة المشروع</div>
+                    <div class="text-sm text-text-muted" data-translate="project-launch">انطلاقة المشروع</div>
                 </div>
             </div>
         </div>
@@ -90,8 +94,8 @@
                 <div class="text-4xl mb-6 bg-gradient-primary bg-clip-text text-transparent">
                     <i class="fas fa-eye"></i>
                 </div>
-                <h2 class="text-3xl font-bold mb-6">رؤيتنا</h2>
-                <p class="text-text-muted text-lg">
+                <h2 class="text-3xl font-bold mb-6" data-translate="our-vision-title">رؤيتنا</h2>
+                <p class="text-text-muted text-lg" data-translate="our-vision-description">
                     نسعى لبناء عالم رياضي شامل يتمتع فيه الأشخاص ذوو الإعاقة السمعية بنفس تجربة المشاهدة الغنية والتفاعلية التي يتمتع بها المشاهدون الآخرون، من خلال تسخير قوة الذكاء الاصطناعي لتحويل المحتوى الصوتي إلى لغة الإشارة بدقة عالية وبشكل فوري.
                 </p>
             </div>
@@ -100,8 +104,8 @@
                 <div class="text-4xl mb-6 bg-gradient-primary bg-clip-text text-transparent">
                     <i class="fas fa-bullseye"></i>
                 </div>
-                <h2 class="text-3xl font-bold mb-6">رسالتنا</h2>
-                <p class="text-text-muted text-lg">
+                <h2 class="text-3xl font-bold mb-6" data-translate="our-mission-title">رسالتنا</h2>
+                <p class="text-text-muted text-lg" data-translate="our-mission-description">
                     تطوير وتقديم حلول تكنولوجية مبتكرة تزيل الحواجز التي تواجه ذوي الاحتياجات السمعية في الوصول إلى المحتوى الرياضي، وتعزيز الشمولية الرقمية في المملكة العربية السعودية والعالم العربي، بما يتماشى مع أهداف رؤية 2030 في بناء مجتمع حيوي ومتطور.
                 </p>
             </div>
@@ -111,7 +115,7 @@
 
 <section class="py-24">
     <div class="container mx-auto px-8">
-        <h2 class="text-4xl font-black text-center mb-16">
+        <h2 class="text-4xl font-black text-center mb-16" data-translate="technical-approach-title">
             نهجنا <span class="bg-gradient-primary bg-clip-text text-transparent">التقني</span>
         </h2>
 
@@ -125,49 +129,49 @@
                         <div class="text-3xl bg-gradient-primary bg-clip-text text-transparent">
                             <i class="fas fa-microphone"></i>
                         </div>
-                        <span class="text-sm text-text-muted text-center">التقاط وتحليل الصوت</span>
+                        <span class="text-sm text-text-muted text-center" data-translate="sound-analysis">التقاط وتحليل الصوت</span>
                     </div>
 
                     <div class="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl">
                         <div class="text-3xl bg-gradient-primary bg-clip-text text-transparent">
                             <i class="fas fa-language"></i>
                         </div>
-                        <span class="text-sm text-text-muted text-center">معالجة اللغة الطبيعية</span>
+                        <span class="text-sm text-text-muted text-center" data-translate="nlp">معالجة اللغة الطبيعية</span>
                     </div>
 
                     <div class="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl">
                         <div class="text-3xl bg-gradient-primary bg-clip-text text-transparent">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <span class="text-sm text-text-muted text-center">الخوارزميات الذكية</span>
+                        <span class="text-sm text-text-muted text-center" data-translate="ai-algorithms">الخوارزميات الذكية</span>
                     </div>
 
                     <div class="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl">
                         <div class="text-3xl bg-gradient-primary bg-clip-text text-transparent">
                             <i class="fas fa-sign-language"></i>
                         </div>
-                        <span class="text-sm text-text-muted text-center">ترجمة لغة الإشارة</span>
+                        <span class="text-sm text-text-muted text-center" data-translate="sign-translation">ترجمة لغة الإشارة</span>
                     </div>
                 </div>
             </div>
 
             <div>
-                <h3 class="text-3xl font-bold mb-6">
+                <h3 class="text-3xl font-bold mb-6" data-translate="how-tech-works-title">
                     <span class="bg-gradient-primary bg-clip-text text-transparent">كيف</span> تعمل التقنية
                 </h3>
 
                 <div class="space-y-6 text-lg text-text-muted">
-                    <p>
+                    <p data-translate="how-tech-works-desc">
                         تعتمد تقنيتنا على مجموعة متكاملة من خوارزميات الذكاء الاصطناعي التي تعمل معاً لتحويل التعليق الصوتي إلى لغة إشارة سلسة وطبيعية:
                     </p>
 
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0 mt-1">
-                            <span class="text-white font-bold">١</span>
+                            <span class="text-white font-bold" data-translate="step-1-number">١</span>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">تحليل الصوت والتعرف على الكلام</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="step-1-title">تحليل الصوت والتعرف على الكلام</h4>
+                            <p class="text-text-muted" data-translate="step-1-desc">
                                 نستخدم تقنيات متقدمة للتعرف على الكلام لتحويل التعليق الصوتي إلى نص بدقة عالية، مع مراعاة خصوصية اللهجات العربية المختلفة.
                             </p>
                         </div>
@@ -175,11 +179,11 @@
 
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0 mt-1">
-                            <span class="text-white font-bold">٢</span>
+                            <span class="text-white font-bold" data-translate="step-2-number">٢</span>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">معالجة اللغة الطبيعية</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="step-2-title">معالجة اللغة الطبيعية</h4>
+                            <p class="text-text-muted" data-translate="step-2-desc">
                                 تقوم خوارزميات معالجة اللغة الطبيعية بتحليل النص وفهم السياق والمصطلحات الرياضية وتحديد العناصر اللغوية المهمة لترجمتها.
                             </p>
                         </div>
@@ -187,11 +191,11 @@
 
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0 mt-1">
-                            <span class="text-white font-bold">٣</span>
+                            <span class="text-white font-bold" data-translate="step-3-number">٣</span>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">توليد حركات لغة الإشارة</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="step-3-title">توليد حركات لغة الإشارة</h4>
+                            <p class="text-text-muted" data-translate="step-3-desc">
                                 نستخدم نماذج التعلم العميق لتحويل النص المفهوم إلى تسلسل من حركات لغة الإشارة العربية الموحدة التي تنقل المعنى بدقة.
                             </p>
                         </div>
@@ -199,11 +203,11 @@
 
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0 mt-1">
-                            <span class="text-white font-bold">٤</span>
+                            <span class="text-white font-bold" data-translate="step-4-number">٤</span>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">عرض الأفاتار ثلاثي الأبعاد</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="step-4-title">عرض الأفاتار ثلاثي الأبعاد</h4>
+                            <p class="text-text-muted" data-translate="step-4-desc">
                                 تُرجم حركات لغة الإشارة إلى تحريك أفاتار ثلاثي الأبعاد واقعي يعرض الإشارات بطريقة سلسة وطبيعية وقابلة للفهم.
                             </p>
                         </div>
@@ -216,49 +220,49 @@
 
 <section class="py-16 bg-bg-card/30">
     <div class="container mx-auto px-8">
-        <h2 class="text-4xl font-black text-center mb-16">
+        <h2 class="text-4xl font-black text-center mb-16" data-translate="current-progress-title">
             <span class="bg-gradient-primary bg-clip-text text-transparent">تقدمنا</span> الحالي
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
                 <div class="text-5xl font-black mb-4 bg-gradient-primary bg-clip-text text-transparent">95%</div>
-                <h3 class="text-xl font-bold mb-2">دقة التعرف على الكلام</h3>
-                <p class="text-text-muted">
+                <h3 class="text-xl font-bold mb-2" data-translate="speech-recognition-title">دقة التعرف على الكلام</h3>
+                <p class="text-text-muted" data-translate="speech-recognition-desc">
                     معدل دقة عالي في تحويل التعليق الصوتي إلى نص مع التعامل مع اللهجات العربية المختلفة
                 </p>
             </div>
 
             <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
                 <div class="text-5xl font-black mb-4 bg-gradient-primary bg-clip-text text-transparent">90%</div>
-                <h3 class="text-xl font-bold mb-2">دقة الترجمة إلى لغة الإشارة</h3>
-                <p class="text-text-muted">
+                <h3 class="text-xl font-bold mb-2" data-translate="translation-accuracy-title">دقة الترجمة إلى لغة الإشارة</h3>
+                <p class="text-text-muted" data-translate="translation-accuracy-desc">
                     ترجمة النص إلى لغة الإشارة العربية الموحدة بدقة عالية مع مراعاة السياق الرياضي
                 </p>
             </div>
 
             <div class="bg-bg-card rounded-3xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-3">
                 <div class="text-5xl font-black mb-4 bg-gradient-primary bg-clip-text text-transparent">85%</div>
-                <h3 class="text-xl font-bold mb-2">واقعية الأفاتار</h3>
-                <p class="text-text-muted">
+                <h3 class="text-xl font-bold mb-2" data-translate="avatar-realism-title">واقعية الأفاتار</h3>
+                <p class="text-text-muted" data-translate="avatar-realism-desc">
                     مستوى عالٍ من الواقعية في حركات الأفاتار وتعبيرات الوجه لتوصيل المعنى بشكل أفضل
                 </p>
             </div>
         </div>
 
         <div class="bg-bg-card rounded-3xl p-8 shadow-lg">
-            <h3 class="text-2xl font-bold mb-6 text-center">مراحل تطور المشروع</h3>
+            <h3 class="text-2xl font-bold mb-6 text-center" data-translate="project-stages-title">مراحل تطور المشروع</h3>
             <div class="relative">
                 <div class="absolute h-full w-1 bg-gradient-primary rounded-full left-1/2 transform -translate-x-1/2"></div>
 
                 <div class="flex flex-col gap-12 relative z-10">
                     <div class="flex flex-col md:flex-row items-center">
                         <div class="md:w-1/2 md:pr-8 text-left md:text-right order-2 md:order-1">
-                            <h4 class="text-xl font-bold mb-2">مرحلة البحث والتحليل</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="stage-1-title">مرحلة البحث والتحليل</h4>
+                            <p class="text-text-muted" data-translate="stage-1-desc">
                                 تحليل احتياجات المستخدمين من ذوي الإعاقة السمعية ودراسة التقنيات المتاحة لتحويل الكلام إلى لغة الإشارة
                             </p>
-                            <div class="text-primary mt-2">مكتمل</div>
+                            <div class="text-primary mt-2" data-translate="stage-1-status">مكتمل</div>
                         </div>
                         <div class="md:w-12 relative flex justify-center mb-4 md:mb-0 order-1 md:order-2">
                             <div class="h-12 w-12 rounded-full bg-gradient-primary flex items-center justify-center z-20">
@@ -275,21 +279,21 @@
                             </div>
                         </div>
                         <div class="md:w-1/2 md:pl-8 text-right md:text-left order-3">
-                            <h4 class="text-xl font-bold mb-2">تطوير نموذج أولي</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="stage-2-title">تطوير نموذج أولي</h4>
+                            <p class="text-text-muted" data-translate="stage-2-desc">
                                 بناء نماذج أولية لتقنيات التعرف على الكلام ومعالجة اللغة الطبيعية وتحويلها إلى لغة الإشارة
                             </p>
-                            <div class="text-primary mt-2">مكتمل</div>
+                            <div class="text-primary mt-2" data-translate="stage-2-status">مكتمل</div>
                         </div>
                     </div>
 
                     <div class="flex flex-col md:flex-row items-center">
                         <div class="md:w-1/2 md:pr-8 text-left md:text-right order-2 md:order-1">
-                            <h4 class="text-xl font-bold mb-2">اختبار المستخدمين</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="stage-3-title">اختبار المستخدمين</h4>
+                            <p class="text-text-muted" data-translate="stage-3-desc">
                                 اختبار النظام مع مجتمع الصم وتجميع الملاحظات لتحسين دقة الترجمة وجودة تجربة المستخدم
                             </p>
-                            <div class="text-primary mt-2">مكتمل</div>
+                            <div class="text-primary mt-2" data-translate="stage-3-status">مكتمل</div>
                         </div>
                         <div class="md:w-12 relative flex justify-center mb-4 md:mb-0 order-1 md:order-2">
                             <div class="h-12 w-12 rounded-full bg-gradient-primary flex items-center justify-center z-20">
@@ -307,21 +311,21 @@
                             </div>
                         </div>
                         <div class="md:w-1/2 md:pl-8 text-right md:text-left order-3">
-                            <h4 class="text-xl font-bold mb-2">إطلاق النسخة التجريبية</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="stage-4-title">إطلاق النسخة التجريبية</h4>
+                            <p class="text-text-muted" data-translate="stage-4-desc">
                                 إطلاق النسخة التجريبية للمشروع مع شركاء من القنوات الرياضية لتقديم الخدمة في بعض المباريات المختارة
                             </p>
-                            <div class="text-primary mt-2">مكتمل</div>
+                            <div class="text-primary mt-2" data-translate="stage-4-status">مكتمل</div>
                         </div>
                     </div>
 
                     <div class="flex flex-col md:flex-row items-center">
                         <div class="md:w-1/2 md:pr-8 text-left md:text-right order-2 md:order-1">
-                            <h4 class="text-xl font-bold mb-2">التوسع والتطوير المستمر</h4>
-                            <p class="text-text-muted">
+                            <h4 class="text-xl font-bold mb-2" data-translate="stage-5-title">التوسع والتطوير المستمر</h4>
+                            <p class="text-text-muted" data-translate="stage-5-desc">
                                 توسيع نطاق الخدمة لتشمل المزيد من القنوات الرياضية والأحداث، مع التطوير المستمر للذكاء الاصطناعي وتحسين الأداء
                             </p>
-                            <div class="text-secondary mt-2">قيد التنفيذ</div>
+                            <div class="text-secondary mt-2" data-translate="stage-5-status">قيد التنفيذ</div>
                         </div>
                         <div class="md:w-12 relative flex justify-center mb-4 md:mb-0 order-1 md:order-2">
                             <div class="h-12 w-12 rounded-full bg-white/20 border-2 border-primary flex items-center justify-center z-20">
@@ -338,7 +342,7 @@
 
 <section class="py-24">
     <div class="container mx-auto px-8">
-        <h2 class="text-4xl font-black text-center mb-16">
+        <h2 class="text-4xl font-black text-center mb-16" data-translate="future-plans-title">
             خطتنا <span class="bg-gradient-primary bg-clip-text text-transparent">المستقبلية</span>
         </h2>
 
@@ -350,8 +354,8 @@
                             <i class="fas fa-mobile-alt text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-4">تطبيق الجوال</h3>
-                            <p class="text-text-muted">
+                            <h3 class="text-2xl font-bold mb-4" data-translate="mobile-app-title">تطبيق الجوال</h3>
+                            <p class="text-text-muted" data-translate="mobile-app-desc">
                                 تطوير تطبيق للهواتف الذكية يتيح للمستخدمين من ذوي الإعاقة السمعية متابعة المباريات الرياضية مع ترجمة فورية للتعليق.
                             </p>
 
@@ -365,8 +369,8 @@
                             <i class="fas fa-globe text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-4">دعم لغات الإشارة المتعددة</h3>
-                            <p class="text-text-muted">
+                            <h3 class="text-2xl font-bold mb-4" data-translate="multiple-languages-title">دعم لغات الإشارة المتعددة</h3>
+                            <p class="text-text-muted" data-translate="multiple-languages-desc">
                                 توسيع دعم اللغة ليشمل لغة الإشارة في مختلف الدول العربية والعالمية، مما يتيح للمستخدمين اختيار لغة الإشارة المفضلة لديهم.
                             </p>
                         </div>
@@ -379,8 +383,8 @@
                             <i class="fas fa-tv text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-4">تكامل مع منصات البث</h3>
-                            <p class="text-text-muted">
+                            <h3 class="text-2xl font-bold mb-4" data-translate="api-integration-title">تكامل مع منصات البث</h3>
+                            <p class="text-text-muted" data-translate="api-integration-desc">
                                 تطوير واجهات برمجة تطبيقات (APIs) تتيح دمج خدماتنا مع منصات البث الرياضي الشهيرة والقنوات التلفزيونية.
                             </p>
                         </div>
@@ -395,8 +399,8 @@
                             <i class="fas fa-vr-cardboard text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-4">تجربة الواقع المعزز</h3>
-                            <p class="text-text-muted">
+                            <h3 class="text-2xl font-bold mb-4" data-translate="ar-title">تجربة الواقع المعزز</h3>
+                            <p class="text-text-muted" data-translate="ar-desc">
                                 تطوير تقنية الواقع المعزز لعرض مترجم لغة الإشارة بجانب المباراة في الوقت الحقيقي عبر الأجهزة الذكية ونظارات الواقع المعزز.
                             </p>
                         </div>
@@ -409,8 +413,8 @@
                             <i class="fas fa-robot text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-4">تحسين الذكاء الاصطناعي</h3>
-                            <p class="text-text-muted">
+                            <h3 class="text-2xl font-bold mb-4" data-translate="ai-improvement-title">تحسين الذكاء الاصطناعي</h3>
+                            <p class="text-text-muted" data-translate="ai-improvement-desc">
                                 تطوير الجيل الثاني من نماذج الذكاء الاصطناعي لتحسين دقة الترجمة وسرعة الاستجابة وقدرة النظام على التعامل مع مصطلحات رياضية أكثر تعقيدًا.
                             </p>
                         </div>
@@ -423,8 +427,8 @@
                             <i class="fas fa-users text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-4">منصة اجتماعية</h3>
-                            <p class="text-text-muted">
+                            <h3 class="text-2xl font-bold mb-4" data-translate="social-platform-title">منصة اجتماعية</h3>
+                            <p class="text-text-muted" data-translate="social-platform-desc">
                                 إطلاق منصة اجتماعية خاصة تتيح للمستخدمين من ذوي الإعاقة السمعية مناقشة الأحداث الرياضية والتفاعل مع بعضهم البعض حول اهتماماتهم الرياضية.
                             </p>
                         </div>
@@ -437,29 +441,29 @@
 
 <section class="py-16 bg-bg-card/30">
     <div class="container mx-auto px-8">
-        <h2 class="text-4xl font-black text-center mb-16">
+        <h2 class="text-4xl font-black text-center mb-16" data-translate="expected-impact-title">
             <span class="bg-gradient-primary bg-clip-text text-transparent">تأثيرنا</span> المتوقع
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
                 <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">200K+</div>
-                <div class="text-lg text-text-muted">مستخدم من ذوي الإعاقة السمعية بحلول نهاية 2025</div>
+                <div class="text-lg text-text-muted" data-translate="users-2025">مستخدم من ذوي الإعاقة السمعية بحلول نهاية 2025</div>
             </div>
 
             <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
                 <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">50+</div>
-                <div class="text-lg text-text-muted">قناة رياضية وشريك إعلامي</div>
+                <div class="text-lg text-text-muted" data-translate="media-partners">قناة رياضية وشريك إعلامي</div>
             </div>
 
             <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
                 <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">98%</div>
-                <div class="text-lg text-text-muted">نسبة دقة النظام المستهدفة بحلول 2026</div>
+                <div class="text-lg text-text-muted" data-translate="accuracy-2026">نسبة دقة النظام المستهدفة بحلول 2026</div>
             </div>
 
             <div class="bg-bg-card rounded-3xl p-8 text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
                 <div class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent inline-block">10+</div>
-                <div class="text-lg text-text-muted">لغات إشارة مدعومة</div>
+                <div class="text-lg text-text-muted" data-translate="supported-languages">لغات إشارة مدعومة</div>
             </div>
         </div>
     </div>
@@ -479,17 +483,17 @@
 
     <div class="container mx-auto px-8 relative z-10">
         <div class="bg-bg-card/80 backdrop-blur-lg rounded-3xl p-12 max-w-4xl mx-auto text-center shadow-xl">
-            <h2 class="text-4xl font-black mb-6">
+            <h2 class="text-4xl font-black mb-6" data-translate="join-journey-title">
                 شارك في <span class="bg-gradient-primary bg-clip-text text-transparent">رحلتنا</span>
             </h2>
-            <p class="text-xl text-text-muted mb-8 max-w-2xl mx-auto">
+            <p class="text-xl text-text-muted mb-8 max-w-2xl mx-auto" data-translate="join-journey-description">
                 نحن نبحث دائماً عن شراكات جديدة ومتعاونين مهتمين بمجال التكنولوجيا المساعدة وتوفير الوصول الشامل للمحتوى الرياضي. انضم إلينا في هذه الرحلة التحويلية.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-                <a href="contact.html" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <a href="contact.html" class="inline-block px-8 py-4 rounded-full bg-gradient-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-translate="contact-us-now">
                     تواصل معنا
                 </a>
-                <a href="documentation.html" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:border-white">
+                <a href="documentation.html" class="inline-block px-8 py-4 rounded-full bg-transparent border-2 border-primary text-white font-bold transition-all duration-300 hover:-translate-y-1 hover:border-white" data-translate="explore-docs">
                     استكشف التوثيق التقني
                 </a>
             </div>
@@ -502,23 +506,23 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
                 <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent mb-4">PerceiveAI</div>
-                <p class="text-text-muted text-sm">
+                <p class="text-text-muted text-sm" data-translate="footer-description">
                     نجعل الأحداث الرياضية متاحة لذوي الاحتياجات السمعية عبر تحويل التعليق الصوتي إلى لغة الإشارة بتقنيات الذكاء الاصطناعي المتقدمة
                 </p>
             </div>
 
             <div>
-                <h3 class="text-lg font-bold mb-4">روابط سريعة</h3>
+                <h3 class="text-lg font-bold mb-4" data-translate="quick-links">روابط سريعة</h3>
                 <ul class="space-y-2">
-                    <li><a href="/PerceiveAI" class="text-text-muted hover:text-primary transition-colors">الرئيسية</a></li>
-                    <li><a href="/PerceiveAI/about-us" class="text-text-muted hover:text-primary transition-colors">عن المشروع</a></li>
-                    <li><a href="/PerceiveAI/contact" class="text-text-muted hover:text-primary transition-colors">تواصل معنا</a></li>
-                    <li><a href="/PerceiveAI/documentation" class="text-text-muted hover:text-primary transition-colors">التوثيق</a></li>
+                    <li><a href="/PerceiveAI" class="text-text-muted hover:text-primary transition-colors" data-translate="home">الرئيسية</a></li>
+                    <li><a href="/PerceiveAI/about-us" class="text-text-muted hover:text-primary transition-colors" data-translate="about">عن المشروع</a></li>
+                    <li><a href="/PerceiveAI/contact" class="text-text-muted hover:text-primary transition-colors" data-translate="contact">تواصل معنا</a></li>
+                    <li><a href="/PerceiveAI/documentation" class="text-text-muted hover:text-primary transition-colors" data-translate="documentation">التوثيق</a></li>
                 </ul>
             </div>
 
             <div>
-                <h3 class="text-lg font-bold mb-4">تواصل معنا</h3>
+                <h3 class="text-lg font-bold mb-4" data-translate="contact-us">تواصل معنا</h3>
                 <ul class="space-y-2">
                     <li class="flex items-center gap-2">
                         <i class="fas fa-envelope text-primary"></i>
@@ -526,7 +530,7 @@
                     </li>
                     <li class="flex items-center gap-2">
                         <i class="fas fa-map-marker-alt text-primary"></i>
-                        <span class="text-text-muted">الرياض، المملكة العربية السعودية</span>
+                        <span class="text-text-muted" data-translate="location">الرياض، المملكة العربية السعودية</span>
                     </li>
                     <li class="flex items-center gap-2 mt-4">
                         <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
@@ -544,11 +548,13 @@
         </div>
 
         <div class="border-t border-white/10 pt-8 text-center">
-            <div class="text-sm text-text-muted">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي | PerceiveAI</div>
+            <div class="text-sm text-text-muted" data-translate="copyright">© 2025 جميع الحقوق محفوظة - مشروع دوري الذكاء الاصطناعي | PerceiveAI</div>
         </div>
     </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/translations.js"></script>
+
 </body>
 </html>
