@@ -64,24 +64,20 @@ The project is designed to bridge the gap between accessibility and inclusivity 
   Include the "About PerceiveAI" section explaining the project's mission and alignment with Vision 2030.
 
 ## How to Run the Project
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/PerceiveAI.git
+Copy and paste the following commands into your terminal to set up and run the project:
 
-Install dependencies:
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/PerceiveAI.git && cd PerceiveAI
 
-bash
-Copy
-Edit
-cd PerceiveAI
+# Install dependencies
 npm install
-Start the development server:
 
-bash
-Copy
-Edit
+# Start the development server
 npm run dev
-Open the application in your browser: Open http://localhost:3000 to see the project in action.
+
+# Open your browser and navigate to http://localhost:3000 to see the project in action.
+
 
 Contribution Guidelines
 We welcome contributions to improve PerceiveAI! Here's how you can help:
@@ -96,11 +92,3 @@ Submit a pull request with a detailed description of your changes.
 
 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
-
-yaml
-Copy
-Edit
-
----
-
-Feel free to modify any sections to match your project's specific requirements. This README includes pl
