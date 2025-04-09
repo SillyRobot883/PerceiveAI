@@ -114,4 +114,67 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check on page load
     checkScroll();
+
+    // Add this code to integrate the avatar with the transcription system
+    // Listen for the toggle sign language button
+    const toggleSignBtn = document.getElementById('toggle-sign-language');
+    if (toggleSignBtn) {
+        toggleSignBtn.addEventListener('click', function() {
+            if (window.avatarController) {
+                if (window.avatarController.isVisible) {
+                    window.avatarController.hideAvatar();
+                    toggleSignBtn.textContent = 'إظهار لغة الإشارة';
+                } else {
+                    window.avatarController.showAvatar();
+                    toggleSignBtn.textContent = 'إخفاء لغة الإشارة';
+                }
+            }
+        });
+    }
+    
+    // Listen for the toggle avatar type button
+    const toggleAvatarTypeBtn = document.getElementById('toggle-avatar-type');
+    if (toggleAvatarTypeBtn) {
+        toggleAvatarTypeBtn.addEventListener('click', function() {
+            if (window.avatarController) {
+                // Get current settings
+                const savedSettings = localStorage.getItem('perceiveAI_avatarSettings');
+                const settings = savedSettings ? JSON.parse(savedSettings) : {
+                    size: 'normal',
+                    position: 'bottom-right',
+                    emotionDetection: true,
+                    continuousMode: true,
+                    avatarType: '3d'
+                };
+                
+                // Toggle avatar type
+                settings.avatarType = settings.avatarType === '3d' ? '2d' : '3d';
+                
+                // Apply settings
+                if (window.avatarController.applySettings) {
+                    window.avatarController.applySettings(settings);
+                }
+                
+                // Update button text
+                toggleAvatarTypeBtn.innerHTML = settings.avatarType === '3d' ? 
+                    '<i class="fas fa-user-astronaut mr-2"></i> استخدم الأفاتار ثنائي الأبعاد' : 
+                    '<i class="fas fa-user mr-2"></i> استخدم الأفاتار ثلاثي الأبعاد';
+            }
+        });
+    }
+    
+    // Hook into the transcription system
+    if (typeof window.processTextForSignLanguage !== 'function') {
+        window.processTextForSignLanguage = function(text) {
+            if (!text || !window.avatarController) return;
+            
+            // Convert text to sign language
+            const words = text.split(/\s+/);
+            if (words.length > 0) {
+                // Sign the latest word or short phrase
+                const lastWord = words.slice(-3).join(' '); // Take last 3 words as a phrase
+                window.avatarController.signWord(lastWord);
+            }
+        };
+    }
 });

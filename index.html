@@ -10,29 +10,219 @@
     <script src="css/tailwind-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        #transcription-bar {
+            transition: all 0.3s ease;
+        }
+    </style>
+    <style>
+        /* Avatar integration styles */
+        #asl-avatar-container {
+            transition: width 0.3s, height 0.3s;
+            box-shadow: 0 0 20px rgba(140, 82, 255, 0.3);
+        }
+        
+        #avatar-controls {
+            transition: opacity 0.2s;
+        }
+        
+        #avatar-controls:hover {
+            opacity: 1 !important;
+        }
+        
+        #avatar-controls.signing {
+            background-color: rgba(140, 82, 255, 0.3);
+        }
+        
+        .avatar-button {
+            transition: transform 0.2s;
+        }
+        
+        .avatar-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    <style>
+    /* Avatar integration and transcription styles */
+    #asl-avatar-container {
+        transition: width 0.3s, height 0.3s;
+        box-shadow: 0 0 20px rgba(140, 82, 255, 0.3);
+        z-index: 30 !important; /* Ensure avatar is above transcription */
+    }
+    
+    #video-transcription-bar-container {
+        position: absolute;
+        bottom: 60px !important;
+        left: 10px !important;
+        transform: none !important;
+        width: 65% !important; /* Make space for avatar */
+        z-index: 20 !important;
+    }
+    
+    #main-transcription-display {
+        width: 100% !important;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        #asl-avatar-container {
+            width: 40% !important;
+            height: 30% !important;
+        }
+        
+        #video-transcription-bar-container {
+            width: 55% !important;
+        }
+    }
+</style>
+    <style>
+    /* Adjusted avatar and transcription positioning */
+    #asl-avatar-container {
+        transition: width 0.3s, height 0.3s;
+        box-shadow: 0 0 20px rgba(140, 82, 255, 0.3);
+        z-index: 1000 !important; /* Very high z-index */
+    }
+    
+    #video-transcription-bar-container {
+        position: absolute !important;
+        bottom: 80px !important;
+        left: 10px !important;
+        transform: none !important;
+        width: 65% !important; /* Make space for avatar */
+        z-index: 900 !important; /* Lower than avatar */
+    }
+    
+    #main-transcription-display {
+        width: 100% !important;
+        max-width: 90% !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        #asl-avatar-container {
+            width: 40% !important;
+            height: 30% !important;
+        }
+        
+        #video-transcription-bar-container {
+            width: 55% !important;
+        }
+    }
+</style>
+    <style>
+    /* Enhanced avatar styles */
+    #asl-avatar-container {
+        transform-origin: bottom right;
+    }
+    
+    #asl-avatar-container.minimized {
+        transform-origin: bottom right;
+    }
+    
+    #avatar-status-indicator, #avatar-emotion-overlay {
+        transition: opacity 0.3s ease;
+    }
+    
+    #avatar-settings-modal .transform {
+        transition: transform 0.3s ease;
+    }
+    
+    /* Switch styles */
+    input[type="checkbox"]:checked + label {
+        background-color: rgba(140, 82, 255, 0.8);
+    }
+    
+    input[type="checkbox"]:checked + label span {
+        transform: translateX(24px);
+    }
+</style>
+    <style>
+    /* Ensure avatar and transcription are properly visible */
+    #asl-avatar-container {
+        display: none; /* Hidden by default */
+        z-index: 1000 !important;
+    }
+    
+    #video-transcription-bar-container {
+        position: absolute !important;
+        bottom: 20px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 70% !important;
+        z-index: 900 !important;
+    }
+    
+    #main-transcription-display {
+        background: rgba(0, 0, 0, 0.7) !important;
+        color: white !important;
+        padding: 12px 16px !important;
+        border-radius: 10px !important;
+        text-align: center !important;
+        direction: rtl !important;
+        backdrop-filter: blur(5px) !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    #avatar-translation-box {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        direction: rtl;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 10;
+    }
+    
+    /* Make sure toggle button is visible */
+    #toggle-sign-language {
+        display: inline-block !important;
+    }
+</style>
 </head>
 <body class="bg-bg-dark text-text-light font-tajawal leading-relaxed">
-    <header class="fixed w-full top-0 z-50 py-6" style="background-color: rgba(15, 17, 33, 0.9); backdrop-filter: blur(10px);">
-        <div class="container mx-auto px-8 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="PerceiveAI Logo" class="w-8 h-8 rounded-lg">
-            </a>
-    <div class="container mx-auto px-8 flex justify-between items-center">
-        <div class="text-2xl font-black bg-gradient-primary bg-clip-text text-transparent">PerceiveAI</div>
-        <div class="flex gap-6">
-            <a href="/PerceiveAI/" class="font-medium transition-colors duration-300 hover:text-primary text-primary" data-translate="home">الرئيسية</a>
-            <a href="/PerceiveAI/about-us" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="about">عن المشروع</a>
-            <a href="/PerceiveAI/contact" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="contact">تواصل معنا</a>
-            <a href="/PerceiveAI/documentation" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="documentation">التوثيق</a>
-            <button id="language-switch" class="font-medium transition-colors duration-300 hover:text-primary" data-translate="language-switch">EN</button>
+    <header class="bg-gray-900 py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="assets/logo.png" alt="PerceiveAI Logo" class="h-10 mr-3">
+                <h1 class="text-white text-2xl font-bold" data-translate="title">PerceiveAI</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="text-white hover:text-blue-300" data-translate="home">الرئيسية</a></li>
+                    <li><a href="about-us.html" class="text-white hover:text-blue-300" data-translate="about">عن المشروع</a></li>
+                    <li><a href="documentation.html" class="text-white hover:text-blue-300" data-translate="docs">التوثيق</a></li>
+                    <li><a href="contact.html" class="text-white hover:text-blue-300" data-translate="contact">اتصل بنا</a></li>
+                    <li>
+                        <button id="mic-button" class="mic-button" title="تشغيل/إيقاف التعرف الصوتي">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="language-switch" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">EN</button>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    </div>
-</header>
+    </header>
 
 <section class="h-screen flex items-center justify-center pt-20 relative overflow-hidden">
     <div class="absolute inset-0 -z-10">
         <div class="absolute inset-0"
-             style="background: radial-gradient(ellipse at top right, rgba(140,82,255,0.15) 0%, rgba(18,18,18,0) 50%),
+             style="background: radial-gradient(ellipse at top right, rgba(140,82,255,0.15) 0%, rgba(17, 17, 17, 0) 50%),
                               radial-gradient(ellipse at bottom left, rgba(253,41,122,0.15) 0%, rgba(18,18,18,0) 50%);
                      animation: pulse-glow 8s ease-in-out infinite alternate;">
         </div>
@@ -161,13 +351,92 @@
                         data-translate="load-video">
                     تحميل الفيديو
                 </button>
+                <button
+                        id="toggle-sign-language"
+                        class="px-8 py-4 rounded-full bg-primary text-white font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                        data-translate="toggle-sign-language-show">
+                    إظهار لغة الإشارة
+                </button>
+                <button
+                        id="toggle-avatar-type"
+                        class="px-8 py-4 rounded-full bg-white/10 text-white font-bold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-white/20"
+                        data-translate="toggle-avatar-type">
+                    <i class="fas fa-user-astronaut mr-2"></i>
+                    استخدم الأفتار ثلاثي الأبعاد
+                </button>
             </div>
-            <div class="aspect-video rounded-xl overflow-hidden relative">
-                <div id="video-placeholder" class="flex flex-col justify-center items-center bg-[rgba(30,30,30,0.8)] rounded-xl absolute inset-0 z-10">
-                    <i class="fas fa-film text-6xl mb-4 text-text-muted"></i>
-                    <p class="text-xl text-text-muted text-center" data-translate="video-instruction">أدخل رابط فيديو اليوتيوب لتجربة التقنية</p>
+            
+            <!-- Transcription Method Selection -->
+            <div class="mb-6 bg-white/5 rounded-xl p-4">
+                <p class="text-sm mb-3 text-white/80" data-translate="transcription-method">اختر طريقة استخراج النص:</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <label class="flex items-center space-x-2 space-x-reverse bg-white/5 rounded-lg px-4 py-2 cursor-pointer hover:bg-white/10 transition-colors">
+                        <input type="radio" name="transcription-method" value="auto" class="text-primary" checked>
+                        <span class="mr-2 text-white/90" data-translate="transcription-auto">تلقائي (الأفضل)</span>
+                    </label>
+                    <label class="flex items-center space-x-2 space-x-reverse bg-white/5 rounded-lg px-4 py-2 cursor-pointer hover:bg-white/10 transition-colors">
+                        <input type="radio" name="transcription-method" value="youtube" class="text-primary">
+                        <span class="mr-2 text-white/90" data-translate="transcription-youtube">نصوص يوتيوب</span>
+                    </label>
+                    <label class="flex items-center space-x-2 space-x-reverse bg-white/5 rounded-lg px-4 py-2 cursor-pointer hover:bg-white/10 transition-colors">
+                        <input type="radio" name="transcription-method" value="whisper" class="text-primary">
+                        <span class="mr-2 text-white/90" data-translate="transcription-whisper">OpenAI Whisper</span>
+                    </label>
+                    <label class="flex items-center space-x-2 space-x-reverse bg-white/5 rounded-lg px-4 py-2 cursor-pointer hover:bg-white/10 transition-colors">
+                        <input type="radio" name="transcription-method" value="fallback" class="text-primary">
+                        <span class="mr-2 text-white/90" data-translate="transcription-fallback">نص تجريبي</span>
+                    </label>
                 </div>
-                <div id="video-player" class="w-full h-full"></div>
+            </div>
+            
+            <div class="flex flex-wrap gap-3 mb-6 justify-center">
+                <span class="text-sm text-text-muted" data-translate="sample-videos">فيديوهات للتجربة:</span>
+                <a href="#" class="sample-video text-sm text-primary hover:text-white transition-colors" data-video="https://www.youtube.com/watch?v=WW6MX_muKzY">مباراة كرة قدم عربية</a>
+                <a href="#" class="sample-video text-sm text-primary hover:text-white transition-colors" data-video="https://www.youtube.com/watch?v=_oLZ9i1Rd2M">تحليل رياضي</a>
+                <a href="#" class="sample-video text-sm text-primary hover:text-white transition-colors" data-video="https://www.youtube.com/watch?v=GT3imW4CFoc">رياضات الكترونية</a>
+            </div>
+            
+            <!-- Video and Avatar Container -->
+            <div class="flex flex-col lg:flex-row gap-4">
+                <!-- Video Container -->
+                <div class="aspect-video rounded-xl overflow-hidden relative lg:flex-1">
+                    <div id="video-placeholder" class="flex flex-col justify-center items-center bg-[rgba(30,30,30,0.8)] rounded-xl absolute inset-0 z-10">
+                        <i class="fas fa-film text-6xl mb-4 text-text-muted"></i>
+                        <p class="text-xl text-text-muted text-center" data-translate="video-instruction">أدخل رابط فيديو اليوتيوب لتجربة التقنية</p>
+                    </div>
+                    <div id="video-player" class="w-full h-full"></div>
+                </div>
+                
+                <!-- 3D Avatar Container - Initially hidden -->
+                <div id="avatar-container" class="hidden lg:w-1/3 aspect-video bg-bg-card/50 rounded-xl overflow-hidden relative">
+                    <div id="avatar-placeholder" class="flex flex-col justify-center items-center absolute inset-0">
+                        <i class="fas fa-user-astronaut text-6xl mb-4 text-gradient-primary"></i>
+                        <p class="text-lg text-text-muted text-center px-4" data-translate="avatar-instruction">
+                            سيظهر هنا الأفتار ثلاثي الأبعاد المترجم بلغة الإشارة
+                        </p>
+                    </div>
+                    <div id="avatar-display" class="w-full h-full"></div>
+                </div>
+            </div>
+            
+            <!-- Transcription Container -->
+            <div class="mt-6 bg-bg-dark border border-white/10 rounded-xl p-4 shadow-lg">
+                <h3 class="text-xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+                    <i class="fas fa-closed-captioning mr-2"></i>
+                    <span data-translate="transcription-title">النص المستخرج</span>
+                </h3>
+                <div id="transcription-content" class="h-48 overflow-y-auto p-3 bg-[rgba(255,255,255,0.05)] rounded-lg text-text-light">
+                    <p class="text-text-muted text-center py-8" data-translate="waiting-for-transcription">
+                        في انتظار تحميل الفيديو لاستخراج النص...
+                    </p>
+                </div>
+                <!-- Translation progress indicator -->
+                <div class="mt-4 flex items-center">
+                    <div class="w-full h-2 bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
+                        <div id="translation-progress" class="h-full bg-gradient-primary w-0 transition-all duration-300"></div>
+                    </div>
+                    <span id="translation-status" class="ml-4 text-sm text-text-muted min-w-[80px]">0%</span>
+                </div>
             </div>
         </div>
     </div>
@@ -420,7 +689,155 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/translations.js"></script>
 <script src="js/chart.js"></script>
+
+<!-- PerceiveAI components -->
+<script src="js/audio-extractor.js"></script>
+<script src="js/speech-to-text.js"></script>
+<script src="js/sign-language-mapper.js"></script>
+<script src="js/sign-language-animator.js"></script>
+<script src="js/perceive-pipeline.js"></script>
+<script src="js/avatar-integration.js"></script>
 <script src="js/video-player.js"></script>
+<script src="js/asl-server-connector.js"></script>
+
+<!-- Load sample videos handler after all other scripts -->
+<script src="js/sample-videos.js"></script>
+
 <script type="module" src="js/main.js"></script>
+
+<!-- Add the transcription bar element before the closing body tag -->
+<div id="floating-transcription" class="fixed bottom-0 left-0 right-0 z-40 p-4 flex justify-center">
+    <div id="transcription-bar" class="bg-gray-800 text-white py-3 px-6 rounded-full shadow-lg text-center min-w-[50%] max-w-[90%] opacity-0 pointer-events-none transition-opacity">
+        انقر على زر الميكروفون لبدء الاستماع
+    </div>
+</div>
+
+<!-- Add this right before the closing </body> tag -->
+<script src="js/avatar-display-fix.js"></script>
+<script src="js/fix-avatar-resize.js"></script>
+<script src="js/avatar-toggle-button.js"></script>
+<script src="js/innovative-features.js"></script>
+<script src="js/avatar-initializer.js"></script>
+<script src="js/character-switcher.js"></script>
+<script src="js/avatar-resizer.js"></script>
+<script src="js/avatar-enhanced-resizer.js"></script>
+<script src="js/transcription-to-avatar.js"></script>
+
+<script>
+    // Initialize ASL translator and ensure avatar loads correctly
+    window.addEventListener('load', function() {
+        // Initialize everything with a slight delay to ensure all scripts are loaded
+        setTimeout(function() {
+            console.log("Initializing ASL Avatar system");
+            
+            // Force reload avatar iframe with cache busting if it exists
+            const frame = document.getElementById('asl-avatar-frame');
+            if (frame) {
+                console.log("Reloading avatar frame");
+                const timestamp = new Date().getTime();
+                frame.src = `ASL/algerianSignLanguage-avatar/web-simulator/index.html?v=${timestamp}`;
+                
+                // Wait for iframe to load then connect transcription
+                frame.addEventListener('load', function() {
+                    // Initialize transcription to avatar connection
+                    console.log("Avatar frame loaded, connecting transcription");
+                    if (typeof window.transcriptionToAvatarAPI !== 'undefined') {
+                        // Send a test message
+                        setTimeout(() => {
+                            window.transcriptionToAvatarAPI.sendTextToAvatar("جاهز للترجمة الفورية");
+                        }, 2000);
+                    }
+                });
+            } else {
+                console.log("Avatar frame not found, initializing");
+                if (typeof initializeAvatarDisplay === 'function') {
+                    initializeAvatarDisplay();
+                }
+            }
+            
+            // Make sure toggle button works
+            const toggleButton = document.getElementById('toggle-sign-language');
+            if (toggleButton) {
+                console.log("Setting up toggle button");
+                toggleButton.addEventListener('click', function() {
+                    console.log("Toggle button clicked");
+                    if (window.avatarAPI && window.avatarAPI.toggleAvatar) {
+                        window.avatarAPI.toggleAvatar();
+                    } else if (window.toggleAvatarDisplay) {
+                        window.toggleAvatarDisplay();
+                    } else {
+                        const avatarContainer = document.getElementById('asl-avatar-container');
+                        if (!avatarContainer) return;
+                        
+                        const isVisible = avatarContainer.style.display === 'block';
+                        avatarContainer.style.display = isVisible ? 'none' : 'block';
+                        this.textContent = isVisible ? 'إظهار لغة الإشارة' : 'إخفاء لغة الإشارة';
+                    }
+                });
+            }
+            
+            // Also connect to transcription system
+            const transcriptionBar = document.getElementById('transcription-bar');
+            if (transcriptionBar) {
+                console.log("Setting up transcription observer");
+                
+                // Update existing observer to use our new API
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            const text = transcriptionBar.textContent;
+                            
+                            // Use the new API
+                            if (text && typeof window.transcriptionToAvatarAPI !== 'undefined') {
+                                window.transcriptionToAvatarAPI.processToDSign(text);
+                            }
+                            // Fallback to old method
+                            else if (text && typeof processTextForSigning === 'function') {
+                                processTextForSigning(text);
+                            }
+                        }
+                    });
+                });
+                
+                observer.observe(transcriptionBar, {
+                    childList: true,
+                    characterData: true,
+                    subtree: true
+                });
+            }
+        }, 1000);
+    });
+</script>
+
+<script>
+    // Add this to your existing script just before the closing </script> tag
+    
+    // Initialize character selector functionality
+    window.addEventListener('load', function() {
+        // Add the character change button to the avatar controls
+        setTimeout(function() {
+            // Check if character selector exists, if not create it
+            if (!document.getElementById('character-selector') && 
+                typeof addCharacterSelectorStyles === 'function' && 
+                typeof createCharacterSelector === 'function') {
+                
+                addCharacterSelectorStyles();
+                createCharacterSelector();
+                
+                console.log("Character selector initialized");
+            }
+        }, 1500); // Wait a bit after other initializations
+    });
+</script>
+
+<!-- Add this AFTER all your other script tags, just before the closing </body> tag -->
+<script src="js/emergency-fix.js"></script>
+<script src="js/clean-transcription-to-avatar.js"></script>
+<!-- Add this right before the closing </body> tag, AFTER all other scripts -->
+<script src="js/direct-transcript-capture.js"></script>
+
+<!-- Add this right before the closing </body> tag, after all other scripts -->
+<script src="js/fix-transcription-capture.js"></script>
+
 </body>
 </html>

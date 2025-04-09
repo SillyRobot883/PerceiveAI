@@ -26,6 +26,52 @@ body {
     }
 }
 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse-amber {
+    0% {
+        background-color: rgba(245, 158, 11, 0.1);
+    }
+    50% {
+        background-color: rgba(245, 158, 11, 0.2);
+    }
+    100% {
+        background-color: rgba(245, 158, 11, 0.1);
+    }
+}
+
+/* Transcription method highlight animations */
+@keyframes methodPulse {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(140, 82, 255, 0.8);
+        transform: scale(1.03);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(10px); }
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -174,4 +220,397 @@ body {
 .btn-hover-effect:hover {
     transform: translateY(-3px);
     box-shadow: 0 7px 14px rgba(140, 82, 255, 0.25);
+}
+
+/* Add styling for the microphone button */
+.mic-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.mic-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.mic-button.active {
+    color: #4CAF50;
+    animation: pulse 1.5s infinite;
+}
+
+/* Styling for transcription bar */
+.transcription-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: white;
+    z-index: 1000;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.transcription-text {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.transcription-status {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* Hide transcription container by default */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Method suggestion animation */
+@keyframes suggestPulse {
+    0% { background-color: rgba(255, 255, 255, 0.05); }
+    50% { background-color: rgba(140, 82, 255, 0.3); }
+    100% { background-color: rgba(255, 255, 255, 0.05); }
+}
+
+.suggest-method {
+    animation: suggestPulse 1.5s infinite;
+    border: 2px solid rgba(140, 82, 255, 0.7) !important;
+    box-shadow: 0 0 20px rgba(140, 82, 255, 0.5);
+}
+
+.method-highlight-suggestion {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid rgba(140, 82, 255, 0.5);
+}
+
+.method-pulse-animation {
+    animation: methodPulse 2s infinite;
+}
+
+.method-highlight-fadeout {
+    transition: all 0.5s ease-out;
+}
+
+.method-suggestion-message {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(140, 82, 255, 0.9);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    animation: fadeIn 0.3s ease-out;
+    z-index: 100;
+}
+
+.method-suggestion-message.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+
+.method-suggestion-message:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(140, 82, 255, 0.9);
+}
+
+/* Method highlighting for alternatives when a method fails */
+.method-highlight-suggestion {
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    position: relative;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.method-highlight-fadeout {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+    transition: all 0.5s ease;
+}
+
+.method-pulse-animation {
+    animation: method-pulse 2s infinite;
+}
+
+@keyframes method-pulse {
+    0% {
+        background-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        background-color: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.method-suggestion-message {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 10;
+    transition: opacity 0.5s ease;
+    animation: suggestion-appear 0.3s ease;
+}
+
+@keyframes suggestion-appear {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.method-suggestion-message.fade-out {
+    opacity: 0;
+}
+
+/* Add a tooltip arrow */
+.method-suggestion-message:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}
+
+/* Alternative method highlighting styles */
+.method-option-alternative {
+    position: relative;
+    animation: pulse-highlight 2s infinite;
+    border: 2px solid #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.method-option-alternative:hover {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+}
+
+.alternative-label {
+    position: absolute;
+    top: -25px;
+    right: 5px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10;
+    animation: bounce-in 0.5s ease-out;
+}
+
+@keyframes pulse-highlight {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Alternative method highlighting for transcription failures */
+.method-option-alternative {
+    animation: pulse-border 2s infinite;
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.6);
+    position: relative;
+    border: 2px solid rgba(74, 222, 128, 0.7);
+}
+
+.alternative-label {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background-color: #4ade80;
+    color: #111827;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    animation: bounce 1s ease infinite;
+    z-index: 5;
+    font-weight: bold;
+}
+
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Auto-switch preference toggle */
+.auto-switch-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 15px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4ade80;
+}
+
+input:checked + .slider:before {
+    transform: translateX(16px);
+}
+
+.switch-label {
+    font-size: 0.8rem;
+    color: #d1d5db;
+}
+
+/* Alternative method highlighting styles */
+.method-option-alternative {
+    animation: pulse 2s infinite;
+    border: 2px solid #4ade80;
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+    transition: all 0.3s ease;
+}
+
+.method-option-alternative:hover {
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.8);
+}
+
+.alternative-label {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4ade80;
+    color: #111827;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 5;
+}
+
+/* Pulse animation for highlighting */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
+}
+
+/* Notification styles */
+#notification-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4ade80;
+    color: #111827;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    max-width: 80%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

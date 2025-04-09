@@ -251,7 +251,11 @@ translator.startTranslation({
   onStatusChange: (status) => {
     console.log(\`Translation status: \${status}\`);
   }
-});`
+});`,
+        "use-3d-avatar": "استخدم الأفتار ثلاثي الأبعاد",
+        "use-simple-avatar": "استخدم الأفتار البسيط",
+        "advanced-avatar-desc": "أفتار ثلاثي الأبعاد يدعم المزيد من إشارات لغة الإشارة العربية",
+        "simple-avatar-desc": "أفتار بسيط يعرض الإشارات الرياضية الأساسية"
     },
     en: {
         title: "PerceiveAI - Converting Sports Commentary to Sign Language",
@@ -504,7 +508,11 @@ translator.startTranslation({
   onStatusChange: (status) => {
     console.log(\`Translation status: \${status}\`);
   }
-});`
+});`,
+        "use-3d-avatar": "Use 3D Avatar",
+        "use-simple-avatar": "Use Simple Avatar",
+        "advanced-avatar-desc": "3D avatar supports more Arabic Sign Language gestures",
+        "simple-avatar-desc": "Simple avatar displays basic sports gestures"
     }
 };
 
