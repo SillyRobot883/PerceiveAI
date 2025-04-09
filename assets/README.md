@@ -7,4 +7,5 @@ The file `logo.png` is used as the primary logo across all pages of the applicat
 ## Logo Guidelines
 - The logo should be displayed at a consistent size (24px × 24px in documentation pages, 32px × 32px in main pages)
 - The logo has rounded corners (8px radius)
-- The logo should be displayed alongside the "PerceiveAI" text styled with the primary gradient
+- The logo should be displayed alongside the "PerceiveAI" text styled with the primary gradient  
+
