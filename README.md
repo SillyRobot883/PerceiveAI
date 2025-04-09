@@ -12,9 +12,11 @@ The project is designed to bridge the gap between accessibility and inclusivity 
 - **Customizable Dictionaries:** Supports regional and contextual sign language variations for accurate translations.
 - **User-Friendly Interface:** Provides an intuitive web-based interface for users to interact with the system and view translations seamlessly.
 
+##Screenshots
+![PerceiveAI](https://github.com/user-attachments/assets/fbffa61a-d7f0-4996-91d3-e46024df830b)
+
 ## Technologies Used
 
-![PerceiveAI](https://github.com/user-attachments/assets/fbffa61a-d7f0-4996-91d3-e46024df830b)
 
 
 ### Core Technologies
