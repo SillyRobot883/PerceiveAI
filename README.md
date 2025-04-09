@@ -14,6 +14,9 @@ The project is designed to bridge the gap between accessibility and inclusivity 
 
 ## Technologies Used
 
+![PerceiveAI](https://github.com/user-attachments/assets/fbffa61a-d7f0-4996-91d3-e46024df830b)
+
+
 ### Core Technologies
 - **Speech Recognition:**  
   Converts live audio commentary into text using advanced speech-to-text models. Supports multiple transcription methods, including OpenAI Whisper and YouTube captions.
