@@ -1,5 +1,3 @@
-![PerceiveAI_Demo](https://github.com/user-attachments/assets/69338652-9eec-40d3-9ecf-544e2df06ccc)# PerceiveAI - Bringing Sports to Everyone
-
 ## Project Overview
 PerceiveAI is an innovative project aimed at making sports commentary accessible to the deaf and hard-of-hearing community. By leveraging cutting-edge AI technologies, PerceiveAI translates live sports commentary into sign language using animated avatars. This ensures that everyone, regardless of their hearing abilities, can enjoy the excitement and passion of live sports events.
 
